@@ -75,7 +75,8 @@ def verify_otp():
         print(f"Received email: {email}")
         print(f"Received OTP string: {otp_str}")
         if otp_str is not None:
-            otp = int(otp_str)
+            
+            print(otp_storage.get(email))
             if otp_storage.get(email) == otp:
                 cursor.execute("SELECT Name, Role FROM Users WHERE Email = ?", (email,))
                 row = cursor.fetchone()

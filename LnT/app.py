@@ -76,7 +76,7 @@ def verify_otp():
         if otp_str is not None:
             otp = int(otp_str)
             if otp_storage.get(email) == otp:
-                cursor.execute("SELECT Name, Role FROM Users WHERE Email = ?", email)
+                cursor.execute("SELECT Name, Role FROM Users WHERE Email = ?", (email,))
                 row = cursor.fetchone()
                 if row:
                     if row.Role.lower() == 'trainer':

@@ -26,9 +26,7 @@ username = 'dbadmin'
 password = 'Localhost@1234567'
 driver = '{SQL Server}'
 
-cnxn = pyodbc.connect('DRIVER=' + driver + ';SERVER=' + server +
-                      ';PORT=1433;DATABASE=' + database +
-                      ';UID=' + username + ';PWD=' + password)
+cnxn = pyodbc.connect('DRIVER=' + driver + ';SERVER=' + server + ';PORT=1433;DATABASE=' + database + ';UID=' + username + ';PWD=' + password)
 
 otp_storage = {}
 stored_email = None
@@ -49,6 +47,7 @@ global_otp = None
 def send_otp():
     global global_email, global_otp  # Access the global variables
     if request.method == 'POST':
+        print("yes1")
         email = request.form['email']
         otp = random.randint(100000, 999999)
         otp_storage[email] = otp
@@ -61,6 +60,7 @@ def send_otp():
         global_email = email
         global_otp = otp
         return redirect(url_for('verify_otp'))
+    print("yes2")
     return render_template('login.html')
 
 @app.route('/verify_otp', methods=['GET', 'POST'])
@@ -93,24 +93,37 @@ def verify_otp():
     # Handle GET request
     return render_template('verify_otp.html')
 
-
-@app.route('/register', methods=['POST'])
+@app.route('/register')
 def register():
+    # Render the home page
+    return render_template('register.html')
+
+@app.route('/registration_page', methods=['POST'])
+def registration_page():
     name = request.form.get('name')
     email = request.form.get('email')
     role = request.form.get('role')
     global stored_email
    
-    cursor = cnxn.cursor()
-    cursor.execute("INSERT INTO Users (Email, Name, Role) VALUES (?, ?, ?)",
-                   (email, name, role))
-    cnxn.commit()
-    if role == 'Student':
-        stored_email = email
-        return render_template('Student.html', name=name, email=email)
-    elif role == 'Trainer':
-        stored_email = email
-        return render_template('Trainer.html', name=name, email=email)
+    if cnxn:
+        try:
+            cursor = cnxn.cursor()
+            cursor.execute("INSERT INTO Users (Email, Name, Role) VALUES (?, ?, ?)",
+                        (email, name, role))
+            cnxn.commit()
+            if role == 'Student':
+                stored_email = email
+                return render_template('Student.html', name=name, email=email)
+            elif role == 'Trainer':
+                stored_email = email
+                return render_template('Trainer.html', name=name, email=email)
+        except Exception as e:
+            print(f"Error during registration: {str(e)}")
+            cnxn.rollback()
+            return render_template('homepage.html', message='Email ID already registered. Please go to Login Page.')
+    else:
+        return render_template('homepage.html', message='Email ID already registered. Please go to Login Page.')
+   
 '''
 @app.route('/submit', methods=['POST'])
 def submit():

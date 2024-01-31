@@ -1,0 +1,41 @@
+/* Selecting an HTML element by its tag name */
+body {
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+/* Selecting elements by class */
+.header {
+    font-size: 24px;
+    color: #333;
+}
+
+/* Selecting elements by ID */
+#main-content {
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* Styling links */
+a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Styling a button */
+.button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #45a049;
+}

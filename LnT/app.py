@@ -35,7 +35,12 @@ stored_email = None
 def homepage():
     return render_template('homepage.html')
  
- 
+
+#update 1.5
+def is_logged_in():
+    return 'otp' in session
+
+
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     return render_template('login.html')
@@ -75,7 +80,7 @@ def verify_otp():
         print(f"Received email: {email}")
         print(f"Received OTP string: {otp_str}")
         if otp_str is not None:
-            
+            otp = int(request.form['otpname'])
             print(otp_storage.get(email))
             if otp_storage.get(email) == otp:
                 cursor.execute("SELECT Name, Role FROM Users WHERE Email = ?", (email,))
@@ -98,6 +103,8 @@ def verify_otp():
  
 @app.route('/register', methods=['POST'])
 def register():
+    if not is_logged_in():
+        return redirect(url_for('index'))
     name = request.form.get('name')
     email = request.form.get('email')
     role = request.form.get('role')
@@ -277,6 +284,8 @@ def index1():
  
 @app.route('/submit-answers', methods=['POST'])
 def submit_answers():
+    if not is_logged_in():
+        return redirect(url_for('index'))
     conn = None
     global stored_email
     try:
@@ -329,6 +338,12 @@ def submit_answers():
 @app.route('/about_page')
 def about_page():
         return render_template('about_page.html')
+
+#for logout we can use this function need to call this function
+@app.route('/logout')
+def logout():
+    session.clear()  # Clear the session to log the user out
+    return redirect(url_for('index'))
  
 if __name__ == '__main__':
     app.run(debug=True)

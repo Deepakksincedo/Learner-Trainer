@@ -93,7 +93,7 @@ def verify_otp():
                 else:
                     return render_template('register.html', email=email)
             else:
-                return 'Invalid OTP. Please try again.'
+                return render_template('verify_otp.html')
         else:
             return 'Invalid OTP'
  

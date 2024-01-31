@@ -15,8 +15,8 @@
             <p class="headline">L&T</p>
             <nav>
                 <a href="{{ url_for('homepage') }}" class="navigation-tabs">Home</a>
-            <a href="{{ url_for('registration_page') }}"  class="navigation-tabs">Register</a>
-            <a href="{{ url_for('index') }}"  class="navigation-tabs">Login</a> <!-- index to login  -->
+            <a href="{{ url_for('registration') }}"  class="navigation-tabs">Register</a>
+            <a href="{{ url_for('login') }}"  class="navigation-tabs">Login</a> <!-- index to login  -->
             <a href="{{ url_for('about_page') }}"  class="navigation-tabs">About</a>
             </nav>
         </div>
@@ -29,7 +29,7 @@
                     <option value="learner">Learner</option>
                     <option value="trainer">Trainer</option>
                 </select>
-                <input type="email" id="emailname" name="emailname"  placeholder="Enter your email">
+                <input type="email" id="email" name="email"  placeholder="Enter your email">
                 <button id="otp-button">SEND OTP</button>
     
             </form>

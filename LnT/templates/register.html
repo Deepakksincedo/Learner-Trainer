@@ -2,17 +2,23 @@
 <html>
 <head>
     <title>Register</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename = 'register.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css')}}">
 </head>
 <body>
+    <div class="container1">
+        <p class="headline">L&T</p>
+        <nav>
+        <a href="{{ url_for('homepage') }}" class="navigation-tabs">Home</a>
+        <a href="{{ url_for('registration_page') }}"  class="navigation-tabs">Register</a>
+        <a href="{{ url_for('index') }}"  class="navigation-tabs">Login</a> <!-- index to login  -->
+        <a href="{{ url_for('about_page') }}" class="navigation-tabs">About</a>
+        </nav>
+    </div>
     <div class="container">
         <h2>Register</h2>
-        <form action="/register" method="post">
-            <input type="hidden" name="email" value="{{ email }}">
-            <label for="name">Name:</label>
+        <form action="/register" method="post",class="form-container" >
+            <input type="hidden" id="email" name="email" value="{{ email }}" placeholder="Email">
             <input type="text" id="name" name="name" required>
-
-            <label for="role">Role:</label>
             <select id="role" name="role" required>
                 <option value="Trainer">Trainer</option>
                 <option value="Student">Student</option>

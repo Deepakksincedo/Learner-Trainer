@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'home-style.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'about-style.css')}}">
+</head>
+
+<body>
+
+   
+    
+    <div class="container">
+        <p class="headline">L&T</p>
+        <nav>
+            <a href="{{ url_for('homepage') }}" class="navigation-tabs">Home</a>
+            <a href="{{ url_for('registration_page') }}"  class="navigation-tabs">Register</a>
+            <a href="{{ url_for('index') }}"  class="navigation-tabs">Login</a> <!-- index to login  -->
+            <a href="{{ url_for('about_page') }}"  class="navigation-tabs">About</a>
+        </nav>
+    </div>
+    <div class="main-content">
+        <br>
+        <p id="welcome">Learn, Explore & Grow!</p>
+    </div>
+
+    <!-- Repeat the above block for the other 8 persons -->
+</div>
+    <div class ="footer">
+         &copy; 2024 Incedo Inc | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+    </div>
+</body>
+
+</html>

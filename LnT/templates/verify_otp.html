@@ -7,11 +7,20 @@
     <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css')}}">
 </head>
 <body>
+    <div class="container1">
+        <p class="headline">L&T</p>
+        <nav>
+        <a href="{{ url_for('homepage') }}" class="navigation-tabs">Home</a>
+        <a href="{{ url_for('registration_page') }}"  class="navigation-tabs">Register</a>
+        <a href="{{ url_for('index') }}"  class="navigation-tabs">Login</a> <!-- index to login  -->
+        <a href="{{ url_for('about_page') }}"  class="navigation-tabs">About</a>
+        </nav>
+    </div>
     <div class="container">
         <p>
             Verify OTP
         </p>
-        <form method="POST", class="form-container", action="/verify_otp">
+        <form method="POST", class="form-container">
             <input type="text" id="otpname" name="otpname" placeholder="Enter OTP">
             <button type="submit" name="verify_otp">Verify OTP</button>
             <!-- Hidden input field to store the email for verification -->
@@ -19,9 +28,8 @@
         </form>
         
     </div>
-    <div  class="Footer">
-        <footer> &#169; Created and Managed by Incedo Inc</footer>
-
-    </div>
+        <div class="footer">
+            &copy; 2024 Incedo Inc | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+        </div>
 </body>
 </html>

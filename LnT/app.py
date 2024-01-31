@@ -284,6 +284,10 @@ def submit_answers():
             conn.close()
 
 
+@app.route('/about_page')
+def about_page():
+    return render_template('about_page.html')
+    
 if __name__ == '__main__':
     app.run(debug=True)
 

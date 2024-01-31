@@ -171,7 +171,7 @@ def submit():
     question_type = request.form['question_type']
     correct_answer = None
     options = None  # Initialize mcq_options as a single string
-
+ 
     # Determine the correct_answer based on the question type
     if question_type == 'yes_no':
         correct_answer = request.form['correct_answer']
@@ -181,29 +181,29 @@ def submit():
         correct_answer = request.form['correct_answer']
     elif question_type == 'descriptive' or question_type == 'text_answer':
         correct_answer = request.form['correct_answer']
-
+ 
     # Establish a database connection
     conn = pyodbc.connect(f'DRIVER={driver};SERVER={server};DATABASE={database};UID={username};PWD={password}')
     cursor = conn.cursor()
-
+ 
     # Insert the question data into the "Questions" table
     cursor.execute("INSERT INTO Question (question_text, shortcode, question_type, options, correct_answer) VALUES (?, ?, ?, ?, ?)",
                    question, shortcode, question_type, options, correct_answer)
-
+ 
     # Commit the transaction and close the connection
     conn.commit()
     conn.close()
-
+ 
     # return 'Question inserted into the database.'
     #flash('Question submitted successfully!', 'success')
     return render_template('Trainer.html', question_submitted=True)
-
-
-
+ 
+ 
+ 
 @app.route('/add-another', methods=['GET'])
 def add_another():
     return render_template('Trainer.html')
-
+ 
 @app.route('/show-answers', methods=['GET'])
 def show_answers():
     conn = pyodbc.connect(f'DRIVER={driver};SERVER={server};DATABASE={database};UID={username};PWD={password}')
@@ -213,29 +213,29 @@ def show_answers():
     cursor.close()
     conn.close()
     return render_template('answer.html', answers=answers)
-
+ 
 @app.route('/ask-question')
 def index1():
     conn = pyodbc.connect('DRIVER={SQL Server};SERVER=dbserver23jandeepak.database.windows.net;DATABASE=dbfeedbackmgt;UID=dbadmin;PWD=Localhost@1234567')
     cursor = conn.cursor()
-    
+   
     # Check if global_email is present in the Answer table
     cursor.execute('SELECT 1 FROM Answer WHERE student_id = ?', global_email)
     email_exists = cursor.fetchone()
-
+ 
     if email_exists:
         # If email exists in Answer table, retrieve unanswered questions
         cursor.execute('SELECT  q.* FROM Question q LEFT JOIN Answer a ON q.question_id = a.question_id AND a.student_id = ? WHERE a.student_id IS NULL', global_email)
     else:
         # If email doesn't exist, retrieve all questions
         cursor.execute('SELECT * FROM Question')
-
+ 
     questions = cursor.fetchall()
     cursor.close()
     conn.close()
-
+ 
     questions_list = []
-
+ 
     for row in questions:
         question = {'id': row.question_id, 'text': row.question_text, 'type': row.question_type}
         if row.question_type == 'mcq':
@@ -245,27 +245,27 @@ def index1():
         else:
             question['options'] = []
         questions_list.append(question)
-
+ 
     return jsonify(questions_list)
-
-
+ 
+ 
 @app.route('/submit-answers', methods=['POST'])
 def submit_answers():
     conn = None
     global stored_email
     try:
         # Establish a database connection
-        
+       
         conn = pyodbc.connect('DRIVER={SQL Server};SERVER=dbserver23jandeepak.database.windows.net;DATABASE=dbfeedbackmgt;UID=dbadmin;PWD=Localhost@1234567')
         cursor = conn.cursor()
-
+ 
         # Retrieve data from the request
         data = request.get_json()
         email=data.get('email')
         print(email)
         question_id = data.get('questionId')
         user_response = data.get('userResponse')
-        
+       
         # Processing the response based on its type
         if user_response in ["false", "true"]:
             user_response = "No" if user_response == "false" else "Yes"
@@ -280,31 +280,30 @@ def submit_answers():
             else:
                 # Handle the case where user_response is out of range or invalid
                 user_response = None  # or raise an exception or provide a default value
-
-
+ 
+ 
         # Get the correct answer from the database
         #cursor.execute('SELECT correct_answer FROM Question WHERE question_id = ?', question_id)
         #correct_answer = cursor.fetchone()[0]
-
+ 
         # Insert response into the Answer table with the email as student_id
-        cursor.execute("INSERT INTO Answer (student_id, question_id, given_answer) VALUES (?, ?, ?)", 
+        cursor.execute("INSERT INTO Answer (student_id, question_id, given_answer) VALUES (?, ?, ?)",
                        (email, question_id, user_response))
         conn.commit()
-
+ 
         return jsonify({'status': 'success', 'message': 'Response submitted successfully'})
-
+ 
     except Exception as e:
         print(f"Error: {str(e)}")
         return jsonify({'status': 'error', 'message': str(e)})
     finally:
         if conn:
             conn.close()
-
-
+ 
 @app.route('/about_page')
 def about_page():
-    return render_template('about_page.html')
-    
+        return render_template('about_page.html')
+ 
 if __name__ == '__main__':
     app.run(debug=True)
 

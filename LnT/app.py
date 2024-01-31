@@ -21,7 +21,7 @@ app.config['MAIL_USE_SSL'] = True
 mail=Mail(app)
  
 server = 'dbserver23jandeepak.database.windows.net'
-database = 'rbndtqkevspouvtc'
+database = 'dbfeedbackmgt'
 username = 'dbadmin'
 password = 'Localhost@1234567'
 driver = '{SQL Server}'

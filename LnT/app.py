@@ -39,13 +39,12 @@ def homepage():
 def login():
     return render_template('login.html')
 
-# Define global variables to store email and OTP
 global_email = None
 global_otp = None
 
 @app.route('/send_otp', methods=['GET', 'POST'])
 def send_otp():
-    global global_email, global_otp  # Access the global variables
+    global global_email, global_otp  
     if request.method == 'POST':
         print("yes1")
         email = request.form['email']
@@ -56,7 +55,6 @@ def send_otp():
         msg.body = f"Your OTP is: {otp}"
         mail.send(msg)
         print(f"OTP sent: {otp}")
-        # Store email and OTP in global variables
         global_email = email
         global_otp = otp
         return redirect(url_for('verify_otp'))
@@ -65,10 +63,9 @@ def send_otp():
 
 @app.route('/verify_otp', methods=['GET', 'POST'])
 def verify_otp():
-    global global_email, global_otp  # Access the global variables
+    global global_email, global_otp  
     if request.method == 'POST':
         cursor = cnxn.cursor()
-        # Use global_email and global_otp instead of request.form.get()
         email = global_email
         otp_str = global_otp
         print(f"Received email: {email}")
@@ -90,12 +87,10 @@ def verify_otp():
         else:
             return 'Invalid OTP'
 
-    # Handle GET request
     return render_template('verify_otp.html')
 
 @app.route('/register')
 def register():
-    # Render the home page
     return render_template('register.html')
 
 @app.route('/registration_page', methods=['POST'])
@@ -124,45 +119,6 @@ def registration_page():
     else:
         return render_template('homepage.html', message='Email ID already registered. Please go to Login Page.')
    
-'''
-@app.route('/submit', methods=['POST'])
-def submit():
-    question = request.form['question']
-    shortcode = request.form['shortcode']
-    question_type = request.form['question_type']
-    correct_answer = None  
-    mcq_options1 = None
-    mcq_options2 = None
-    mcq_options3 = None
-    mcq_options4 = None
-
-    # Determine the correct_answer based on the question type
-    if question_type == 'yes_no':
-        correct_answer = request.form['correct_answer']
-    elif question_type == 'mcq':
-        mcq_options1 = request.form['mcq_option_1']
-        mcq_options2 = request.form['mcq_option_2']
-        mcq_options3 = request.form['mcq_option_3']
-        mcq_options4 = request.form['mcq_option_4']
-        correct_answer = request.form['correct_answer']  
-    elif question_type == 'descriptive' or question_type == 'text_answer':
-        correct_answer = request.form['correct_answer'] 
-
-    # Establish a database connection
-    conn = pyodbc.connect(f'DRIVER={driver};SERVER={server};DATABASE={database};UID={username};PWD={password}')
-    cursor = conn.cursor()
-
-    # Insert the question data into the "Questions" table
-    cursor.execute("INSERT INTO Question (question_text, shortcode, question_type, mcq_option_1, mcq_option_2, mcq_option_3, mcq_option_4, correct_answer) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-                   question, shortcode, question_type, mcq_options1, mcq_options2, mcq_options3, mcq_options4, correct_answer)
-
-    # Commit the transaction and close the connection
-    conn.commit()
-    conn.close()
-    # return 'Question inserted into the database.'
-    #flash('Question submitted successfully!', 'success')
-    return render_template('Trainer.html', question_submitted=True)
-'''
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -170,32 +126,25 @@ def submit():
     shortcode = request.form['shortcode']
     question_type = request.form['question_type']
     correct_answer = None
-    options = None  # Initialize mcq_options as a single string
- 
-    # Determine the correct_answer based on the question type
+    options = None  
+
     if question_type == 'yes_no':
         correct_answer = request.form['correct_answer']
     elif question_type == 'mcq':
-        # Concatenate mcq_options1, mcq_options2, mcq_options3, and mcq_options4 into a single string
         options = '|'.join([request.form[f'mcq_option_{i}'] for i in range(1, 5)])
         correct_answer = request.form['correct_answer']
     elif question_type == 'descriptive' or question_type == 'text_answer':
         correct_answer = request.form['correct_answer']
  
-    # Establish a database connection
     conn = pyodbc.connect(f'DRIVER={driver};SERVER={server};DATABASE={database};UID={username};PWD={password}')
     cursor = conn.cursor()
  
-    # Insert the question data into the "Questions" table
     cursor.execute("INSERT INTO Question (question_text, shortcode, question_type, options, correct_answer) VALUES (?, ?, ?, ?, ?)",
                    question, shortcode, question_type, options, correct_answer)
  
-    # Commit the transaction and close the connection
     conn.commit()
     conn.close()
  
-    # return 'Question inserted into the database.'
-    #flash('Question submitted successfully!', 'success')
     return render_template('Trainer.html', question_submitted=True)
  
  
@@ -219,15 +168,12 @@ def index1():
     conn = pyodbc.connect('DRIVER={SQL Server};SERVER=dbserver23jandeepak.database.windows.net;DATABASE=dbfeedbackmgt;UID=dbadmin;PWD=Localhost@1234567')
     cursor = conn.cursor()
    
-    # Check if global_email is present in the Answer table
     cursor.execute('SELECT 1 FROM Answer WHERE student_id = ?', global_email)
     email_exists = cursor.fetchone()
  
     if email_exists:
-        # If email exists in Answer table, retrieve unanswered questions
         cursor.execute('SELECT  q.* FROM Question q LEFT JOIN Answer a ON q.question_id = a.question_id AND a.student_id = ? WHERE a.student_id IS NULL', global_email)
     else:
-        # If email doesn't exist, retrieve all questions
         cursor.execute('SELECT * FROM Question')
  
     questions = cursor.fetchall()
@@ -239,7 +185,7 @@ def index1():
     for row in questions:
         question = {'id': row.question_id, 'text': row.question_text, 'type': row.question_type}
         if row.question_type == 'mcq':
-            # Split the mcq_options column by the delimiter (|) to get a list of options
+    
             options = row.options.split('|')
             question['options'] = options
         else:
@@ -254,39 +200,31 @@ def submit_answers():
     conn = None
     global stored_email
     try:
-        # Establish a database connection
        
         conn = pyodbc.connect('DRIVER={SQL Server};SERVER=dbserver23jandeepak.database.windows.net;DATABASE=dbfeedbackmgt;UID=dbadmin;PWD=Localhost@1234567')
         cursor = conn.cursor()
  
-        # Retrieve data from the request
         data = request.get_json()
         email=data.get('email')
         print(email)
         question_id = data.get('questionId')
         user_response = data.get('userResponse')
        
-        # Processing the response based on its type
         if user_response in ["false", "true"]:
             user_response = "No" if user_response == "false" else "Yes"
         elif user_response in ["0", "1", "2", "3"]:
             cursor.execute('SELECT options FROM Question WHERE question_id = ?', question_id)
-            options_string = cursor.fetchone()[0]  # Fetch the 'options' string
-            options_list = options_string.split('|')  # Split the 'options' string into a list
-            # Ensure that user_response is within a valid range
+            options_string = cursor.fetchone()[0]  
+            options_list = options_string.split('|')  
             user_response_index = int(user_response)
             if 0 <= user_response_index < len(options_list):
                 user_response = options_list[user_response_index]
             else:
-                # Handle the case where user_response is out of range or invalid
-                user_response = None  # or raise an exception or provide a default value
+                
+                user_response = None  
  
  
-        # Get the correct answer from the database
-        #cursor.execute('SELECT correct_answer FROM Question WHERE question_id = ?', question_id)
-        #correct_answer = cursor.fetchone()[0]
- 
-        # Insert response into the Answer table with the email as student_id
+        
         cursor.execute("INSERT INTO Answer (student_id, question_id, given_answer) VALUES (?, ?, ?)",
                        (email, question_id, user_response))
         conn.commit()

@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+<body>
+  {% if messages %}
+  <div style="background-color: #ff9999; padding: 15px; margin-bottom: 15px; border: 2px solid #ff0000; color: #990000; position: fixed; top: 0; width: 100%; z-index: 1000;">
+    <ul class="messages">
+      {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+    <div class="container">
+        <p>
+            Verify OTP
+        </p>
+        <form method="POST", class="form-container", action="/verify_otp">
+            {% csrf_token %}
+            <input type="text" id="otpname" name="otpname" placeholder="Enter OTP">
+            <button type="submit" name="verify_otp">Verify OTP</button>
+            <!-- Hidden input field to store the email for verification -->
+            <input type="hidden" name="emailname" value="{{ email }}">
+        </form>
+        
+    </div>
+    <div  class="Footer">
+        <footer> &#169; Created and Managed by Incedo Inc</footer>
+
+    </div>
+</body>
+</html>

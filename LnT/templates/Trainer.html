@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Question Form</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='trainer.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flash-messages">
+                {% for message in messages %}
+                    <li class="flash-message flash-success">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    {% if not question_submitted %}
+        <h1>Question Form</h1>
+        <form action="/submit" method="POST">
+            <div class="form-group">
+                <label for="question">Question:</label>
+                <textarea id="question" name="question" class="form-control" rows="4" cols="50"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="shortcode">Shortcode:</label>
+                <input type="text" id="shortcode" name="shortcode" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="question_type">Question Type:</label>
+                <select id="question_type" name="question_type" class="form-control">
+                    <option value="yes_no">Yes/No</option>
+                    <option value="mcq">MCQ (Multiple Choice)</option>
+                    <option value="descriptive">Descriptive</option>
+                </select>
+            </div>
+
+            <div id="mcq_options" class="form-group" style="display:none;">
+                <label>MCQ Options:</label>
+                <input type="text" name="mcq_option_1" class="form-control" placeholder="Option 1">
+                <input type="text" name="mcq_option_2" class="form-control" placeholder="Option 2">
+                <input type="text" name="mcq_option_3" class="form-control" placeholder="Option 3">
+                <input type="text" name="mcq_option_4" class="form-control" placeholder="Option 4">
+            </div>
+
+            <div class="form-group">
+                <label for="correct_answer">Correct Answer:</label>
+                <input type="text" id="correct_answer" name="correct_answer" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <form action="/show-answers" method="get">
+            <button type="submit" class="btn btn-info">Show Answers</button>
+        </form>
+    {% else %}
+        <div class="alert alert-success" role="alert">
+            Question submitted successfully!
+        </div>
+        <form action="/add-another" method="get">
+            <button type="submit" class="btn btn-secondary">Add Another Question</button>
+        </form>
+        <form action="/show-answers" method="get">
+            <button type="submit" class="btn btn-info">Show Answers</button>
+        </form>
+    {% endif %}
+
+    {% if answers %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Answer ID</th>
+                    <th>Student ID</th>
+                    <th>Question ID</th>
+                    <th>Given Answer</th>
+                    <th>Correct Answer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for answer in answers %}
+                <tr>
+                    <td>{{ answer.answer_id }}</td>
+                    <td>{{ answer.student_id }}</td>
+                    <td>{{ answer.question_id }}</td>
+                    <td>{{ answer.given_answer }}</td>
+                    <td>{{ answer.correct_answer }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+    <script>
+        document.getElementById("question_type").addEventListener("change", function () {
+            var mcqOptionsDiv = document.getElementById("mcq_options");
+            if (this.value === "mcq") {
+                mcqOptionsDiv.style.display = "block";
+            } else {
+                mcqOptionsDiv.style.display = "none";
+            }
+        });
+    </script>
+</body>
+</html>

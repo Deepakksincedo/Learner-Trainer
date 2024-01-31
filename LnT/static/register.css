@@ -1,0 +1,99 @@
+/* Registration-style.css */
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f8f8f8; /* Background color for the entire page */
+    background-image: linear-gradient(to bottom right, #6C22A6, #83C0C1);
+}
+
+.container {
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    background: rgba(255, 255, 255, 0.2);
+    /* background-color: #F9F7C9; */
+    padding: 40px;
+    padding-top: 4px;
+    /* border-radius: 8px; */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+    
+}
+
+h2 {
+    font-size: 24px; /* Increase font size for the header */
+    text-align: center;
+    margin-bottom: 20px; /* Add space below the header */
+}
+
+.container {
+    text-align: center; /* Center-align the form container */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form {
+    text-align: left; /* Left-align the form content */
+    background-color: #ffffffd5;
+    padding: 20px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 18px; /* Increase font size for form elements */
+}
+
+label {
+    display: block; /* Display labels on separate lines */
+    margin-bottom: 10px; /* Add space below labels */
+}
+
+input[type="text"] {
+    width: 100%; /* Make text input full width */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 18px; /* Increase font size for input */
+    box-sizing: border-box; /* Ensure padding and border are included in width */
+}
+
+select {
+    width: 100%; /* Make select element full width */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 18px; /* Increase font size for select element */
+    box-sizing: border-box; /* Ensure padding and border are included in width */
+}
+
+input[type="submit"] {
+    width: 100%; /* Make submit button full width */
+    padding: 10px;
+    background-color: #ffffffd5;
+    color: rgb(131, 6, 181);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px; /* Increase font size for submit button */
+}
+
+input[type="submit"]:hover {
+    background-color: #6C22A6;
+    color: white;
+}
+
+footer {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+}

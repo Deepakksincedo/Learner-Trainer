@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css')}}">
+</head>
+<body>
+    <div class="container">
+        <p>
+            Verify OTP
+        </p>
+        <form method="POST", class="form-container", action="/verify_otp">
+            <input type="text" id="otpname" name="otpname" placeholder="Enter OTP">
+            <button type="submit" name="verify_otp">Verify OTP</button>
+            <!-- Hidden input field to store the email for verification -->
+            <input type="hidden" name="emailname" value="{{ email }}">
+        </form>
+        
+    </div>
+    <div  class="Footer">
+        <footer> &#169; Created and Managed by Incedo Inc</footer>
+
+    </div>
+</body>
+</html>

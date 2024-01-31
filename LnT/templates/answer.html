@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Answers</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='answer.css') }}">
+</head>
+<body>
+    <h1 style="text-align: center;">Answers</h1>
+    {% if answers %}
+        <table class="centered-table">
+            <tr>
+                <th>Answer ID</th>
+                <th>Student ID</th>
+                <th>Question ID</th>
+                <th>Given Answer</th>
+                <th>Correct/Incorrect</th>
+            </tr>
+            {% for answer in answers %}
+            <tr>
+                <td>{{ answer.answer_id }}</td>
+                <td>{{ answer.student_id }}</td>
+                <td>{{ answer.question_id }}</td>
+                <td>{{ answer.given_answer }}</td>
+                <td>
+                    {% if answer.given_answer == answer.correct_answer %}
+                        Correct
+                    {% else %}
+                        Incorrect
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p style="text-align: center;">No answers available.</p>
+    {% endif %}
+</body>
+</html>

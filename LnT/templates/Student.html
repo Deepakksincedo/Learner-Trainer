@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Page</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='student.css') }}">
+</head>
+<body>
+    <div id="user-email" style="display: none;">{{ email }}</div>
+    <div id="question-container">
+        <div id="question-text"></div>
+        <div id="response-area">
+            <ul id="options-list"></ul> <!-- Add this ul element to display MCQ options -->
+        </div>
+        <div id="feedback-message"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

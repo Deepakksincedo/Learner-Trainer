@@ -1,0 +1,53 @@
+<!--
+    <!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <h2>Login</h2>
+    <form action="/send_otp" method="post">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <input type="submit" value="Send OTP">
+    </form>
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>login</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css')}}">
+    
+    </head>
+
+    <body>
+        <div class="container">
+
+            <p>Login</p> 
+            
+           <form method='POST', class="form-container", action="/send_otp">
+                <select id="userType" name="userType">
+                    <option value="learner">Learner</option>
+                    <option value="trainer">Trainer</option>
+                </select>
+                <input type="email" id="email" name="email"  placeholder="Enter your email">
+                <button id="otp-button">SEND OTP</button>
+            </form>
+
+        </div>
+        <div  class="Footer">
+            <footer> &#169; Created and Managed by Incedo Inc</footer>
+
+        </div>
+        <!-- <script src="" async defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
+    </body>
+</html>

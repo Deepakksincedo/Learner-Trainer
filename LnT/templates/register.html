@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'register.css')}}">
+</head>
+<body>
+    <div class="container">
+        <h2>Register</h2>
+        <form action="/register" method="post">
+            <input type="hidden" name="email" value="{{ email }}">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="role">Role:</label>
+            <select id="role" name="role" required>
+                <option value="Trainer">Trainer</option>
+                <option value="Student">Student</option>
+            </select>
+
+            <input type="submit" value="Register">
+        </form>
+    </div>
+</body>
+</html>

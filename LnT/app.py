@@ -14,14 +14,14 @@ CORS(app, origins=["http://127.0.0.1:5000/"])
  
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'bbonzana@gmail.com'
+app.config['MAIL_USERNAME'] = 'creatingwebsitein1hr@gmail.com'
 app.config['MAIL_PASSWORD'] = 'eojchcxcrdozgnkb'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 mail=Mail(app)
  
 server = 'dbserver23jandeepak.database.windows.net'
-database = 'dbfeedbackmgt'
+database = 'rbndtqkevspouvtc'
 username = 'dbadmin'
 password = 'Localhost@1234567'
 driver = '{SQL Server}'
@@ -53,7 +53,7 @@ def send_otp():
         otp = random.randint(100000, 999999)
         otp_storage[email] = otp
         session['otp'] = otp
-        msg = Message("Your OTP", sender='bbonzana@gmail.com', recipients=[email])
+        msg = Message("Your OTP", sender='creatingwebsitein1hr@gmail.com', recipients=[email])
         msg.body = f"Your OTP is: {otp}"
         mail.send(msg)
         print(f"OTP sent: {otp}")

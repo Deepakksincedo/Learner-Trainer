@@ -33,8 +33,12 @@ cnxn = pyodbc.connect('DRIVER=' + driver + ';SERVER=' + server +
 otp_storage = {}
 stored_email = None
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
+@app.route('/')
+def homepage():
+    return render_template('homepage.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
     return render_template('login.html')
 
 # Define global variables to store email and OTP

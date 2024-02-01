@@ -1,0 +1,382 @@
+{% extends 'cto/ctobase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+<head>
+	<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+	<!-- ckeditor -->
+	<script src="/static/ckeditor/ckeditor.js"></script>
+	<script src="/static/ckeditor/js/sample.js"></script>
+	<link rel="stylesheet" href="/static/ckeditor/toolbarconfigurator/lib/codemirror/neo.css">
+	<!-- Tree View -->
+	<link href="/static/treeview/kendo.default-main.min.css" rel="stylesheet">
+	<script src="/static/treeview/jquery.min.js"></script>
+	<script src="/static/treeview/kendo.all.min.js"></script>
+
+	<style>
+		.tag {
+			display: inline-block;
+			background-color: #eee;
+			padding: 3px 5px;
+			margin-right: 5px;
+			margin-bottom: 5px;
+			border-radius: 5px;
+		}
+
+		.close {
+			margin-left: 5px;
+			cursor: pointer;
+			color: Red;
+		}
+	</style>
+	<style>
+		ol.breadcrumb li+li:before {
+		  content: '\f061';
+		display: inline-block;
+		font-family: 'fontAwesome';
+		padding: 0 10px;
+		}
+		</style>
+</head>
+<div>
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li><a href="../../../../cto/cto-dashboard">Dashboard</a></li>
+			<li><a href="../../../../cto/cto-view-module">View Module</a></li>
+			<li aria-current="page">Add Module</li>
+		</ol>
+	</nav>
+</div>
+<h2 style="text-align:center;">Add Module</h2>
+<form id="moduleForm" data-subheads-url="{% url 'ajax_load_subheads' %}" autocomplete="off"
+	style="margin:100px;margin-top: 0px;">
+	{%csrf_token%}
+	<div class="form-group">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 col-xl-12">
+					<label for="module_name">Module Name</label>
+					<input type="text" name="module_name" id="module_name" class="form-control"
+						placeholder="Module Name" required />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-xl-6">
+					<label for="mainhead_name">Main Head Name</label>
+					{% render_field form.mainhead class="form-control"%}
+				</div>
+				<div class="col-md-6 col-xl-6">
+					<label for="subhead_name">Sub Head Name</label>
+					{% render_field form.subhead class="form-control"%}
+				</div>
+			</div>
+			<div>
+				<div class="row">
+					<div class="col-md-6 col-xl-6">
+						<div id="example">
+							<label for="treeview">Chapters</label>
+							<div class="demo-section">
+								<h4>Check nodes</h4>
+								<div id="treeview"></div>
+							</div>
+							<div style="padding-top: 2em;">
+								<h4>Status</h4>
+								<p id="result">No nodes checked.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-xl-6">
+					<label for="description">Decription</label>
+					<input type="text" name="description" id="description" class="form-control" placeholder="Decription"
+						required />
+
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-xl-6">
+					<label for="whatlearn">What Student will Learn</label>
+
+					<textarea name="whatlearn" style="height:30px;" class="ckeditor" required></textarea>
+					<script type="text/javascript">
+						CKEDITOR.replace('whatlearn');
+						CKEDITOR.add            
+					</script>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-xl-6">
+					<label for="includes">Course Include</label>
+					<textarea name="includes" style="height:40px;" class="ckeditor" required></textarea>
+					<script type="text/javascript">
+						CKEDITOR.replace('includes');
+						CKEDITOR.add            
+					</script>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-xl-6">
+					<label for="themecolor">Theme Color</label>
+					{% render_field form.themecolor class="form-control"%}
+					<select name="themecolor" id="themecolor" class="form-control" placeholder="Decription" required>
+						<option value="">---------</option>
+						<option value="1">Red</option>
+						<option value="2">Orange</option>
+						<option value="3">Green</option>
+						<option value="4">Yellow</option>
+						<option value="5">Megnta</option>
+						<option value="6">Black</option>
+						<option value="7">Blue</option>
+						<option value="8">Cyan</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-xl-6">
+					<label for="tags">Tags</label>
+					<input type="text" name="tag-input" id="tag-input" class="form-control" placeholder="Tags">
+					<input type="text" id="tag-output" name="tag-output" class="form-control" readonly hidden>
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="col-md-6 col-xl-6">
+					<label for="image">Image Link</label>
+					<input type="text" name="image" id="image" class="form-control" placeholder="Path to Image"
+						required />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-xl-6">
+					<label for="price">Price</label>
+					<input type="text" name="price" id="price" class="form-control" placeholder="Price" required />
+				</div>
+			</div>
+			<button class="btn btn-primary form-control" type="submit"
+				onclick="return checkvalid(event);">SUBMIT</button>
+
+			<p id="GFG_UP">
+			</p>
+		</div>
+	</div>
+</form>
+
+<script>
+	$("#treeview").kendoTreeView({
+		checkboxes: {
+			checkChildren: true
+		},
+
+		check: onCheck,
+
+		dataSource: [
+			{
+				"id": "s___3",
+				"text": "AZUR",
+				"expanded": true,
+				"items": [
+					{
+						"id": "c___7",
+						"text": "a1"
+					},
+					{
+						"id": "c___8",
+						"text": "a2"
+					},
+					{
+						"id": "c___9",
+						"text": "a3"
+					}
+				]
+			},
+			{
+				"id": "s___2",
+				"text": "LINUX",
+				"expanded": true,
+				"items": [
+					{
+						"id": "c___4",
+						"text": "L1"
+					},
+					{
+						"id": "c___5",
+						"text": "L2"
+					},
+					{
+						"id": "c___6",
+						"text": "L3"
+					}
+				]
+			},
+			{
+				"id": "s___1",
+				"text": "PY",
+				"expanded": true,
+				"items": [
+					{
+						"id": "c___1",
+						"text": "Software & Types"
+					},
+					{
+						"id": "c___2",
+						"text": "py ch"
+					},
+					{
+						"id": "c___3",
+						"text": "py ch1"
+					}
+				]
+			}
+		]
+
+	});
+
+
+	// function that gathers IDs of checked nodes
+	function checkedNodeIds(nodes, checkedNodes) {
+		for (var i = 0; i < nodes.length; i++) {
+			if (nodes[i].checked) {
+				checkedNodes.push(nodes[i].id);
+			}
+
+			if (nodes[i].hasChildren) {
+				checkedNodeIds(nodes[i].children.view(), checkedNodes);
+			}
+		}
+	}
+
+	// show checked node IDs on datasource change
+	function onCheck() {
+		debugger;
+		var checkedNodes = [],
+			treeView = $("#treeview").data("kendoTreeView"),
+			message;
+
+		checkedNodeIds(treeView.dataSource.view(), checkedNodes);
+
+		if (checkedNodes.length > 0) {
+			message = "IDs of checked nodes: " + checkedNodes.join(",");
+		} else {
+			message = "No nodes checked.";
+		}
+
+		$("#result").html(message);
+	}
+</script>
+<script>
+	function checkvalid(e) {
+		var tag = document.getElementById('tag-output');
+		whatlearn.value = editor;
+
+		var inputText = document.getElementById("tag-output").value;
+		document.getElementById("tag-input").value = inputText;
+
+		// try {
+		// 	var inputVal = document.getElementById("urlvalue").value;
+		// 	if (inputVal == '') {
+
+		// 	}
+		// 	else {
+		// 		new URL(inputVal);
+		// 		return true;
+		// 	}
+		// } catch (err) {
+		// 	alert("Invalid URL");
+		// 	e.preventDefault();
+		// 	let theinput = document.querySelector(".word"); //Get the input 
+		// 	theinput.focus(); // focus on input 
+		// 	return false;
+		// }
+		return true;
+
+	}
+
+</script>
+<script>
+	initSample();
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+	$("#id_mainhead").change(function () {
+		var url = $("#moduleForm").attr("data-subheads-url");  // get the url of the `load_topics` view
+		var mainheadId = $(this).val();  // get the selected mainhead ID from the HTML input
+
+		$.ajax({                       // initialize an AJAX request
+			url: '{% url 'ajax_load_subheads' %}',                    // set the url of the request (= localhost:8000/hr/ajax/load-topics/)
+			data: {
+				'mainhead': mainheadId       // add the mainhead id to the GET parameters
+			},
+			success: function (data) {   // `data` is the return of the `load_topics` view function
+				$("#id_subhead").html(data);  // replace the contents of the topic input with the data that came from the server
+			}
+		});
+
+	});
+	// this one is for fetching vanue data
+
+	$("#id_subject").change(function () {
+		var url = $("#chapterForm").attr("data-chapters-url");  // get the url of the `load_topics` view
+		var subjectId = $(this).val();  // get the selected mainhead ID from the HTML input
+
+		$.ajax({                       // initialize an AJAX request
+			url: '{% url 'ajax_load_chapters' %}',                    // set the url of the request (= localhost:8000/hr/ajax/load-topics/)
+			data: {
+				'subject': subjectId       // add the mainhead id to the GET parameters
+			},
+			success: function (data) {   // `data` is the return of the `load_topics` view function
+				$("#id_chapter").html(data);  // replace the contents of the topic input with the data that came from the server
+			}
+		});
+
+	});
+	// this one is for fetching vanue data
+</script>
+<script>
+	var tagInput = document.getElementById("tag-input");
+	var tagOutput = document.getElementById("tag-output");
+
+	tagInput.addEventListener("keydown", function (event) {
+		if (event.code === "Space") {
+			event.preventDefault();
+			var tagText = tagInput.value.trim();
+			if (tagText !== "") {
+				var tag = document.createElement("span");
+				tag.innerHTML = tagText;
+				tag.className = "tag";
+				var closeButton = document.createElement("span");
+				closeButton.innerHTML = "x";
+				closeButton.className = "close";
+				closeButton.onclick = function () {
+					this.parentElement.remove();
+					updateTagOutput();
+				}
+				tag.appendChild(closeButton);
+				tagInput.value = "";
+				tagInput.insertAdjacentElement("beforebegin", tag);
+				updateTagOutput();
+			}
+		}
+	});
+
+	function updateTagOutput() {
+		var tags = document.getElementsByClassName("tag");
+		var tagArray = [];
+		for (var i = 0; i < tags.length; i++) {
+			tagArray.push(tags[i].innerHTML);
+		}
+		tagOutput.value = tagArray.join(", ");
+	}
+
+
+
+</script>
+{% endblock content %}

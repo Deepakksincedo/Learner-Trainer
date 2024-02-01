@@ -1,0 +1,36 @@
+
+
+{% extends 'cto/ctobase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<ol class="breadcrumb text-right">
+  <li><a href="cto-dashboard">Dashboard</a></li>
+  <li><a href="cto-view-trainernotification">View Trainer Notifications</a></li>
+  <li class="active">Add Trainer Notification</li>
+</ol>
+</div>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                  <form method="POST" autocomplete="off" style="margin:100px;margin-top: 0px;">
+                    {%csrf_token%}
+                    <div class="form-group">
+                      <label for="trainernotification_message">TrainerName</label>
+                      {% render_field trainernotificationForm.trainerID|attr:'required:true' class="form-control"  %}
+                      <label for="trainernotification_message">Trainer Notification Message</label>
+                      {% render_field trainernotificationForm.trainernotification_message class="form-control" placeholder="trainernotification Name" %}
+                    </div>
+                    <button type="submit" class="btn btn-primary">ADD</button>
+                    
+                  </form>
+                </div>
+                <!-- /.card -->
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

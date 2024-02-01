@@ -1,0 +1,39 @@
+
+
+
+{% extends 'cto/ctobase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+<style>
+  ol.breadcrumb li+li:before {
+    content: '\f061';
+  display: inline-block;
+  font-family: 'fontAwesome';
+  padding: 0 10px;
+  }
+  </style>
+<div>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li><a href="../../../../cto/cto-dashboard">Dashboard</a></li>
+      <li><a href="../../../../cto/cto-view-mainhead">View Subject</a></li>
+      <li aria-current="page">{{page_title}}</li>
+    </ol>
+  </nav>
+</div>
+<h2 style="text-align:center; ">{{page_title}}</h2>
+<form method="POST" autocomplete="off" style="margin:100px;margin-top: 0px;">
+  {%csrf_token%}
+  <div class="form-group">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group">
+          {% include "common/form_editing/form_template.html" with messages=messages  form=form%}
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+{% endblock content %}

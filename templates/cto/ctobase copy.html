@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+  <style media="screen">
+    a:link {
+      text-decoration: none;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Gill Sans", sans-serif;;
+    }
+    header {
+      position: fixed;
+      background: #22242A;
+      padding: 20px;
+      width: 100%;
+      z-index: 1;
+    }
+    .left_area h3 {
+      color: #fff;
+      margin: 0px;
+      text-transform: uppercase;
+      font-size: 22px;
+      font-weight: 900;
+    }
+    .left_area span {
+      color: #19B3D3;
+    }
+    .logout_btn {
+      padding: 5px;
+      background: #19B3D3;
+      text-decoration: none;
+      float: right;
+      margin-top: -30px;
+      margin-right: 40px;
+      border-radius: 2px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      transition: 0.5s;
+    }
+    .logout_btn:hover {
+      background: #0B87A6;
+    }
+    .sidebar {
+      background: #2f323a;
+      margin-top: 70px;
+      padding-top: 30px;
+      position: fixed;
+      left: 0;
+      width: 250px;
+      height: 100%;
+      transition: 0.5s;
+      transition-property: left;
+    }
+    .sidebar .profile_image {
+      width: 100px;
+      height: 100px;
+      border-radius: 100px;
+      margin-bottom: 10px;
+    }
+    .sidebar h4 {
+      color: #ccc;
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+    .sidebar a {
+      color: #fff;
+      display: block;
+      width: 100%;
+      line-height: 30px;
+      text-decoration: none;
+      padding-left: 40px;
+      box-sizing: border-box;
+      transition: 0.5s;
+    }
+    .sidebar a:hover {
+      background: #19B3D3;
+    }
+    .sidebar i {
+      padding-right: 10px;
+    }
+    label #sidebar_btn {
+      z-index: 1;
+      color: #fff;
+      position: fixed;
+      cursor: pointer;
+      left: 300px;
+      font-size: 20px;
+      margin: 5px 0;
+      transition: 0.5s;
+      transition-property: color;
+    }
+    label #sidebar_btn:hover {
+      color: #19B3D3;
+    }
+    #check:checked~.sidebar {
+      left: -190px;
+    }
+    #check:checked~.sidebar a span {
+      display: none;
+    }
+    #check:checked~.sidebar a {
+      font-size: 20px;
+      margin-left: 170px;
+      width: 80px;
+    }
+    .content {
+      margin-left: 250px;
+      background-position: center;
+      background-size: cover;
+      height: 100vh;
+      transition: 0.5s;
+    }
+    #check:checked~.content {
+      margin-left: 60px;
+    }
+    #check {
+      display: none;
+    }
+  </style>
+
+
+</head>
+
+<body>
+
+  <input type="checkbox" id="check">
+  <!--header area start-->
+  <header>
+    <label for="check">
+      <i style="left: 200px;margin-top: 17px;"class="fas fa-bars" id="sidebar_btn"></i>
+    </label>
+    <div class="left_area">
+      <h3>NubeEra</h3>
+    </div>
+    <div class="right_area">
+      <a href="/logout" class="logout_btn">Logout</a>
+    </div>
+  </header>
+  <!--header area end-->
+  <!--sidebar start-->
+  <div class="sidebar">
+    <center>
+      <h4>{{request.user.first_name}} {{request.user.last_name}}</h4>
+      <h6 style="color: rgb(255, 255, 255);">( CTO )</h6>
+    </center>
+    <a href="/cto/cto-dashboard"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
+    <a href="/cto/cto-passionateskill"><i class="fas fa-tachometer-alt"></i><span>Passionate Skill</span></a>
+    <a href="/cto/cto-knownskill"><i class="fas fa-tachometer-alt"></i><span>Known Skill</span></a>
+    <a href="/cto/cto-subject"><i class="fas fa-tachometer-alt"></i><span>Subject</span></a>
+    <a href="/cto/cto-module"><i class="fas fa-tachometer-alt"></i><span>Module</span></a>
+    <a href="/cto/cto-chapter"><i class="fas fa-tachometer-alt"></i><span>Chapter</span></a>
+    <a href="/cto/cto-topic"><i class="fas fa-tachometer-alt"></i><span>Topic</span></a>
+    <a href="/cto/cto-course"><i class="fas fa-tachometer-alt"></i><span>Course</span></a>
+    <a href="/cto/cto-upload-subject-details-csv"><i class="fas fa-tachometer-alt"></i><span>Upload Subject CSV</span></a>
+    <a href="/cto/cto-upload-course-details-csv"><i class="fas fa-tachometer-alt"></i><span>Upload Course CSV</span></a>
+    <a href="/cto/cto-sync-youtube"><i class="fas fa-tachometer-alt"></i><span>Sync Videos</span></a>
+    <a href="/cto/cto-include-playlist"><i class="fas fa-tachometer-alt"></i><span>Include Playlist Setting</span></a>
+  </div>
+  <!--sidebar end-->
+
+
+  <!--content start-->
+  <div class="content">
+    <br><br><br><br><br>
+    {% block content %}
+
+    {% endblock content %}
+
+ 
+    <br><br><br>
+    {% include "lxpapp/footer.html" %}
+    {% include 'partials/_loading-modal.html' %}
+  </div>
+  <!--content end-->
+</body>
+
+</html>

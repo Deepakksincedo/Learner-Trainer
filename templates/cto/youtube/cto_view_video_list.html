@@ -1,0 +1,51 @@
+{% extends 'cto/ctobase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<div>
+<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+<style>
+  ol.breadcrumb li+li:before {
+    content: '\f061';
+  display: inline-block;
+  font-family: 'fontAwesome';
+  padding: 0 10px;
+  }
+  </style>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li><a href="../../../../cto/cto-dashboard">Dashboard</a></li>
+      <li><a href="../../../../cto/cto-add-topic">Add Topic</a></li>
+      <li aria-current="page">View Topics</li>
+    </ol>
+  </nav>
+</div>
+<div class="card-body">
+  <div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <thead>
+        <tr>
+          <th hidden>Item Id</th>
+          <th hidden>Play List Id</th>
+          <th>Play List Name</th>
+          <th hidden>Video Id</th>
+          <th>Video Name</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for t in videos %}
+        <tr>
+          <td hidden> {{t.item_id}}</td>
+          <td hidden> {{t.id}}</td>
+          <td> {{t.Pl_Name}}</td>
+          <td hidden> {{t.vid_id}}</td>
+          <td> {{t.vid_Name}}</td>
+          <td><a class="btn btn-danger btn-xs" href="{% url 'cto-delete-video' t.item_id t.id t.vid_id %}"
+              onclick="return confirm('Are you sure?')"><span class="far fa-trash-alt"></span></a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock content %}

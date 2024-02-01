@@ -1,0 +1,40 @@
+{% extends 'cto/ctobase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+<style>
+  ol.breadcrumb li+li:before {
+    content: '\f061';
+  display: inline-block;
+  font-family: 'fontAwesome';
+  padding: 0 10px;
+  }
+  </style>
+<div>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li><a href="../../../../cto/cto-dashboard">Dashboard</a></li>
+      <li><a href="../../../../cto/cto-view-passionateskill">View Passionate Skills</a></li>
+      <li aria-current="page">Add Passionate Skill</li>
+    </ol>
+  </nav>
+</div>
+<h2 style="text-align:center; ">Add Passionate Skill</h2>
+<form method="POST" autocomplete="off" style="margin:100px;margin-top: 0px;">
+  {%csrf_token%}
+  <div class="form-group">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label class="form-control-label">Passionate Skill Name</label>
+          {% render_field passionateskillForm.passionateskill_name class="form-control" placeholder="Passionate Skill Name" %}
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  <button type="submit" class="btn btn-primary">ADD</button>
+
+</form>
+
+{% endblock content %}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Treeview Example</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdn.kendostatic.com/2021.1.330/js/kendo.all.min.js"></script>
+	<link href="https://cdn.kendostatic.com/2021.1.330/styles/kendo.common.min.css" rel="stylesheet" />
+	<link href="https://cdn.kendostatic.com/2021.1.330/styles/kendo.default.min.css" rel="stylesheet" />
+	<style>
+		#treeview-checkboxes {
+			height: 300px;
+		}
+	</style>
+</head>
+<body>
+	<div id="treeview-checkboxes"></div>
+	<br>
+	<label for="selected-values">Selected Values:</label>
+	<input type="text" id="selected-values" name="selected-values" readonly>
+	<script>
+		$(document).ready(function() {
+			var data = [
+				{
+					id: 1,
+					text: "Item 1",
+					expanded: true,
+					items: [
+						{
+							id: 2,
+							text: "Sub-item 1",
+							expanded: true,
+							items: [
+								{
+									id: 3,
+									text: "Sub-sub-item 1",
+									expanded: true,
+									items: [
+										{
+											id: 4,
+											text: "Sub-sub-sub-item 1"
+										},
+										{
+											id: 5,
+											text: "Sub-sub-sub-item 2"
+										}
+									]
+								},
+								{
+									id: 6,
+									text: "Sub-sub-item 2",
+									items: [
+										{
+											id: 7,
+											text: "Sub-sub-sub-item 3"
+										},
+										{
+											id: 8,
+											text: "Sub-sub-sub-item 4"
+										}
+									]
+								}
+							]
+						},
+						{
+							id: 9,
+							text: "Sub-item 2"
+						}
+					]
+				},
+				{
+					id: 10,
+					text: "Item 2",
+					items: [
+						{
+							id: 11,
+							text: "Sub-item 3"
+						},
+						{
+							id: 12,
+							text: "Sub-item 4"
+						}
+					]
+				}
+			];
+
+			$("#treeview-checkboxes").kendoTreeView({
+				checkboxes: {
+					checkChildren: true
+				},
+				dataSource: {{ js | safe }}	
+			});
+
+			$("#treeview-checkboxes").on("change", ":checkbox", function(e) {
+				var selectedValues = [];
+				$("#treeview-checkboxes").find(":checked").each(function() {
+					var item = $("#treeview-checkboxes").data("kendoTreeView").dataItem($(this).closest(".k-item"));
+					selectedValues.push(item.id);
+				});
+				$("#selected-values").val(selectedValues.join(", "));
+			});
+		});
+	</script>
+</body>
+</html>

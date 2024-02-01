@@ -1,0 +1,88 @@
+{% extends 'cto/ctobase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<h1>Upload a File</h1>
+<style>
+    html {
+        font-size: 14px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .emails {
+        display: inline-block;
+        background-color: #eee;
+        padding: 3px 5px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        border-radius: 5px;
+    }
+
+    .close {
+        margin-left: 5px;
+        cursor: pointer;
+        color: red;
+    }
+
+    ul.breadcrumb li+li:before {
+        content: '\f061';
+        display: inline-block;
+        font-family: 'fontAwesome';
+        padding: 0 10px;
+    }
+</style>
+<div class="main-wrapper log-wrap">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5">
+                    <label for="channel_id">Channel ID</label>
+                    <input class="form-control" type="text" name="channel_id" id="channel_id"
+                        value="UCxdhwzsgcGldYghv6u3nrXw" required>
+
+                    <label for="channel_name">Channel Name</label>
+                    <input class="form-control" type="text" name="channel_name" id="channel_name" value="Team NubeEra"
+                        required>
+
+                    <label for="playlist">Play List Name :</label>
+                    <select class="form-control" name="playlist" id="playlist">
+                        {% for t in playlist %}
+                        <option>{{t.name}} </option>
+                        {% endfor %}
+                    </select>
+
+                    <label for="title">Video Title</label>
+                    <input class="form-control" type="text" name="title" id="title" required>
+
+                    <label for="description">Video Description</label>
+                    <input class="form-control" type="text" name="description" id="description" required>
+
+                    <label for="video">Video to upload</label>
+                    <input class="form-control" type="file" name="video" accept=".mp4" id="video" required>
+                    <label for="file">Material to upload</label>
+                    <input class="form-control" type="file" accept=".pdf" name="file" id="file" required>
+                    <input type="submit" value="Upload">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const addButton = document.getElementById('add-button');
+        const nameInput = document.getElementById('name-input');
+        const nameList = document.getElementById('name-list');
+
+        addButton.addEventListener('click', function () {
+            const name = nameInput.value;
+            if (name) {
+                const option = document.createElement('option');
+                option.textContent = name;
+                nameList.appendChild(option);
+                nameInput.value = '';
+            }
+        });
+    });
+</script>
+
+{% endblock content %}

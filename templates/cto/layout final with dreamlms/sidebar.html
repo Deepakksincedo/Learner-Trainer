@@ -1,0 +1,139 @@
+
+    <div class="col-xl-3 col-lg-4 col-md-12 theiaStickySidebar">
+        <div class="settings-widget dash-profile">
+            <div class="settings-menu p-0">
+                <div class="profile-bg">
+                    <img src="/static/dreamlms/img/instructor-profile-bg.jpg" alt="">
+                    <div class="profile-img">
+                        <!-- <a href="instructor-profile.html"><img src="{{request.user.profile_pic}}" alt=""></a> -->
+                    </div>
+                </div> 
+                <div class="profile-group">
+                    <div class="profile-name text-center">
+                        <h4><a href="instructor-profile.html">{{request.user.first_name}} {{request.user.last_name}}</a></h4>
+                        <h6><a href="instructor-profile.html">({{request.user.username}})</a></h6>
+                        <h6>CTO</h6>
+                        {{ pic }}
+                        <!-- <img src="request.user.social_auth.model.pic" alt=""> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="settings-widget account-settings">
+            <div class="settings-menu">
+                <h3>DASHBOARD</h3>
+                <ul>
+                    <li class="nav-item active">
+                        <a href="{% url 'cto-dashboard' %}" class="nav-link">
+                            <i class="feather-home"></i> My Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../../../../cto/cto-view-mainhead" class="nav-link">
+                            <i class="feather-server"></i> Main Headings
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../../../../cto/cto-view-subhead" class="nav-link">
+                            <i class="feather-server"></i> Sub Headings
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../../../../cto/cto-view-subject" class="nav-link">
+                            <i class="feather-pie-chart"></i> Subjects
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../../../../cto/cto-view-chapter" class="nav-link">
+                            <i class="feather-users"></i> Chapters
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../../../../cto/cto-view-module" class="nav-link">
+                            <i class="feather-shopping-bag"></i> Modules
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a href="../../../../cto/cto-view-course" class="nav-link">
+                            <i class="feather-server"></i> Courses
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="../../../../cto/cto-view-courseset" class="nav-link">
+                            <i class="feather-server"></i> Course Sets
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="../../../../cto/cto-sync-youtube" class="nav-link">
+                            <i class="feather-server"></i> Sync Videos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../../../../cto/cto-view-passionateskill" class="nav-link">
+                            <i class="feather-book"></i> Passionate Skill
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../../../../cto/cto-view-knownskill" class="nav-link">
+                            <i class="feather-star"></i> Known Skill
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a href="../../../../cto/cto-view-topic" class="nav-link">
+                            <i class="feather-dollar-sign"></i> Topics
+                        </a>
+                    </li>
+                    
+                </ul>
+                <div class="instructor-title">
+                    <h3>ACCOUNT SETTINGS</h3>
+                </div>
+                <ul>
+                    <li class="nav-item">
+                        <a href="instructor-edit-profile.html" class="nav-link ">
+                            <i class="feather-settings"></i> Edit Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="instructor-security.html" class="nav-link">
+                            <i class="feather-user"></i> Security
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="instructor-social-profiles.html" class="nav-link">
+                            <i class="feather-refresh-cw"></i> Social Profiles
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="instructor-notification.html" class="nav-link">
+                            <i class="feather-bell"></i> Notifications
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="instructor-profile-privacy.html" class="nav-link">
+                            <i class="feather-lock"></i> Profile Privacy
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="instructor-delete-profile.html" class="nav-link">
+                            <i class="feather-trash-2"></i> Delete Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="instructor-linked-account.html" class="nav-link">
+                            <i class="feather-user"></i> Linked Accounts
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../../../../logout" class="nav-link">
+                            <i class="feather-power"></i> Sign Out
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>

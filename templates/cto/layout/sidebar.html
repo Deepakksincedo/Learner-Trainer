@@ -1,0 +1,114 @@
+<!--**********************************
+            Sidebar start
+        ***********************************-->
+
+<div class="dlabnav" style='overflow:auto;'>
+
+    <div class="text-center">
+        <!-- <img src="{{request.user.profile_pic}}" width="100" class="img-fluid rounded-circle" alt=""> -->
+        <h4><a href="instructor-profile.html">{{request.user.first_name}} {{request.user.last_name}}</a></h4>
+        <h6>CTO</h6>
+    </div>
+    <div class="dlabnav-scroll">
+        <ul class="metismenu" id="menu">
+            <li><a href="{% url 'cto-dashboard' %}" class="" aria-expanded="false">
+                    <i class="bi bi-grid"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li><a class="has-arrow " href="{% url 'cto-view-mainhead' %}" aria-expanded="false">
+                    <i class="bi bi-book"></i>
+
+                    <span class="nav-text">Main Headings</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{% url 'cto-add-mainhead' %}">Add Main Headings</a></li>
+                    <li><a href="{% url 'cto-view-mainhead' %}">View Main Headings</a></li>
+                </ul>
+
+            </li>
+
+            <li><a class="has-arrow " href="{% url 'cto-view-subhead' %}" aria-expanded="false">
+                    <i class="bi bi-people"></i>
+                    <span class="nav-text">Sub Headings</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{% url 'cto-add-subhead' %}">Add Sub Headings</a></li>
+                    <li><a href="{% url 'cto-view-subhead' %}">View Sub Headings</a></li>
+                </ul>
+            </li>
+
+            <li><a class="has-arrow " href="{% url 'cto-view-subject' %}" aria-expanded="false">
+                    <i class="bi bi-book"></i>
+                    <span class="nav-text">Subjects</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{% url 'cto-add-subject' %}">Add Subjects</a></li>
+                    <li><a href="{% url 'cto-view-subject' %}">View Subjects</a></li>
+                </ul>
+            </li>
+
+            <li><a class="has-arrow " href="{% url 'cto-view-chapter' %}" aria-expanded="false">
+                    <i class="bi bi-book-half"></i>
+                    <span class="nav-text">Chapters</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{% url 'cto-add-chapter' %}">Add Chapters</a></li>
+                    <li><a href="{% url 'cto-view-chapter' %}">View Chapters</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a class="has-arrow " href="{% url 'cto-view-module' %}" aria-expanded="false">
+                    <i class="bi bi-card-list"></i>
+                    <span class="nav-text">Modules</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{% url 'cto-add-module' %}">Add Modules</a></li>
+                    <li><a href="{% url 'cto-view-module' %}">View Modules</a></li>
+                </ul>
+            </li>
+
+            <li><a class="has-arrow " href="{% url 'cto-sync-youtube' %}" class="" aria-expanded="false">
+                    <i class="bi bi-arrow-repeat"></i>
+                    <span class="nav-text">Sync Videos</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{% url 'cto-sync-youtube' %}">Sync Videos</a></li>
+                    <li><a href="{% url 'cto-lxp-upload-doc-file' %}">Video Material Upload</a></li>
+                    <li><a href="{% url 'cto-add-playlist' %}">Add Play List</a></li>
+                    <li><a href="{% url 'cto-view-playlist' %}">View Play List</a></li>
+                    <li><a href="{% url 'cto-view-video-list' %}">View Video List</a></li>
+                </ul>
+            <li>
+                <a class="has-arrow " href="{% url 'cto-view-passionateskill' %}" aria-expanded="false">
+                    <i class="bi bi-star"></i>
+                    <span class="nav-text">Passionate Skill</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{% url 'cto-add-passionateskill' %}">Add Passionate Skill</a></li>
+                    <li><a href="{% url 'cto-view-passionateskill' %}">View Passionate Skill</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="has-arrow " href="{% url 'cto-view-knownskill' %}" aria-expanded="false">
+                    <i class="bi bi-star"></i>
+                    <span class="nav-text">Known Skill</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{% url 'cto-add-knownskill' %}">Add Known Skill</a></li>
+                    <li><a href="{% url 'cto-view-knownskill' %}">View Known Skill</a></li>
+                </ul>
+            </li>
+
+            <li><a href="{% url 'logout' %}" class="" aria-expanded="false">
+                    <i class="bi bi-door-closed"></i>
+                    <span class="nav-text">Sign Out</span>
+                </a>
+            <li>
+        </ul>
+    </div>
+</div>
+<!--**********************************
+            Sidebar end
+        ***********************************-->

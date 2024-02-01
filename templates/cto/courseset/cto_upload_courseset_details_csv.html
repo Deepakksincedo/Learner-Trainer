@@ -1,0 +1,63 @@
+{% extends 'cto/ctobase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+<head>
+  <script>
+    function validateForm() {
+
+      var fileInput =
+        document.getElementById('select_file');
+
+      var filePath = fileInput.value;
+      if (filePath == "") {
+        alert("Please CSV file to upload");
+        return false;
+      }
+      // Allowing file type
+      var allowedExtensions =
+        /(\.csv)$/i;
+
+      if (!allowedExtensions.exec(filePath)) {
+        alert('Invalid file type');
+        fileInput.value = '';
+        return false;
+      }
+      $('#waiting').show();
+    }
+  </script>
+  <style>
+    ol.breadcrumb li+li:before {
+      content: '\f061';
+    display: inline-block;
+    font-family: 'fontAwesome';
+    padding: 0 10px;
+    }
+    </style>
+</head>
+<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li><a href="../../../../cto/cto-dashboard">Dashboard</a></li>
+    <li><a href="../../../../cto/cto-add-courseset">Add Course Set</a></li>
+    <li><a href="../../../../cto/cto-view-courseset">View Course Set</a></li>
+    <li aria-current="page">Upload a Course Set CSV File</li>
+  </ol>
+</nav>
+</div>
+  <div class="container">
+    <h4>Upload a Course Set CSV File: </h4>
+    <form onsubmit="return validateForm()" method="POST" enctype="multipart/form-data">
+      {%csrf_token%}
+      <label for="select_file">Select File</label>
+      <input type="file" class="btn btn-primary"  name="select_file" id="select_file">
+      <br><br>
+      <button class="btn btn-primary"  type="submit">Upload</button>
+      <BR>
+    </form>
+    <div id="waiting" style="display:none">
+      <img src="/static/image/processing-gif-image-5.gif">
+    </div>
+  </div>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+  {% endblock content %}

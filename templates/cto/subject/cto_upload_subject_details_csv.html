@@ -1,0 +1,43 @@
+{% extends 'cto/ctobase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<script>
+  function validateForm() {
+
+    var fileInput =
+      document.getElementById('select_file');
+
+    var filePath = fileInput.value;
+    if (filePath == "") {
+      alert("Please CSV file to upload");
+      return false;
+    }
+    // Allowing file type
+    var allowedExtensions =
+      /(\.csv)$/i;
+
+    if (!allowedExtensions.exec(filePath)) {
+      alert('Invalid file type');
+      fileInput.value = '';
+      return false;
+    }
+    $('#waiting').show();
+  }
+</script>
+</head>
+<div class="container">
+  <h4>Upload a Subject CSV File: </h4>
+  <form onsubmit="return validateForm()" method="POST" enctype="multipart/form-data">
+    {%csrf_token%}
+    <input type="file" name="select_file" id="select_file">
+    <br><br>
+    <button type="submit">Upload</button>
+    <BR>
+  </form>
+  <div id="waiting" style="display:none">
+    <img src="/static/image/processing-gif-image-5.gif">
+  </div>
+</div>
+
+<script src="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+{% endblock content %}

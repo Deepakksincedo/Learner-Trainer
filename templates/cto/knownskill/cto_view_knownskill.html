@@ -1,0 +1,73 @@
+{% extends 'cto/ctobase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<head>
+  <link rel="stylesheet" href="/static/dreamlms/css/style.css">
+  <style>
+    ol.breadcrumb li+li:before {
+      content: '\f061';
+    display: inline-block;
+    font-family: 'fontAwesome';
+    padding: 0 10px;
+    }
+    </style>
+</head>
+<div class="main-wrapper">
+  <div>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li><a href="../../../../cto/cto-dashboard">Dashboard</a></li>
+        <li><a href="../../../../cto/cto-add-knownskill">Add Known Skills</a></li>
+        <li aria-current="page">View Known Skill</li>
+      </ol>
+    </nav>
+  </div>
+  <div class="page-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-9 col-lg-8 col-md-12">
+          <div class="tak-instruct-group">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="settings-widget">
+                  <div class="settings-inner-blk p-0">
+                    <div class="comman-space pb-0">
+                      <div class="settings-referral-blk course-instruct-blk  table-responsive">
+
+                        <table class="table table-nowrap mb-0">
+                          <thead>
+                            <tr>
+                              <th>Known Skill Name</th>
+                              <th>Update</th>
+                              <th>Delete</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              {% for t in knownskills %}
+                            <tr>
+                              <td> {{t.knownskill_name}}</td>
+                              <td><a class="btn btn-primary btn-xs"
+                                  href="{% url 'cto-update-knownskill' t.id  %}"><span
+                                    class="	far fa-edit"></span></a></td>
+                              <td><a class="btn btn-danger btn-xs" href="{% url 'cto-delete-knownskill' t.id  %}"
+                                  onclick="return confirm('Are you sure?')"><span class="far fa-trash-alt"></span></a>
+                              </td>
+                            </tr>
+                            {% endfor %}
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

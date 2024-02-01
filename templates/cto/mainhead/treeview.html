@@ -1,0 +1,159 @@
+<input type="text" id="search" placeholder="Search">
+
+<ul class="tree">
+  <li>
+    <input type="checkbox" id="node1">
+    <label for="node1">Node 1</label>
+    <ul>
+      <li>
+        <input type="checkbox" id="node2">
+        <label for="node2">Node 1.1</label>
+      </li>
+      <li>
+        <input type="checkbox" id="node3">
+        <label for="node3">Node 1.2</label>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <input type="checkbox" id="node4">
+    <label for="node4">Node 2</label>
+    <ul>
+      <li>
+        <input type="checkbox" id="node5">
+        <label for="node5">Node 2.1</label>
+      </li>
+      <li>
+        <input type="checkbox" id="node6">
+        <label for="node6">Node 2.2</label>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+
+
+
+<style>
+  .tree {
+list-style: none;
+margin: 0;
+padding: 0;
+}
+
+.tree li {
+margin: 0;
+padding: 0 1em;
+position: relative;
+}
+
+.tree li ul {
+margin: 0;
+padding: 0 1em;
+}
+
+.tree li:before {
+content: "";
+position: absolute;
+left: -0.5em;
+top: 0.5em;
+border-left: 1px solid #ccc;
+height: 1em;
+}
+
+.tree li:last-child:before {
+height: 0;
+}
+
+.tree li:after {
+content: "";
+position: absolute;
+border-top: 1px solid #ccc;
+top: 1em;
+left: -0.5em;
+width: 1em;
+}
+
+.tree li:last-child:after {
+border: 0;
+}
+
+.tree li > input[type=checkbox] {
+position: relative;
+top: 1px;
+}
+
+.tree li label {
+display: inline-block;
+margin: 0;
+padding: 0;
+}
+
+.tree li label:before {
+content: "";
+position: absolute;
+width: 1em;
+height: 1em;
+border: 1px solid #ccc;
+left: -1.5em;
+top: 0.1em;
+}
+
+.tree li input[type=checkbox]:checked + label:before {
+content: "\2713";
+text-align: center;
+color: #000;
+font-size: 1.2em;
+}
+
+.tree li input[type=checkbox]:checked + label {
+font-weight: bold;
+}
+
+#search {
+margin-top: 1em;
+padding: 0.5em;
+width: 100%;
+box-sizing: border-box;
+}
+
+
+
+</style>
+<script>
+  $(document).ready(function() {
+// Search functionality
+$("#search").on("keyup", function() {
+  var value = $(this).val().toLowerCase();
+  $(".tree li").filter(function() {
+    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+  });
+});
+
+// Tree view functionality
+$(".tree li:has(ul)").addClass("parent_li").find(" > span").attr("title", "Collapse this branch");
+$(".tree li.parent_li > span").on("click", function(e) {
+  var children = $(this).parent("li.parent_li").find(" > ul > li");
+  if (children.is(":visible")) {
+    children.hide("fast");
+    $(this).attr("title", "Expand this branch").find(" > i").addClass("icon-plus-sign").removeClass("icon-minus-sign");
+  } else {
+    children.show("fast");
+    $(this).attr("title", "Collapse this branch").find(" > i").addClass("icon-minus-sign").removeClass("icon-plus-sign");
+  }
+  e.stopPropagation();
+});
+
+// Checkbox functionality
+$(".tree li input[type=checkbox]").on("click", function() {
+  var children = $(this).closest("li").find(" > ul > li input[type=checkbox]");
+  if ($(this).is(":checked")) {
+    children.prop("checked", true);
+  } else {
+    children.prop("checked", false);
+  }
+});
+});
+
+
+</script>

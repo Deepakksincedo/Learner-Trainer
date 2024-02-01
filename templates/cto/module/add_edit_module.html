@@ -1,0 +1,337 @@
+{% load widget_tweaks %}
+{% block content %}
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+	<title>Nubeera LXP</title>
+
+	<link rel="shortcut icon" type="image/x-icon" href="/static/dreamlms/img/favicon.svg">
+
+	<link rel="stylesheet" href="/static/dreamlms/css/bootstrap.min.css">
+
+	<link rel="stylesheet" href="/static/dreamlms/plugins/fontawesome/css/fontawesome.min.css">
+	<link rel="stylesheet" href="/static/dreamlms/plugins/fontawesome/css/all.min.css">
+
+	<link rel="stylesheet" href="/static/dreamlms/css/feather.css">
+
+	<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+	<!-- ckeditor -->
+	<script src="/static/ckeditor/ckeditor.js"></script>
+	<script src="/static/ckeditor/js/sample.js"></script>
+	<link rel="stylesheet" href="/static/ckeditor/toolbarconfigurator/lib/codemirror/neo.css">
+
+	<!-- Tree View -->
+	<link href="/static/treeview/kendo.default-main.min.css" rel="stylesheet">
+	<script src="/static/treeview/jquery.min.js"></script>
+	<script src="/static/treeview/kendo.all.min.js"></script>
+
+	<style>
+		html {
+			font-size: 14px;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		.tag {
+			display: inline-block;
+			background-color: #eee;
+			padding: 3px 5px;
+			margin-right: 5px;
+			margin-bottom: 5px;
+			border-radius: 5px;
+		}
+
+		.close {
+			margin-left: 5px;
+			cursor: pointer;
+			color: red;
+		}
+
+		ul.breadcrumb li+li:before {
+			content: '\f061';
+			display: inline-block;
+			font-family: 'fontAwesome';
+			padding: 0 10px;
+		}
+	</style>
+</head>
+<div>
+	<nav aria-label="breadcrumb">
+		<ul class="breadcrumb">
+			<li><a href="../../../../cto/cto-dashboard">Dashboard</a></li>
+			<li><a href="../../../../cto/cto-view-module">View Module</a></li>
+			{% if 'Edit' in page_title %}
+			<li><a href="../../../../cto/cto-add-module">Add Module</a></li>
+			{% endif %}
+			<li aria-current="page">{{page_title}}</li>
+		</ul>
+	</nav>
+</div>
+<h2 style="text-align:center;">{{page_title}}</h2>
+<form method="post" id="moduleForm" data-subheads-url="{% url 'ajax_load_subheads' %}" autocomplete="off"
+	style="margin:100px;margin-top: 0px;">
+	{%csrf_token%}
+	<div class="form-group">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 col-xl-12">
+					<label for="module_name">Module Name</label>
+					<input type="text" name="module_name" id="module_name" class="form-control"
+						placeholder="Module Name" required value={{mod_name}}>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-xl-6">
+					<label for="mainhead_name">Main Head Name</label>
+					{% render_field form.mainhead class="form-control"%}
+				</div>
+				<div class="col-md-6 col-xl-6">
+					<label for="subhead_name">Sub Head Name</label>
+					{% render_field form.subhead class="form-control"%}
+				</div>
+			</div>
+
+			<div>
+				<div class="row">
+
+					<div class="col-md-12 col-xl-12">
+
+						<div id="example">
+
+							<div class="demo-section">
+								<label for="chapter_name">Chapters</label>
+								<input class="k-textbox" class="form-control" placeholder="Search Here" />
+								<div id="treeview"></div>
+								<input type="text" name="chapterlist" id="chapterlist" class="form-control"
+									placeholder="chapter list">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 col-xl-12">
+					<label for="description">Decription</label>
+					<input type="text" name="description" id="description" class="form-control" placeholder="Decription"
+						required value={{description}}>
+
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 col-xl-12">
+					<label for="whatlearn">What Student will Learn</label>
+
+					<textarea name="whatlearn" style="height:30px;" class="ckeditor" required></textarea>
+					<script type="text/javascript">
+						CKEDITOR.replace('whatlearn');
+						CKEDITOR.add
+						CKEDITOR.instances['whatlearn'].setData('{{whatlearn}}');         
+					</script>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 col-xl-12">
+					<label for="includes">Course Include</label>
+					<textarea name="includes" style="height:40px;" class="ckeditor" required></textarea>
+					<script type="text/javascript">
+						CKEDITOR.replace('includes');
+						CKEDITOR.add
+						CKEDITOR.instances['includes'].setData('{{includes}}');         
+					</script>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 col-xl-12">
+					<label for="themecolor">Theme Color</label>
+					{% render_field form.themecolor class="form-control"%}
+
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 col-xl-12">
+					<label for="tags">Tags</label>
+					<input type="text" name="tag-input" id="tag-input" class="form-control list-unstyled"
+						placeholder="Tags">
+					<input type="text" id="tag-output" name="tag-output" class="form-control" readonly hidden>
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="col-md-12 col-xl-12">
+					<label for="image">Image Link</label>
+					<input type="text" name="image" id="image" class="form-control" placeholder="Path to Image" required
+						value={{image}}>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12 col-xl-12">
+					<label for="banner">Banner Link</label>
+					<input type="text" name="banner" id="banner" class="form-control" placeholder="Path to Banner Image"
+						required value={{banner}}>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 col-xl-12">
+					<label for="price">Price</label>
+					<input type="number" name="price" id="price" class="form-control" placeholder="Price" required
+						value={{price}}>
+				</div>
+			</div>
+			<button class="btn btn-primary form-control" type="submit"
+				onclick="return checkvalid(event);">SUBMIT</button>
+		</div>
+	</div>
+</form>
+<script>
+	$("input").on("input", function () {
+		var query = this.value.toLowerCase();
+		var dataSource = $("#treeview").data("kendoTreeView").dataSource;
+
+		filter(dataSource, query);
+	});
+	$("#treeview").kendoTreeView({
+		checkboxes: {
+			checkChildren: true
+		},
+
+		check: onCheck,
+		dataSource: {{ js | safe }}
+        });
+
+	// Sets the "hidden" field on items that match the query.
+	function filter(dataSource, query) {
+		var hasVisibleChildren = false;
+		var data = dataSource instanceof kendo.data.HierarchicalDataSource && dataSource.data();
+
+		for (var i = 0; i < data.length; i++) {
+			var item = data[i];
+			var text = item.text.toLowerCase();
+			var itemVisible =
+				query === true // parent already matches
+				|| query === "" // query is empty
+				|| text.indexOf(query) >= 0; // item text matches query
+
+			var anyVisibleChildren = filter(item.children, itemVisible || query); // pass true if parent matches
+
+			hasVisibleChildren = hasVisibleChildren || anyVisibleChildren || itemVisible;
+
+			item.hidden = !itemVisible && !anyVisibleChildren;
+		}
+
+		if (data) {
+			// Re-apply the filter on the children.
+			dataSource.filter({ field: "hidden", operator: "neq", value: true });
+		}
+
+		return hasVisibleChildren;
+	}
+	// function that gathers IDs of checked nodes
+	function checkedNodeIds(nodes, checkedNodes) {
+		for (var i = 0; i < nodes.length; i++) {
+
+			if (nodes[i].checked || nodes[i].indeterminate) {
+				checkedNodes.push(nodes[i].id);
+			}
+
+			if (nodes[i].hasChildren) {
+				checkedNodeIds(nodes[i].children.view(), checkedNodes);
+			}
+		}
+	}
+
+	// show checked node IDs on datasource change
+	function onCheck() {
+		var checkedNodes = [],
+			treeView = $("#treeview").data("kendoTreeView"),
+			message;
+
+		checkedNodeIds(treeView.dataSource.view(), checkedNodes);
+
+		if (checkedNodes.length > 0) {
+			message = checkedNodes.join(",");
+		}
+		document.getElementById("chapterlist").value = message;
+	}
+	$("#id_mainhead").change(function () {
+		var url = $("#moduleForm").attr("data-subheads-url");  // get the url of the `load_topics` view
+		var mainheadId = $(this).val();  // get the selected mainhead ID from the HTML input
+
+		$.ajax({                       // initialize an AJAX request
+			url: '{% url 'ajax_load_subheads' %}',                    // set the url of the request (= localhost:8000/hr/ajax/load-topics/)
+			data: {
+				'mainhead': mainheadId       // add the mainhead id to the GET parameters
+			},
+			success: function (data) {   // `data` is the return of the `load_topics` view function
+				$("#id_subhead").html(data);  // replace the contents of the topic input with the data that came from the server
+			}
+		});
+
+	});
+
+
+
+	var treeview = $("#treeview").data("kendoTreeView");
+	var mylist = {{ chapterlistbyid| safe}};
+	for (i = 0; i < mylist.length; i++) {
+
+		var bar = treeview.findByText(mylist[i].name);
+		treeview.select(bar);
+		treeview.dataItem(bar).set("checked", true);
+	};
+	var checkedNodes = [],
+		treeView = $("#treeview").data("kendoTreeView"),
+		message;
+
+	checkedNodeIds(treeView.dataSource.view(), checkedNodes);
+
+	if (checkedNodes.length > 0) {
+		message = checkedNodes.join(",");
+	}
+	document.getElementById("chapterlist").value = message;
+
+</script>
+<script>
+	initSample();
+</script>
+<script>
+	var tagInput = document.getElementById("tag-input");
+	var tagOutput = document.getElementById("tag-output");
+	var tagsArray = [];
+
+	tagInput.addEventListener("keydown", function (event) {
+		if (event.code === "Space") {
+			event.preventDefault();
+			var tagText = tagInput.value.trim();
+			if (tagText !== "") {
+				if (!tagsArray.includes(tagText)) {
+					var tag = document.createElement("span");
+					tag.innerHTML = tagText;
+					tag.className = "tag";
+					var closeButton = document.createElement("span");
+					closeButton.innerHTML = "x";
+					closeButton.className = "close";
+					closeButton.onclick = function () {
+						this.parentElement.remove();
+						var tagIndex = tagsArray.indexOf(tagText);
+						if (tagIndex !== -1) {
+							tagsArray.splice(tagIndex, 1);
+							updateTagOutput();
+						}
+					};
+					tag.appendChild(closeButton);
+					tagInput.value = "";
+					tagInput.insertAdjacentElement("beforebegin", tag);
+					tagsArray.push(tagText);
+					updateTagOutput();
+				}
+			}
+		}
+	});
+
+	function updateTagOutput() {
+		tagOutput.value = tagsArray.join(", ");
+	}
+</script>
+{% endblock content %}

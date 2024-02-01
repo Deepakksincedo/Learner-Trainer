@@ -1,0 +1,39 @@
+{% extends 'cto/ctobase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+<style>
+  ol.breadcrumb li+li:before {
+    content: '\f061';
+  display: inline-block;
+  font-family: 'fontAwesome';
+  padding: 0 10px;
+  }
+  </style>
+<div>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li><a href="../../../../cto/cto-dashboard">Dashboard</a></li>
+      <li><a href="../../../../cto/cto-view-knownskill">View Known Skills</a></li>
+      <li aria-current="page">Update Known Skills</li>
+    </ol>
+  </nav>
+</div>
+<h3 style="text-align:center;">Update Known Skills</h3>
+<div>
+  <form method="post" autocomplete="off" enctype="multipart/form-data" style="margin-left:200px;margin-right:200px;">
+    {% csrf_token %}
+    <div class="form-group">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label class="form-control-label">Known Skill Name</label>
+            {% render_field knownskillForm.knownskill_name class="form-control" placeholder="Known Skill Name" value=sub %}
+          </div>
+        </div>
+      </div>
+      </div>
+    <input type="submit" value="Update" class="btn btn-primary">
+  </form>
+</div>
+{% endblock content %}

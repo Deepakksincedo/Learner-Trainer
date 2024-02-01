@@ -1,0 +1,73 @@
+{% extends 'cto/ctobase.html' %}
+{% block content %}
+{%load static%}
+
+<head>
+  <style>
+    a:link {
+      text-decoration: none;
+    }
+
+    select {
+      width: 100%;
+      height: 204px;
+      line-height: 50px;
+    }
+  </style>
+  <style>
+    ol.breadcrumb li+li:before {
+      content: '\f061';
+    display: inline-block;
+    font-family: 'fontAwesome';
+    padding: 0 10px;
+    }
+    </style>
+<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+<div>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li><a href="../../../../cto/cto-dashboard">Dashboard</a></li>
+      <li aria-current="page">Sync Videos</li>
+    </ol>
+  </nav>
+</div>
+
+  <script src="https://unpkg.com/htmx.org@1.4.1"></script>
+  <script src="https://unpkg.com/htmx.org/dist/ext/class-tools.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans&display=swap" rel="stylesheet">
+
+</head>
+
+<form onsubmit="return ShowProcessing()" method="POST" action="{% url 'cto-sync-youtube-start' %}" style="margin-left: 100px;">
+  <button type="submit" class="btn btn-primary">Start All</button>
+</form>
+<form onsubmit="return ShowProcessing()" method="POST" action="{% url 'cto-sync-youtube-byselected-playlist-start' %}" autocomplete="off"
+  style="margin:100px;margin-top: 0px;">
+  <label>Play list </label>
+
+  <select name="playlist[]" id="field2" multiple multiselect-search="true" multiselect-select-all="true"
+    multiselect-max-items="20" onchange="console.log(this.selectedOptions)">
+
+    {% for entry in pllist %}
+    <option value="{{ entry.id}}">{{ entry.name }}</option>
+    {% endfor %}
+  </select> 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+    crossorigin="anonymous"></script>
+  <script src="/static/multiselect-dropdown.js"></script>
+
+  <button type="submit" name="dblist" class="btn btn-primary">Refresh List From Database</button>
+  <button type="submit" name="cloudlist" class="btn btn-primary">Refresh List From Cloud</button>
+  <button type="submit" name="startselected" class="btn btn-primary">Start sync with selected</button>
+</form>
+<div id="waiting" style="display:none">
+  <img src="/static/image/processing-gif-image-5.gif">
+</div>
+<script>
+  function ShowProcessing() {
+    $('#waiting').show();
+  }
+  
+</script>
+{% endblock content %}

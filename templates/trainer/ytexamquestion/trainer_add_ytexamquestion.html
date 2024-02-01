@@ -1,0 +1,66 @@
+{% extends 'trainer/trainerbase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+<body>
+<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+<div>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../../../../trainer/trainer-dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="../../../../trainer/trainer-view-ytexamquestion">View Session Video Questions</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Session Video Question</li>
+      </ol>
+    </nav>
+  </div>
+
+<h2 style="text-align:center; ">Add Session Video Question</h2>
+
+<form method="POST" autocomplete="off" style="margin:100px;margin-top: 0px;">
+    {%csrf_token%}
+    <div class="form-group">
+      <label for="playlistID">Play List Name</label>
+      {% render_field ytexamquestionForm.playlistID class="form-control"%}
+      <br>
+      <label for="videoID">Video Name</label>
+      {% render_field ytexamquestionForm.videoID class="form-control"%}
+      <br>
+      <label for="question">question</label>
+      {% render_field ytexamquestionForm.question class="form-control" placeholder="question" %}
+      <br>
+      <label for="option1">Option 1</label>
+      {% render_field ytexamquestionForm.option1 class="form-control"%}
+      <br>
+      <label for="option2">Option 2</label>
+      {% render_field ytexamquestionForm.option2 class="form-control"%}
+      <br>
+      <label for="option3">Option 3</label>
+      {% render_field ytexamquestionForm.option3 class="form-control"%}
+      <br>
+      <label for="option4">Option 4</label>
+      {% render_field ytexamquestionForm.option4 class="form-control"%}
+      <br>
+      <label for="answer">Answer</label>
+      {% render_field ytexamquestionForm.answer class="form-control"%}
+      <br>
+      <label for="marks">Marks</label>
+      {% render_field ytexamquestionForm.marks class="form-control"%}
+    </div>
+    <button type="submit" class="btn btn-primary">ADD</button>
+    
+  </form>
+        <script>
+          $( document ).ready(function()
+          {
+              var $provvar = $("#playlistID");
+                  $uffvar = $("#videoID");
+  
+                  $options = $uffvar.find('option');
+                  $provvar.on('change',function()
+                  {
+                      $uffvar.html($options.filter('[value="'+this.value+'"]'));
+                  }).trigger('change');           
+  
+          });
+      </script>
+  {% endblock content %}

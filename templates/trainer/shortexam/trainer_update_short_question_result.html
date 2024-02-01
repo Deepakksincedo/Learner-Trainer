@@ -1,0 +1,54 @@
+{% extends 'trainer/trainerbase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<!-- <div>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="../../../../trainer/trainer-dashboard">Dashboard</a></li>
+      <li class="breadcrumb-item"><a href="../../../../trainer/trainer-add-shortquestion">Add Short Question</a></li>
+      <li class="breadcrumb-item"><a href="../../../../trainer/trainer-view-shortquestion">View Short Question</a></li>
+      <li class="breadcrumb-item active" aria-current="page">View Short Question</li>
+    </ol>
+  </nav>
+</div> -->
+<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+<div class="card-body">
+  <div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <thead>
+        <tr>
+          <th hidden>main ID</th>
+          <th hidden>Question ID</th>
+          <th>Question</th>
+          <th>Question Marks</th>
+          <th>Answer</th>
+          <th hidden>Answer</th>
+          <th hidden>Result Id</th>
+          <th>Marks</th>
+          <th>Feed back</th>
+          <th>Update</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in resultdetails %}
+      <tr>
+        <form action="{% url 'trainer-save-short-question-result' c.id  %}" method="post">
+          <td hidden><input type="text" name="newqid" value="{{c.question.id}}"></td>
+          <td hidden><input type="text" name="newmainid" value="{{c.shortresult_id}}"></td>
+          
+          <td> {{c.question.question}}</td>
+          <td> {{c.question.marks}}</td>
+          <td> {{c.answer}}</td>
+          <td hidden><input type="text" name="newanswer" value="{{c.answer}}"></td>
+          <td hidden><input type="text" name="newid" value="{{c.id}}"></td>
+          <td> <input type="text" name="newmarks" value="{{c.marks}}"></td>
+          <td> <input type="text" name="newfeedback" value="{{c.feedback}}"></td>
+          <td><button type="submit" class="btn btn-primary">update</button></td>
+      </form>
+        {% endfor %}
+        
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock content %}

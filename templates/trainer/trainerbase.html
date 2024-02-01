@@ -1,0 +1,14 @@
+{% extends 'trainer/layout/base.html' %}
+{% load static %}
+{% block body %}
+<div class="main-wrapper">
+<div id="content-wrapper">
+    <div class="container-fluid">
+        {% block content %}
+        {% endblock content %}
+    </div>
+</div>
+</div>
+{% endblock %}
+{% block javascript %}
+{% endblock %}

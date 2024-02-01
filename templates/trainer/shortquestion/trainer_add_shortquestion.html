@@ -1,0 +1,36 @@
+{% extends 'trainer/trainerbase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<body>
+<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="../../../../trainer/trainer-dashboard">Dashboard</a></li>
+      <li class="breadcrumb-item"><a href="../../../../trainer/trainer-view-shortquestion">View Short Questions</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Add Short Question</li>
+    </ol>
+  </nav>
+</div>
+
+<h2 style="text-align:center;">Add Short Question</h2>
+{% if messages %}
+  {% for message in messages %}
+    {{ message }}
+  {% endfor %}
+{% endif %}
+<form method="POST" autocomplete="off" style="margin:100px;margin-top: 0px;">
+    {%csrf_token%}
+    <div class="form-group">
+      <label for="exam_name">Exam Name</label>
+      {% render_field shortquestionForm.examID class="form-control"%}
+      <br>
+      <label for="question">question</label>
+      {% render_field shortquestionForm.question class="form-control" placeholder="question" %}
+      <br>
+      <label for="marks">Marks</label>
+      {% render_field shortquestionForm.marks class="form-control"%}
+    </div>
+    <button type="submit" class="btn btn-primary">ADD</button>
+    
+  </form>
+{% endblock content %}

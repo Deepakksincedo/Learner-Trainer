@@ -1,0 +1,25 @@
+<form role="form" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="card-body">
+        {% for field in form  %}
+        <div class="form-group">
+            {{field.errors}}
+           <B> {{field.label_tag}}</B>
+            <BR>
+            {{field}}
+        </div>
+        {% endfor %}
+    </div>
+    <!-- /.card-body -->
+
+    <div class="card-footer">
+        <button type="submit" class="btn btn-primary btn-block">
+            {% if button_text %}
+            {{button_text}}
+            {% else %}
+            Submit
+            {% endif %}
+
+        </button>
+    </div>
+</form>

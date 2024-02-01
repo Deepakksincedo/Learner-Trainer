@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Upload Folder to S3</title>
+  </head>
+  <body>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <label for="folder-input">Select a folder:</label>
+      <input type="file" id="folder-input" name="folder" webkitdirectory directory multiple>
+      <br>
+      <button type="submit">Upload to S3</button>
+    </form>
+  </body>
+</html>

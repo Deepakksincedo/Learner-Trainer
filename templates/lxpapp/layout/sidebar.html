@@ -1,0 +1,37 @@
+    <div class="col-xl-3 col-lg-4 col-md-12 theiaStickySidebar">
+        <div class="settings-widget dash-profile">
+            <div class="settings-menu p-0">
+                <div class="profile-bg">
+                    <img src="/static/dreamlms/img/instructor-profile-bg.jpg" alt="">
+                    <div class="profile-img">
+                        <a href="instructor-profile.html"><img src="/static/dreamlms/img/admin-avtar.jpg" alt=""></a>
+                    </div>
+                </div>
+                <div class="profile-group">
+                    <div class="profile-name text-center">
+                        <h4><a href="instructor-profile.html">{{request.user.first_name}} {{request.user.last_name}}</a></h4>
+                        <h6><a href="instructor-profile.html">({{request.user.username}})</a></h6>
+                        <h6>Admin</h6>
+                        <!-- <img src="request.user.social_auth.model.pic" alt=""> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="settings-widget account-settings">
+            <div class="settings-menu">
+                <h3>DASHBOARD</h3>
+                <ul>
+                    <li class="nav-item active">
+                        <a href="../../../../admin-dashboard" class="nav-link">
+                            <i class="feather-home"></i> My Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../../../../admin-view-user-list" class="nav-link">
+                            <i class="feather-book"></i> Users
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>

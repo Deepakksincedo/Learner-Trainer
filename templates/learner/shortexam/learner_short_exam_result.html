@@ -1,0 +1,41 @@
+{% extends 'learner/learnerbase.html' %}
+{% block content %}
+{%load static%}
+<head>
+    <link rel="stylesheet" href="/static/dreamlms/css/style.css">
+
+  </head>
+  <style>
+    ul.breadcrumb li+li:before {
+      content: '\f061';
+    display: inline-block;
+    font-family: 'fontAwesome';
+    padding: 0 10px;
+    }
+    </style>
+  <nav aria-label="breadcrumb">
+    <ul class="breadcrumb">
+      <li ><a href="../../../../learner/learner-dashboard">Dashboard</a></li>
+      <li ><a href="../../../../learner/learner-short-exam">Short Exams</a></li>
+      <li aria-current="page">Result</li>
+    </ul>
+  </nav>
+<div class="container ">
+    <div class="card-columns" style="padding: 10px; margin: 20px;">
+        <div class="card" align="centre " style="width: 32rem; border:5px black solid">
+            <img  src="/static/image/results.jpg" alt="Card image cap" width="300">
+            <div class="card-body">
+                <h5 class="card-title">Score: {{score}}</h5>
+                <p class="card-text">Percentage: {{percent}}%</p>
+                <p class="card-text">Time Taken: {{time}} seconds</p>
+                <p class="card-text">Correct answers: {{correct}}</p>
+                <p class="card-text">Incorrect answers: {{wrong}}</p>
+                <p class="card-text">Total questions: {{total}}</p>
+                <h5>All the best for next quiz!</h5>
+            </div>
+        </div>
+    </div>
+ 
+</div>
+ 
+{% endblock %}

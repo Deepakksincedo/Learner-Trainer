@@ -1,0 +1,65 @@
+{% extends 'learner/learnerbase.html' %}
+{% block content %}
+{%load static%}
+
+<head>
+    <link rel="stylesheet" href="/static/dreamlms/css/style.css">
+    <style>
+        ul.breadcrumb li+li:before {
+          content: '\f061';
+        display: inline-block;
+        font-family: 'fontAwesome';
+        padding: 0 10px;
+        }
+        </style>
+</head>
+<div>
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li ><a href="../../../../learner/learner-dashboard">Dashboard</a></li>
+            <li ><a href="../../../../learner/learner-exam">Exams</a></li>
+            <li  aria-current="page">Start Exam</li>
+        </ul>
+    </nav>
+</div>
+
+<h3 class="text-info text-center">Before you start the Exam, here are the rules</h3>
+
+
+<div class="card border-info mx-4 my-4">
+    <div class="card-body text-info">
+
+        <h4 class="card-title"><span class="text-danger">Exam Details :</h4></span>
+        <p class="card-text">
+        </p>
+        <ul style="list-style:decimal;">
+            {% for course in exam %}
+            <li>Exam Name : <span class="text-danger">{{course.exam_name}}</span></li>
+            <li>Total Question : {{total_questions}} </li>
+            <li>Total Marks : {{total_marks}}</li>
+        </ul>
+        <p></p>
+
+        <h4 class="card-title"><span class="text-danger">Rules :</h4></span>
+        <p class="card-text">
+        </p>
+        <ul style="list-style:decimal;">
+            <li>All questions are multiple choice question.</li>
+            <li><span class="text-danger">Only one choice is correct.</span></li>
+            <li>Every question carry different marks
+            </li>
+
+            <li>Try to answer as quickly as you can.</li>
+            <li>If you press refresh or go back to the previous page, there will be a new question for you
+                and the question you were on will be counted as attempted.</li>
+            <li>Questions are displayed randomly for every user.</li>
+            <li>You will be told your marks immediately when you submit the answer.</li>
+        </ul>
+        <p>
+            <a href="{% url 'learner-start-exam' course.id  %}" class="btn btn-danger">Let's Start</a>
+        </p>
+    </div>
+    {% endfor %}
+    <div class="card-footer">Best Of Luck</div>
+</div>
+{% endblock content %}

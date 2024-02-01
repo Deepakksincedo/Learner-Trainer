@@ -1,0 +1,80 @@
+<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <style type="text/css">
+
+    </style>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script>
+      function includeHTML() {
+        var z, i, elmnt, file, xhttp;
+        /*loop through a collection of all HTML elements:*/
+        z = document.getElementsByTagName("*");
+        for (i = 0; i < z.length; i++) {
+          elmnt = z[i];
+          /*search for elements with a certain attribute:*/
+          file = elmnt.getAttribute("w3-include-html");
+          if (file) {
+            /*make an HTTP request using the attribute value as the file name:*/
+            xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+              if (this.readyState == 4) {
+                if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+                if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+                /*remove the attribute, and call this function once more:*/
+                elmnt.removeAttribute("w3-include-html");
+                includeHTML();
+              }
+            }      
+            xhttp.open("GET", file, true);
+            xhttp.send();
+            /*exit the function:*/
+            return;
+          }
+        }
+      };
+      </script>
+  </head>
+  {% load static %}
+    <!-- Custom fonts for this template-->
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- Page level plugin CSS-->
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{% static 'css/sb-admin.css' %}" rel="stylesheet">
+{% block content %}
+<style>
+  ul.breadcrumb li+li:before {
+    content: '\f061';
+  display: inline-block;
+  font-family: 'fontAwesome';
+  padding: 0 10px;
+  }
+  </style>
+<div>
+  <nav aria-label="breadcrumb">
+    <ul class="breadcrumb">
+      <li ><a href="../../../../learner/learner-dashboard">Dashboard</a></li>
+      <li ><a href="../../../../learner/learner-video-course-subject">Session Recorded Videos</a></li>
+      <li ><a href="../../../../learner/learner-video-list/{{subject_id}}">Video List</a></li>
+      <li aria-current="page">Material Preview</li>
+    </ul>
+  </nav>
+</div>
+  {% for t in details %}
+  <div class="panel-heading">
+    <h6 class="panel-title"><b>Play List Name : {{t.playlist}} </b></h6>
+    <h6 class="panel-title"><b>Video Name : {{t.video}} </b></h6>
+    <h6 class="panel-title"><b>Description : {{t.description}} </b></h6>
+  </div>
+    <iframe   width="100%" height="100%" marginheight="0" frameborder="0" scrolling="auto"
+    src='{{t.urlvalue|safe}}'>
+</iframe>
+
+<script>
+  includeHTML();
+  </script>
+  {% endfor %}
+{% endblock content %}

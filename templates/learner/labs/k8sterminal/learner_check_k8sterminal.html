@@ -1,0 +1,37 @@
+{% extends 'learner/learnerbase.html' %}
+{% block content %}
+{%load static%}
+<style>
+  ul.breadcrumb li+li:before {
+    content: '\f061';
+  display: inline-block;
+  font-family: 'fontAwesome';
+  padding: 0 10px;
+  }
+  </style>
+<body>
+<div>
+  <nav aria-label="breadcrumb">
+    <ul class="breadcrumb">
+      <li ><a href="{% url 'learner-dashboard' %}">Dashboard</a></li>
+      <li aria-current="page">K8S Terminal</li>
+    </ul>
+  </nav>
+</div>
+<h2 style="text-align:center; ">K8S Terminal</h2>
+<form method="POST" autocomplete="off" style="margin:100px;margin-top: 0px;">
+    <div class="form-group">
+      <label for="password">Password</label><br>
+        <input type="password" id="password" name="password" autofocus><br>
+    </div>
+    <button type="submit" class="btn btn-primary">Start</button>
+  </form>
+{% if messages %}
+{% for message in messages %}
+<div class="alert {{ message.tags }}" role="alert-warning">
+    {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+<br><br><br>
+{% endblock content %}

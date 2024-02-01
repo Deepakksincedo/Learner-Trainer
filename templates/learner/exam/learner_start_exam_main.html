@@ -1,0 +1,157 @@
+{% extends 'learner/learnerbase.html' %}
+{% block content %}
+{%load static%}
+<head>
+<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f1f1f1;
+}
+
+#regForm {
+  background-color: #ffffff;
+  margin: 100px auto;
+  font-family: Raleway;
+  padding: 40px;
+  width: 70%;
+  min-width: 300px;
+}
+
+h1 {
+  text-align: center;  
+}
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
+button {
+  background-color: #04AA6D;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 17px;
+  font-family: Raleway;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+#prevBtn {
+  background-color: #bbbbbb;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;  
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #04AA6D;
+}
+</style>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<ol class="breadcrumb text-right">
+    <li><a href="learner-dashboard">Dashboard</a></li>
+    <li><a href="/learner/learner-exam">Exams</a></li>
+    <li class="active">Running Exam</li>
+  </ul>
+<div class="jumbotron my-4">
+    <h1 style="text-align: center;">{{exam.exam_name}}</h1>
+<div align="right " id="displaytimer"><b>Timer: 0 seconds</b></div>
+ 
+ <form method='post' action=''>
+    {% csrf_token %}
+    {% for q  in questions%}
+    
+    <div class="form-group">
+      <p style="text-align:left;">
+        <label for="question">{{q.question}}</label>
+        <span style="float:right;">
+            [Marks {{q.marks}}]
+        </span>
+    </p>
+    </div>
+    <div class="form-check">
+        <div class="form-check">
+            &emsp;&emsp;&emsp;&emsp;<input class="form-check-input" type="radio" name="{{q.question}}" id="gridRadios1" value="option1" checked>
+            <label class="form-check-label" for="gridRadios1">
+                {{q.option1}}
+            </label>
+        </div>
+        <div class="form-check">
+            &emsp;&emsp;&emsp;&emsp;<input class="form-check-input" type="radio" name="{{q.question}}" id="gridRadios2" value="option2">
+            <label class="form-check-label" for="gridRadios2">
+                {{q.option2}}
+            </label>
+        </div>
+        <div class="form-check">
+            &emsp;&emsp;&emsp;&emsp;<input class="form-check-input" type="radio" name="{{q.question}}" id="gridRadios1" value="option3">
+            <label class="form-check-label" for="gridRadios1">
+                {{q.option3}}
+            </label>
+        </div>
+        <div class="form-check">
+            &emsp;&emsp;&emsp;&emsp;<input class="form-check-input" type="radio" name="{{q.question}}" id="gridRadios2" value="option4">
+            <label class="form-check-label" for="gridRadios2">
+                {{q.option4}}
+            </label>
+        </div>
+    </div>
+    <div class="tab">{{q.question}}
+        <p> <input class="form-check-input" type="radio" name="{{q.question}}" id="gridRadios2" value="option4"></p>
+        {{q.option4}}
+      </div>    
+    {% endfor %}
+    <input id='timer' type='hidden' name="timer" value="">
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+{% block script %}
+        <script>
+ 
+            console.log('hello world')
+            const timer=document.getElementById('displaytimer')
+            console.log(timer.textContent)
+            const inputtag = document.getElementById('timer')
+            t=0
+            setInterval(()=>{
+                t+=1
+                timer.innerHTML ="<b>Timer: " +t+" seconds</b>"
+                inputtag.value = t
+            },1000)
+        </script>
+    {% endblock script %}
+{% endblock %}  
+    
+</div>

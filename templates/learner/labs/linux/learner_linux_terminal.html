@@ -1,0 +1,154 @@
+{% extends 'learner/learnerbase.html' %}
+{% block content %}
+{%load static%}
+<head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <style type="text/css">
+html, body{
+width:100%;
+height:80%;
+margin:0px;   
+}
+.container {
+width: 400px;
+padding: 10px;
+}
+#status span.status {
+display: none;
+font-weight: bold;
+}
+span.status.complete {
+color: green;
+}
+span.status.incomplete {
+color: red;
+}
+#status.complete span.status.complete {
+display: inline;
+}
+#status.incomplete span.status.incomplete {
+display: inline;
+}
+.message-blue {
+position: relative;
+margin-left: 20px;
+margin-bottom: 10px;
+padding: 10px;
+background-color: #A8DDFD;
+width: 200px;
+height: 50px;
+text-align: left;
+font: 400 .9em 'Open Sans', sans-serif;
+border: 1px solid #97C6E3;
+border-radius: 10px;
+}
+
+.message-orange {
+position: relative;
+margin-bottom: 10px;
+margin-left: calc(100% - 240px);
+padding: 10px;
+background-color: #f8e896;
+width: 200px;
+height: 50px;
+text-align: left;
+font: 400 .9em 'Open Sans', sans-serif;
+border: 1px solid #dfd087;
+border-radius: 10px;
+}
+
+.message-content {
+padding: 0;
+margin: 0;
+}
+
+.message-timestamp-right {
+position: absolute;
+font-size: .85em;
+font-weight: 300;
+bottom: 5px;
+right: 5px;
+}
+
+.message-timestamp-left {
+position: absolute;
+font-size: .85em;
+font-weight: 300;
+bottom: 5px;
+left: 5px;
+}
+
+.message-blue:after {
+content: '';
+position: absolute;
+width: 0;
+height: 0;
+border-top: 15px solid #A8DDFD;
+border-left: 15px solid transparent;
+border-right: 15px solid transparent;
+top: 0;
+left: -15px;
+}
+
+.message-blue:before {
+content: '';
+position: absolute;
+width: 0;
+height: 0;
+border-top: 17px solid #97C6E3;
+border-left: 16px solid transparent;
+border-right: 16px solid transparent;
+top: -1px;
+left: -17px;
+}
+
+.message-orange:after {
+content: '';
+position: absolute;
+width: 0;
+height: 0;
+border-bottom: 15px solid #f8e896;
+border-left: 15px solid transparent;
+border-right: 15px solid transparent;
+bottom: 0;
+right: -15px;
+}
+
+.message-orange:before {
+content: '';
+position: absolute;
+width: 0;
+height: 0;
+border-bottom: 17px solid #dfd087;
+border-left: 16px solid transparent;
+border-right: 16px solid transparent;
+bottom: -1px;
+right: -17px;
+}
+
+    </style>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript">
+function autoResize(iframe) {
+$(iframe).height($(iframe).contents().find('html').height());
+}
+    </script>
+    <script type="text/javascript" src="/static/watched.js"></script>
+    <!-- http://copy.sh/v86/?profile=linux26 -->
+</head>
+</thead>
+<iframe id="video2"
+    width="100%"
+    height="100%"
+    marginheight="0"
+    frameborder="0"
+    border="0"
+    scrolling="auto"
+    onload="autoResize(this);"
+    src="https://copy.sh/v86/"
+    allowfullscreen
+></iframe>
+
+{% endblock content %}

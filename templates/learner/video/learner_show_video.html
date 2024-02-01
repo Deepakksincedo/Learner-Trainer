@@ -1,0 +1,47 @@
+{% extends 'learner/learnerbase.html' %}
+{% block content %}
+{%load static%}    
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript">
+    function autoResize(iframe) {
+    $(iframe).height($(iframe).contents().find('html').height());
+    }
+        </script>
+        <script type="text/javascript" src="/static/watched.js"></script>
+
+    </head>
+    </thead>
+    <style>
+      ul.breadcrumb li+li:before {
+        content: '\f061';
+      display: inline-block;
+      font-family: 'fontAwesome';
+      padding: 0 10px;
+      }
+      </style>
+<nav aria-label="breadcrumb">
+          <ul class="breadcrumb">
+            <li ><a href="../../../../learner/learner-dashboard">Dashboard</a></li>
+            <li ><a href="../../../../learner/learner-video-course-subject">Session Recorded Videos</a></li>
+            <li ><a href="../../../../learner/learner-video-list/{{subject_id}}">Video List</a></li>
+            <li  aria-current="page">Playing Video</li>
+          </ul>
+        </nav>
+      </div>
+    <h6 class="panel-title">
+        <b>Playing Video of Topic : {{topicname}}</b>
+    </h6>
+    
+    <iframe id="video2"
+        width="75%"
+        height="60%"
+        marginheight="0"
+        frameborder="0"
+        border="0"
+        scrolling="auto"
+        onload="autoResize(this);"
+        src="{{url}}"
+        allowfullscreen
+    ></iframe>
+    
+{% endblock content %}

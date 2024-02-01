@@ -1,0 +1,71 @@
+{% extends 'learner/learnerbase.html' %}
+{% block content %}
+{%load static%}
+
+<head>
+  <link rel="stylesheet" href="/static/dreamlms/css/style.css">
+  <style>
+    ul.breadcrumb li+li:before {
+      content: '\f061';
+    display: inline-block;
+    font-family: 'fontAwesome';
+    padding: 0 10px;
+    }
+    </style>
+</head>
+<div>
+  <nav aria-label="breadcrumb">
+    <ul class="breadcrumb">
+      <li ><a href="../../../../learner/learner-dashboard">Dashboard</a></li>
+      <li ><a href="../../../../learner/learner-studymaterial-module">Courses</a></li>
+      <li ><a
+          href="../../../../learner/learner-studymaterial-module-chapter/{{module_id}} ">{{modulename}}</a>
+      <li ><a
+          href="../../../../learner/learner-studymaterial-chapter-show/{{chapter_id}}/{{module_id}} ">{{chaptername}}</a>
+      <li ><a
+          href="../../../../learner/learner-chapterexam/{{chapter_id}}/{{module_id}} ">Exams</a>
+      <li  aria-current="page">Exam Details</li>
+    </ul>
+  </nav>
+</div>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h6 class="panel-title">Exams Details</h6>
+  </div>
+  <table class="table table-hover" id="dev-table">
+    <thead>
+      <tr>
+
+        <th>Attempt</th>
+        <th>Exam Date</th>
+        <th>Questions</th>
+        <th>Correct</th>
+        <th>Wrong</th>
+        <th>Obtained Marks</th>
+        <th>%</th>
+        <th>Time</th>
+        <th>View Details</th>
+      </tr>
+    </thead>
+    {% for t in chapterexams %}
+    <tr>
+      <td>Attemp {{ forloop.counter }}</td>
+      <td> {{t.date}}</td>
+      <td> {{ t.correct|add:t.wrong }}</td>
+      <td> {{t.correct}}</td>
+      <td> {{t.wrong}}</td>
+      <td> {{t.marks}}</td>
+      <td> {{t.get_percentage|floatformat:"0"}}</td>
+      <td> {{t.timetaken}} Sec</td>
+
+      <td><a class="btn btn-primary" href="{% url 'learner-show-chapterexam-reuslt-details' t.id forloop.counter chapter_id module_id  %}"><span
+            class="fas fa-angle-double-right"></span></a></td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+<br><br><br><br><br><br>
+{% endblock content %}

@@ -1,0 +1,90 @@
+{% block content %}
+{%load static%}
+
+<link rel="stylesheet" href="/static/dreamlms/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/static/dreamlms/plugins/fontawesome/css/fontawesome.min.css">
+<link rel="stylesheet" href="/static/dreamlms/plugins/fontawesome/css/all.min.css">
+
+<link rel="stylesheet" href="/static/dreamlms/css/feather.css">
+
+<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+<div class="main-wrapper">
+    <section class="page-content course-sec course-lesson">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="lesson-group">
+                        <div class="course-card">
+                            <h6 class="cou-title">
+                                <a>{{chapter_name}} <span>{{topiccount}} Lessons</span> </a>
+                            </h6>
+                            <div id="collapseOne" class="card-collapse ">
+                                <div class="progress-stip">
+                                    <div class="progress-bar bg-success progress-bar-striped active-stip"></div>
+                                </div>
+                                <div class="student-percent lesson-percent">
+                                    <p>10hrs<span>50%</span></p>
+                                </div>
+                                <ul>
+                                    {% for t in list %}
+                                    <li>
+                                        <p class="play-intro">
+
+                                        {% if t.mtype == "PDF" %}
+                                        <a href="javascript:void(0)" onclick="loadIframe('https://nbviewer.org/github{{t.urlvalue|cut:"https://github.com"}}','{{t.topic}}')">{{t.topic}}</a>
+                                            {%elif t.mtype == "Video" %}
+                                            <a href="javascript:void(0)" onclick="loadIframe('{{t.urlvalue}}','{{t.topic}}')">{{t.topic}}</a>
+                                            {%elif t.mtype == "URL" %}
+                                            <a href="javascript:void(0)" onclick="loadIframe('{{t.urlvalue}}')">{{t.topic}}</a>
+                                            {%elif t.mtype == "HTML" %}
+                                            <a href="javascript:void(0)" onclick="loadIframe('https://htmlpreview.github.io/?{{t.urlvalue}}','{{t.topic}}')">{{t.topic}}</a>
+                                            {% endif %}
+                                        
+                                    </p>
+                                        <div>
+                                            <img src="/static/dreamlms/img/icon/play-icon.svg" alt="">
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="student-widget lesson-introduction">
+                        <div class="lesson-widget-group">
+                            <div id="instruction">
+                                <h4 class="tittle">' + linkText + ' </h4><BR>
+                            </div>
+                            <div id="iframe-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+</div>
+<style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+<script>
+    function loadIframe(linkUrl, linkText) {
+        var myDiv = document.getElementById("instruction");
+        myDiv.style.display = "none";
+
+      const iframeContainer = document.getElementById("iframe-container");
+      const iframe = document.createElement("iframe");
+      iframe.src = linkUrl;
+      iframeContainer.innerHTML = '<h4 class="tittle">' + linkText + ' </h4><BR>';
+      iframeContainer.appendChild(iframe);
+    }
+  </script>
+{% endblock content %}

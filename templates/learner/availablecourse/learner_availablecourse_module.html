@@ -1,0 +1,117 @@
+{% extends 'learner/learnerbase.html' %}
+{% block content %}
+{%load static%}
+<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+
+<style>
+  ul.breadcrumb li+li:before {
+    content: '\f061';
+  display: inline-block;
+  font-family: 'fontAwesome';
+  padding: 0 10px;
+  }
+  </style><div class="main-wrapper"> 
+  <div>
+    <nav aria-label="breadcrumb">
+      <ul class="breadcrumb">
+        <li ><a href="../../../../learner/learner-dashboard">Dashboard</a></li>
+        <li aria-current="page">Available Courses</li>
+      </ul>
+    </nav>
+  </div>
+
+  <section class="course-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-9">
+          {% for t in modules %}
+          <div class="row">
+            <div class="col-lg-12 col-md-12 d-flex">
+              <div class="course-box course-design list-course d-flex">
+
+                <div class="product">
+                  <div class="product-img">
+                    <a href="{% url 'learner-availablecourse-module-chapter' t.module_name t.id %}">
+                      <img class="img-fluid" alt="" src="{{t.image}}">
+                    </a>
+                    <div class="price">
+                      {% if t.price == 0 %}
+                        <h3 style="color: green;">FREE</h3>
+                      {% else %}
+                      <h3>Rs. {{t.price}}</h3>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="product-content">
+                    <div class="head-course-title">
+                      <h3 class="title"><a href="{% url 'learner-availablecourse-module-chapter' t.module_name t.id %}">{{t.module_name}}</a></h3>
+                      
+                      <div class="all-btn all-category d-flex align-items-center">
+                        <a data-id="{{ t.id }}" class="link btn btn-primary" onclick="addToCart('{{ t.id }}')">Add to Cart</a>
+                      </div>
+                    </div> 
+                    <p>{{t.description}}</p>
+                    <div class="course-info border-bottom-0 pb-0 d-flex align-items-center">
+                      <div class="rating-img d-flex align-items-center">
+                        <img src="assets/img/icon/icon-01.svg" alt="">
+                        <p>__+ Lesson</p>
+                      </div>
+                      <div class="course-view d-flex align-items-center">
+                        <img src="assets/img/icon/icon-02.svg" alt="">
+                        <p>__min</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- <script>
+  const links = $('.link');
+  links.on('click', function (event) {
+      
+      // Make AJAX request to update model with selected ID
+      $.ajax({
+          url: "{% url 'ajax_save_cart' %}",
+          method: 'POST',
+          contentType: 'application/json',
+          data: {
+              id: selectedValue,
+              module_id: '{{module_id}}'
+          },
+          success: function (response) {
+              console.log('Updated model successfully');
+          },
+          error: function (error) {
+              console.log('Error updating model: ', error);
+          }
+      });
+  });
+</script> -->
+
+<script>
+
+  function addToCart(Id) {
+    $.ajax({
+      url: "{% url 'ajax_save_cart' %}",
+        type: 'POST',
+        data: { 'id': Id },
+        success: function(response) {
+            // Handle success response
+        },
+        error: function(xhr, status, error) {
+            // Handle error response
+        }
+    });
+}
+</script>
+
+{% endblock content %}

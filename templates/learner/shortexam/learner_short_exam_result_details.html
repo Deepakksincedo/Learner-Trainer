@@ -1,0 +1,55 @@
+{% extends 'learner/learnerbase.html' %}
+{% block content %}
+{%load static%}
+
+<head>
+  <link rel="stylesheet" href="/static/dreamlms/css/style.css">
+  <style>
+    ul.breadcrumb li+li:before {
+      content: '\f061';
+    display: inline-block;
+    font-family: 'fontAwesome';
+    padding: 0 10px;
+    }
+    </style>
+</head>
+<div>
+  <nav aria-label="breadcrumb">
+    <ul class="breadcrumb">
+      <li ><a href="../../../../learner/learner-dashboard">Dashboard</a></li>
+      <li ><a href="../../../../learner/learner-short-exam">Short Exams</a></li>
+      <li aria-current="page">Short Exam Result Details</li>
+    </ul>
+  </nav>
+</div>
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h6 class="panel-title">Short Exams Rseult Details</h6>
+    </div>
+    <table class="table table-hover" id="dev-table">
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>Given Answer</th>
+          <th>Question Marks</th>
+          <th>Obtained Mark</th>
+          <th>Feed back</th>
+        </tr>
+      </thead>
+      {% for t in shortexams %}
+      <tr>
+        <td> {{t.question.question}}</td>
+        <td> {{t.answer}}</td>
+        <td> {{t.question.marks}}</td>
+        <td> {{t.marks}}</td>
+        <td> {{t.feedback}}</td>
+        
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+
+<br><br><br><br><br><br>
+{% endblock content %}

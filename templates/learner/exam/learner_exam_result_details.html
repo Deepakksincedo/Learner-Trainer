@@ -1,0 +1,68 @@
+{% extends 'learner/learnerbase.html' %}
+{% block content %}
+{%load static%}
+
+<head>
+<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+</head>
+<style>
+  ul.breadcrumb li+li:before {
+    content: '\f061';
+  display: inline-block;
+  font-family: 'fontAwesome';
+  padding: 0 10px;
+  }
+  </style>
+<div>
+  <nav aria-label="breadcrumb">
+    <ul class="breadcrumb">
+      <li ><a href="../../../../learner/learner-dashboard">Dashboard</a></li>
+      <li ><a href="../../../../learner/learner-exam">Exams</a></li>
+      <li  aria-current="page">Result Details</li>
+    </ul>
+  </nav>
+</div>
+
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h6 class="panel-title">Exams Reult Details</h6>
+    </div>
+    <table class="table table-hover" id="dev-table">
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>Option 1</th>
+          <th>Option 2</th>
+          <th>Option 3</th>
+          <th>Option 4</th>
+          <th>Right Answer</th>
+          <th>Question Marks</th>
+          <th>Selected Answer</th>
+          <th>Obtained Mark</th>
+        </tr>
+      </thead>
+      {% for t in exams %}
+      <tr>
+        <td> {{t.question.question}}</td>
+        <td> {{t.question.option1}}</td>
+        <td> {{t.question.option2}}</td>
+        <td> {{t.question.option3}}</td>
+        <td> {{t.question.option4}}</td>
+        <td> Option {{t.question.answer}}</td>
+        <td> {{t.question.marks}}</td>
+        <td> {{t.selected}}</td>
+        <td>
+          {% if t.question.answer == t.selected %}
+          {{t.question.marks}}
+          {% else %}
+          0
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+
+{% endblock content %}

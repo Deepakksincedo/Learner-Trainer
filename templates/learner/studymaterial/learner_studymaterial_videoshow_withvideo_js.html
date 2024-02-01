@@ -1,0 +1,50 @@
+{% load static %}
+<!-- Custom fonts for this template-->
+<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+<link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+<!-- Page level plugin CSS-->
+<link href="{% static 'vendor/datatables/dataTables.bootstrap4.css' %}" rel="stylesheet">
+
+<!-- Custom styles for this template-->
+<link href="{% static 'css/sb-admin.css' %}" rel="stylesheet">
+
+<link href="/static/video/video-js.css" rel="stylesheet" />
+{% block content %}
+<style>
+  ul.breadcrumb li+li:before {
+    content: '\f061';
+  display: inline-block;
+  font-family: 'fontAwesome';
+  padding: 0 10px;
+  }
+  </style>
+<div>
+  <nav aria-label="breadcrumb">
+    <ul class="breadcrumb">
+      <li ><a href="../../../../learner/learner-dashboard">Dashboard</a></li>
+      <li ><a href="../../../../learner/learner-studymaterial-module">Courses</a></li>
+      <li ><a href="{{request.META.HTTP_REFERER|escape}}">Move to Back</a></li>
+      <li  aria-current="page">Preview</li>
+    </ul>
+  </nav>
+</div>
+
+{% for t in details %}
+<div class="panel-heading">
+  <h6 class="panel-title"><b>Topic Name : {{t.topic}} </b></h6>
+  <h6 class="panel-title"><b>Description : {{t.description}} </b></h6>
+</div>
+
+<video id="my-video" class="video-js" controls preload="auto" poster="https://github.com/NubeEra-ImranAli/django-crud-ajax-login-register-fileupload/raw/master/23.jpg"
+  data-setup="{}">
+  <source src="{{t.urlvalue}}" type="video/mp4" />
+  <p class="vjs-no-js">
+    To view this video please enable JavaScript, and consider upgrading to a
+    web browser that
+    <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+  </p>
+</video>
+<script src="/static/video/video.min.js"></script>
+{% endfor %}
+{% endblock content %}

@@ -1,0 +1,72 @@
+<!--**********************************
+            Sidebar start
+        ***********************************-->
+
+<div class="dlabnav" style='overflow:auto;'>
+    
+        <div class="text-center">
+                <!-- <img src="{{request.user.profile_pic}}" width="100" class="img-fluid rounded-circle" alt=""> -->
+                <h4><a href="instructor-profile.html">{{request.user.first_name}} {{request.user.last_name}}</a></h4>
+                <h6>Learner</h6>
+        </div>
+    <div class="dlabnav-scroll">
+        <ul class="metismenu" id="menu">
+            <li><a href="{% url 'learner-dashboard' %}" class="" aria-expanded="false">
+                <i class="bi bi-grid"></i>
+                <span class="nav-text">Dashboard</span>
+            </a>
+        </li>
+
+        <li><a href="{% url 'learner-video-course-subject' %}" class="" aria-expanded="false">
+            <i class="bi bi-list-ul"></i>
+            <span class="nav-text">Session Recorded Videos</span>
+        </a>
+    </li>
+            
+    <li><a href="{% url 'learner-studymaterial-module' %}" class="" aria-expanded="false">
+        <i class="bi bi-list-check"></i>
+        <span class="nav-text">My Enrolled Courses</span>
+    </a>
+</li>
+
+<li><a href="{% url 'learner-availablecourse-module' %}" class="" aria-expanded="false">
+    <i class="bi bi-list"></i>
+    <span class="nav-text">All Courses to Enrolled</span>
+</a>
+</li>
+
+<li><a href="{% url 'learner-check-k8sterminal' %}" class="" aria-expanded="false">
+    <i class="bi bi-grid"></i>
+    <span class="nav-text">Lab (K8S)</span>
+</a>
+</li>
+
+<li><a href="{% url 'learner-linux-terminal' %}" class="" aria-expanded="false">
+    <i class="bi bi-grid"></i>
+    <span class="nav-text">Lab Linux</span>
+</a>
+</li>
+
+<li><a href="{% url 'learner-pyton-terminal' %}" class="" aria-expanded="false">
+    <i class="bi bi-grid"></i>
+    <span class="nav-text">Lab Python</span>
+</a>
+</li>
+
+<li><a href="https://shell.cloud.google.com/?show=terminal" target="_blank" class="nav-link" aria-expanded="false">
+    <i class="bi bi-grid"></i>
+    <span class="nav-text">Lab Cloud Shell</span>
+</a>
+</li>
+            <li><a href="{% url 'logout' %}" class="" aria-expanded="false">
+                <i class="bi bi-grid"></i>
+                
+                <span class="nav-text">Sign Out</span>
+            </a>
+        <li>
+        </ul>
+    </div>
+</div>
+<!--**********************************
+            Sidebar end
+        ***********************************-->

@@ -1,0 +1,89 @@
+<div class="col-xl-3 col-lg-4 col-md-12 theiaStickySidebar">
+    <div class="settings-widget dash-profile">
+        <div class="settings-menu p-0">
+            <div class="profile-bg">
+                <img src="/static/dreamlms/img/instructor-profile-bg.jpg" alt="">
+                <div class="profile-img">
+                    <!-- <a href="instructor-profile.html"><img src="{{request.user.profile_pic}}" alt=""></a> -->
+                </div>
+            </div>
+            <div class="profile-group">
+                <div class="profile-name text-center">
+                    <h4><a href="instructor-profile.html">{{request.user.first_name}} {{request.user.last_name}}</a>
+                    </h4>
+                    <h6><a href="instructor-profile.html">({{request.user.username}})</a></h6>
+                    <h6>Learner</h6>
+                    <img src="{{request.user.social_auth.model.pic}}" alt="">
+                </div>
+            </div>
+        </div>
+    </div> 
+    <div class="settings-widget account-settings">
+        <div class="settings-menu">
+            <h3>DASHBOARD</h3>
+            <ul>
+                <li class="nav-item active">
+                    <a href="{% url 'learner-dashboard' %}" class="nav-link">
+                        <i class="feather-home"></i> My Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'learner-video-course-subject' %}" class="nav-link">
+                        <i class="feather-star"></i> Session Recorded Videos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'learner-studymaterial-module' %}" class="nav-link">
+                        <i class="feather-star"></i> My Enrolled Courses
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'learner-availablecourse-module' %}"
+                        class="nav-link">
+                        <i class="feather-book"></i> All Courses to Enrolled
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'learner-check-k8sterminal' %}" class="nav-link">
+                        <i class="feather-book"></i> Lab (K8S)
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'learner-linux-terminal' %}" class="nav-link">
+                        <i class="feather-book"></i> Lab Linux
+                    </a>
+                </li>
+                <li class="nav-item">
+                     <a href="{% url 'learner-pyton-terminal' %}" class="nav-link">
+                        <i class="feather-book"></i> Lab Python
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://shell.cloud.google.com/?show=terminal" target="_blank" class="nav-link">
+                        <i class="feather-book"></i> Lab Cloud Shell
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'learner-exam' %}" class="nav-link">
+                        <i class="feather-star"></i> MCQ Exam
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'learner-short-exam' %}" class="nav-link">
+                        <i class="feather-star"></i> Short Exam
+                    </a>
+                </li>
+            </ul>
+            <div class="instructor-title">
+                <h3>ACCOUNT SETTINGS</h3>
+            </div>
+            <ul>
+                <li class="nav-item">
+                    <a href="../../../../../../../../../../../../logout" class="nav-link">
+                        <i class="feather-power"></i> Sign Out
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

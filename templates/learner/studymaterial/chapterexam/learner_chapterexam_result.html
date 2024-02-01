@@ -1,0 +1,96 @@
+{% extends 'learner/learnerbase.html' %}
+{% block content %}
+{%load static%}
+
+<head>
+  <link rel="stylesheet" href="/static/dreamlms/css/style.css">
+</head>
+<style>
+  ul.breadcrumb li+li:before {
+    content: '\f061';
+  display: inline-block;
+  font-family: 'fontAwesome';
+  padding: 0 10px;
+  }
+  </style>
+<div>
+  <nav aria-label="breadcrumb">
+      <ul class="breadcrumb">
+          <li ><a href="../../../../learner/learner-dashboard">Dashboard</a></li>
+          <li ><a href="../../../../learner/learner-studymaterial-module">Courses</a></li>
+          <li ><a
+                  href="../../../../learner/learner-studymaterial-module-chapter/{{module_id}} ">{{modulename}}</a>
+          <li ><a
+                  href="../../../../learner/learner-studymaterial-chapter-show/{{chapter_id}}/{{module_id}} ">{{chaptername}}</a>
+          <li ><a
+                  href="../../../../learner/learner-chapterexam/{{chapter_id}}/{{module_id}} ">Exams</a>
+          <li class="active">Result</li>
+      </ul>
+  </nav>
+</div>
+<div class="container ">
+  <div class="card-columns" style="padding: 10px; margin: 20px;">
+    <div class="card" align="centre " style="width: 32rem; border:5px black solid">
+      <img src="/static/image/results.jpg" alt="Card image cap" width="300">
+      <div class="card-body">
+        <h5 class="card-title">Score: {{score}}</h5>
+        <p class="card-text">Percentage: {{percent|floatformat:2}}%</p>
+        <p class="card-text">Time Taken: {{time}} seconds</p>
+        <p class="card-text">Correct answers: {{correct}}</p>
+        <p class="card-text">Incorrect answers: {{wrong}}</p>
+        <p class="card-text">Total questions: {{total}}</p>
+        <h5>All the best for next quiz!</h5>
+      </div>
+    </div>
+  </div>
+  <div class="panel-heading">
+    <h6 class="panel-title">Exams Answered</h6>
+  </div>
+  <table class="table table-hover" id="dev-table">
+    <thead>
+      <tr>
+        <th>Question</th>
+        <th>Answered</th>
+        <th>Correct</th>
+        <th>Marks</th>
+      </tr>
+    </thead>
+
+    {% for q in resdetobj %}
+    {% if q.answered == q.Correct %}
+    <tr bgcolor="#5DBF3D">
+      {% else %}
+    <tr bgcolor="#F47A5F">
+      {% endif %}
+      <td>{{q.q}}</td>
+      {% if q.answered == '1' %}
+      <td>{{q.o1}}</td>
+      {% elif q.answered == '2' %}
+      <td>{{q.o2}}</td>
+      {% elif q.answered == '3' %}
+      <td>{{q.o3}}</td>
+      {% elif q.answered == '4' %}
+      <td>{{q.o4}}</td>
+      {% endif %}
+      {% if q.Correct == '1' %}
+      <td>{{q.o1}}</td>
+      {% elif q.Correct == '2' %}
+      <td>{{q.o2}}</td>
+      {% elif q.Correct == '3' %}
+      <td>{{q.o3}}</td>
+      {% elif q.Correct == '4' %}
+      <td>{{q.o4}}</td>
+      {% endif %}
+      {% if q.answered == q.Correct %}
+      <td>{{q.marks}}</td>
+      {% else %}
+      <td>0</td>
+      {% endif %}
+
+
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+
+{% endblock %}

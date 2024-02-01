@@ -1,0 +1,129 @@
+{% extends 'learner/learnerbase.html' %}
+{% block content %}
+{%load static%}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/static/getskills/css/style.css">
+<div class="container-fluid">
+    {% for d in moddet %}
+    <div class="row">
+        <div class="col-xl-7">
+            <div class="card">
+                <div class="card-body">
+                    <div class="course-content d-flex justify-content-between flex-wrap">
+                        <div>
+                            <h3>{{d.module_name}}</h3>
+                            <ul class="d-flex align-items-center raiting my-0 flex-wrap">
+                                <li><span class="font-w500">{{watchcount}} out of {{Topiccount}} completed</span>
+                                </li>
+                                <li>__ min</li>
+                                <li>__ students enrolled</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="video-img style-1">
+                        <div class="view-demo">
+                            <img src="{{d.image}}" alt="">
+                        </div>
+                    </div>
+                    <div class="course-details-tab style-2 mt-4">
+                        <nav>
+                            <div class="nav nav-tabs tab-auto" id="nav-tab" role="tablist">
+                                <button class="nav-link active" id="nav-about-tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav-about" type="button" role="tab" aria-controls="nav-about"
+                                    aria-selected="true">Description</button>
+                                <button class="nav-link" id="nav-reviews-tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav-reviews" type="button" role="tab" aria-controls="nav-reviews"
+                                    aria-selected="false">What you'll learn</button>
+                                <button class="nav-link" id="nav-discussion-tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav-discussion" type="button" role="tab"
+                                    aria-controls="nav-discussion" aria-selected="false">Course Includes</button>
+                            </div>
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade active show" id="nav-about" role="tabpanel"
+                                aria-labelledby="nav-about-tab">
+                                <div class="about-content">
+                                    <p>{{d.description}}</p>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="nav-reviews" role="tabpanel"
+                                aria-labelledby="nav-reviews-tab">
+                                {{d.whatlearn | safe}}
+                            </div>
+                            <div class="tab-pane fade" id="nav-discussion" role="tabpanel"
+                                aria-labelledby="nav-discussion-tab">
+                                {{d.includes | safe}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-xl-5">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h5 class="subs-title">Course Content</h5>
+                    </div>
+                    <div class="col-sm-6 text-sm-end">
+                        <h6>{{Topiccount}} Lectures <img src="/static/dreamlms/img/icon/icon-01.svg" alt=""> __min</h6>
+                    </div>
+                </div>
+                {% for t in list %}
+                <div class="course-card">
+                    {% if t.srno == 1 %}
+                    <h6 class="cou-title">
+                        <a class="collapsed " data-bs-toggle="collapse" href="#collapseOne{{t.chapter_id}}"
+                            aria-expanded="false">{{forloop.counter}} <p class="fa fa-angle-double-right"></p>
+                            {{t.chapter_name}} </a>
+                    </h6>
+                    {% endif %}
+                    <div id="collapseOne{{t.chapter_id}}" class="card-collapse collapse" style="">
+                        <ul>
+                            <li>
+                                <p>
+                                    {% if t.mtype == "PDF" %}
+                                    &nbsp; &nbsp; &nbsp; &nbsp;<i class="	fa fa-file-pdf-o" aria-hidden="true"> &nbsp;
+                                        &nbsp; &nbsp; &nbsp;
+                                    </i>
+                                    {%elif t.mtype == "Video" %}
+                                    &nbsp; &nbsp; &nbsp; &nbsp;<i class="fa fa-file-video-o" aria-hidden="true"> &nbsp;
+                                        &nbsp; &nbsp;
+                                        &nbsp; </i>
+                                    {%elif t.mtype == "URL" %}
+                                    &nbsp; &nbsp; &nbsp; &nbsp;<i class="fa fa-link" aria-hidden="true">&nbsp; &nbsp;
+                                        &nbsp; &nbsp; </i>
+                                    {%elif t.mtype == "HTML" %}
+                                    &nbsp; &nbsp; &nbsp; &nbsp;<i class="far fa-clone" aria-hidden="true">&nbsp; &nbsp;
+                                        &nbsp; &nbsp; </i>
+                                    {% endif %}
+                                    {{t.topic}}
+                                    {% if t.srno == 1 %}
+                                    {% if t.flag == 'yes'%}
+                                <div>
+                                    <a href="{% url 'learner-studymaterial-chapter-show' t.chapter_id module_id %}">Let's
+                                        Start</a>
+                                </div>
+                                {% else %}
+                                <div>
+                                    <img src="/static/dreamlms/img/icon/lock.svg" alt="">
+                                    <a>Complete Previous Chapters to Unlock</a>
+                                </div>
+                                {% endif %}
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock content %}

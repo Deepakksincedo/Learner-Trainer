@@ -1,0 +1,86 @@
+{% extends 'learner/learnerbase.html' %}
+{% block content %}
+{%load static%}
+<div class="main-wrapper">
+  <section class="course-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-9">
+
+          <div class="showing-list">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="d-flex align-items-center">
+                  <div class="view-icons">
+                    <a href="../../../learner/learner-video-course" class="grid-view"><i class="feather-grid"></i></a>
+                    <a href="../../../learner/learner-video-course" class="list-view active"><i
+                        class="feather-list"></i></a>
+                  </div>
+                  <div class="show-result">
+                    <h4>Showing 1-9 of 50 results</h4>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="show-filter add-course-info ">
+                  <div class="row gx-2 align-items-center">
+                    <div class="col-md-6 col-item">
+                      <div class=" search-group">
+                        <i class="feather-search"></i>
+                        <input type="text" class="form-control" placeholder="Search our courses">
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-item">
+                      <div class="form-group select-form mb-0">
+                        <select class="form-select select" name="sellist1">
+                          <option>Newly published </option>
+                          <option>published 1</option>
+                          <option>published 2</option>
+                          <option>published 3</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% for t in videos %}
+          <div class="row">
+            <div class="col-lg-12 col-md-12 d-flex">
+              <div class="course-box course-design list-course d-flex">
+                <div class="product">
+                  <div class="product-img">
+                    <a href="{% url 'learner-video-course-subject' t.id  %}">
+                      <img class="img-fluid" alt="" src="/static/image/courses.png">
+                    </a>
+                  </div>
+                  <div class="product-content">
+                    <div class="head-course-title">
+                      <h3 class="title"><a
+                          href="{% url 'learner-video-course-subject' t.id  %}">{{t.courseset_name}}</a></h3>
+                    </div>
+                    <div class="course-info border-bottom-0 pb-0 d-flex align-items-center">
+                      <div class="rating-img d-flex align-items-center">
+                        <img src="/static/dreamlms/img/icon/icon-01.svg" alt="">
+                        <p>___ Lesson</p>
+                      </div>
+                      <div class="course-view d-flex align-items-center">
+                        <img src="/static/dreamlms/img/icon/icon-02.svg" alt="">
+                        <p>__hr __min</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% endblock content %}

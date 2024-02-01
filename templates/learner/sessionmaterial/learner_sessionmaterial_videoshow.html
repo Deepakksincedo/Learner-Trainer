@@ -1,0 +1,40 @@
+{% load static %}
+<!-- Custom fonts for this template-->
+<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+<link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+<!-- Page level plugin CSS-->
+<link href="{% static 'vendor/datatables/dataTables.bootstrap4.css' %}" rel="stylesheet">
+
+<!-- Custom styles for this template-->
+<link href="{% static 'css/sb-admin.css' %}" rel="stylesheet">
+{% block content %}
+<style>
+  ul.breadcrumb li+li:before {
+    content: '\f061';
+  display: inline-block;
+  font-family: 'fontAwesome';
+  padding: 0 10px;
+  }
+  </style>
+<div>
+  <nav aria-label="breadcrumb">
+    <ul class="breadcrumb">
+      <li ><a href="../../../../learner/learner-dashboard">Dashboard</a></li>
+      <li ><a href="../../../../learner/learner-video-course-subject">Session Recorded Videos</a></li>
+      <li ><a href="../../../../learner/learner-video-list/{{subject_id}}">Video List</a></li>
+      <li aria-current="page">Material Preview</li>
+    </ul>
+  </nav>
+</div>
+{% for t in details %}
+<div class="panel-heading">
+  <h6 class="panel-title"><b>Play List Name : {{t.playlist}} </b></h6>
+  <h6 class="panel-title"><b>Video Name : {{t.video}} </b></h6>
+  <h6 class="panel-title"><b>Description : {{t.description}} </b></h6>
+</div>
+
+<iframe width="75%" height="60%" marginheight="0" frameborder="0" border="0" scrolling="auto" onload="autoResize(this);"
+  src="{{t.urlvalue}}" allowfullscreen></iframe>
+{% endfor %}
+{% endblock content %}

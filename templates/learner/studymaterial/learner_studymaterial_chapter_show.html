@@ -1,0 +1,181 @@
+{% block content %}
+{%load static%}
+
+<link rel="stylesheet" href="/static/dreamlms/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/static/dreamlms/plugins/fontawesome/css/fontawesome.min.css">
+<link rel="stylesheet" href="/static/dreamlms/plugins/fontawesome/css/all.min.css">
+
+<link rel="stylesheet" href="/static/dreamlms/css/feather.css">
+
+<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+<style>
+    ul.breadcrumb li+li:before {
+      content: '\f061';
+    display: inline-block;
+    font-family: 'fontAwesome';
+    padding: 0 10px;
+    }
+    </style>
+<div>
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li ><a href="../../../../learner/learner-dashboard">Dashboard</a></li>
+            <li ><a href="../../../../learner/learner-studymaterial-module">Courses</a></li>
+            <li ><a
+                    href="../../../../learner/learner-studymaterial-module-chapter/{{module_id}} ">{{modulename}}</a>
+            </li>
+            <li  aria-current="page">Preview</li>
+        </ul>
+    </nav>
+</div>
+<button onclick="toggleVisibility()">Toggle Visibility</button>
+
+<div class="row">
+    <div class="col-lg-4" id="hide-show">
+        <div class="lesson-group">
+            <div class="course-card">
+                <h6 class="cou-title">
+                    <a>{{chapter_name}} <span>{{topiccount}} Lessons</span> </a>
+                </h6>
+                <div id="collapseOne" class="card-collapse ">
+                    <div class="progress-stip">
+                        <div class="progress-bar bg-success progress-bar-striped " style="width:{{per}}%"></div>
+                    </div>
+                    <div class="student-percent lesson-percent">
+                        <p>{{watchcount}} out of {{Topiccount}} completed<span>{{per}}%</span></p>
+                    </div>
+                    <ul>
+                        {% for t in list %}
+                        <li>
+                            {% if forloop.counter == 1 or t.matcount > 0 %}
+
+                            <p class="play-intro">
+                                {% if t.mtype == "PDF" %}
+                                <a href='https://nbviewer.org/github{{t.urlvalue|cut:"https://github.com"}}'
+                                    class="link" data-id="{{ t.id }}">{{t.topic}}</a>
+                                {% elif t.mtype == "Video" %}
+                                <a href='{{t.urlvalue}}' class="link" data-id="{{ t.id }}">{{t.topic}}</a>
+                                {% elif t.mtype == "URL" %}
+                                <a href="javascript:void(0)" onclick="loadIframe('{{t.urlvalue}}')">{{t.topic}}</a>
+                                {% elif t.mtype == "HTML" %}
+                                <a href='https://htmlpreview.github.io/?{{t.urlvalue}}' class="link"
+                                    data-id="{{ t.id }}">{{t.topic}}</a>
+                                {% endif %}
+                            </p>
+                            <div>
+                                <img src="/static/dreamlms/img/icon/play-icon.svg" alt="">
+                            </div>
+                            {% else %}
+                            <p class="play-intro">
+                                <a>{{t.topic}}</a>
+                            </p>
+                            <div>
+                                <img src="/static/dreamlms/img/icon/lock.svg" alt="">
+                            </div>
+                            {% endif %}
+                        </li>
+                        {% if forloop.last and exam > 0 and per == 100 %}
+                        <li>
+                            <p class="play-intro">
+                                <a href="{% url 'learner-chapterexam' t.chapter_id module_id %}">Exam</a>
+                            </p>
+                            <div>
+                                <img src="/static/dreamlms/img/icon/exam.svg" alt="">
+                            </div>
+                            {% endif %}
+
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div id="mydiv" class="lesson-introduction">
+            <div id="instruction">
+                <h4 class="tittle">Preview Window</h4>
+                <p>
+                    Please click topic name present on left side to see preview here.
+                </p>
+            </div>
+            <div>
+                <h4 class="tittle" id="iframeHeading"></h4>
+            </div>
+            <iframe id="myIframe" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+    </div>
+</div>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    iframe {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $("#mydiv").css("height", ($(document).height() - 50) + "px");
+
+    const links = $('.link');
+    const myIframe = $('#myIframe');
+    const iframeHeading = $('#iframeHeading');
+
+    links.on('click', function (event) {
+        event.preventDefault();
+        var myDiv = document.getElementById("instruction");
+        myDiv.style.display = "none";
+        const selectedLink = $(this);
+        const selectedValue = selectedLink.data('id');
+        const selectedText = selectedLink.text();
+        const selectedHref = selectedLink.attr('href');
+
+        // Check if the link is a YouTube link
+        const youtubePattern = /^https?:\/\/(?:www\.)?youtube(?:-nocookie)?\.com\/embed\/[\w-]+/;
+        const isYoutube = youtubePattern.test(selectedHref);
+
+        // Update the iframe source and heading
+        myIframe.attr('src', selectedLink.attr('href') + '?id=' + selectedValue);
+        // Add the allowfullscreen attribute if the link is a YouTube video
+        if (selectedLink.attr('href').includes('youtube')) {
+            myIframe.attr('allowfullscreen', true);
+        } else {
+            myIframe.removeAttr('allowfullscreen');
+        }
+        // Make AJAX request to update model with selected ID
+        $.ajax({
+            url: "{% url 'ajax_save_topic' %}",
+            method: 'POST',
+            contentType: 'application/json',
+            data: {
+                id: selectedValue,
+                module_id: '{{module_id}}',
+                chapter_id: '{{chapter_id}}'
+            },
+            success: function (response) {
+                console.log('Updated model successfully');
+            },
+            error: function (error) {
+                console.log('Error updating model: ', error);
+            }
+        });
+    });
+</script>
+
+<script>
+    function toggleVisibility() {
+        var elem = document.getElementById("hide-show");
+        if (elem.style.display === "none") {
+            elem.style.display = "block";
+        } else {
+            elem.style.display = "none";
+        }
+    }
+</script>
+
+{% endblock content %}

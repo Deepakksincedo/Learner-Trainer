@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from getskills.dexignzone.com/xhtml/courses.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 May 2023 13:27:42 GMT -->
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
+	<meta name="robots" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:image" content="social-image.html" />
+	<meta name="format-detection" content="telephone=no">
+
+	<!-- PAGE TITLE HERE -->
+	<title>Nubeera LXP</title>
+
+	<!-- FAVICONS ICON -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link rel="shortcut icon" type="image/png" href="/static/getskills/images/favicon.png" />
+	<link href="/static/getskills/vendor/jquery-nice-select//static/getskills/css/nice-select.css" rel="stylesheet">
+	<link href="/static/getskills/vendor/swiper//static/getskills/css/swiper-bundle.min.css" rel="stylesheet">
+	<!-- Style css -->
+	<link href="/static/getskills/css/style.css" rel="stylesheet">
+	<link href="/static/dreamlms/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+	<!--*******************
+        Preloader start
+    ********************-->
+	<div id="preloader">
+		<div class="lds-ripple">
+			<div></div>
+			<div></div>
+		</div>
+	</div>
+	<!--*******************
+        Preloader end
+    ********************-->
+
+	<!--**********************************
+        Main wrapper start
+    ***********************************-->
+	<div id="main-wrapper">
+
+		<!--**********************************
+            Nav header start
+        ***********************************-->
+		<div class="nav-header">
+			<div class="nav-control">
+				<div class="hamburger">
+					
+					<span class="line"></span><span class="line"></span><span class="line"></span>
+					
+				</div>
+			</div>
+		</div>
+		<!--**********************************
+            Nav header end
+        ***********************************-->
+
+		<!--**********************************
+            Header start
+        ***********************************-->
+		<div class="header">
+			<div class="header-content">
+				<nav class="navbar navbar-expand">
+
+				</nav>
+			</div>
+		</div>
+		<!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+		<!--**********************************
+            Sidebar start
+        ***********************************-->
+		{% include "learner/layout/sidebar.html" %}
+		<!--**********************************
+            Sidebar end
+        ***********************************-->
+
+		<!--**********************************
+            Content body start
+        ***********************************-->
+		<div class="content-body">
+			{% block body %}{% endblock %}
+		</div>
+		<!--**********************************
+            Content body end
+        ***********************************-->
+
+
+
+		<!--**********************************
+            Footer start
+        ***********************************-->
+		<div class="footer">
+			<div class="copyright">
+				<p>Copyright © Designed by <a href="https://nubeera.com"
+						target="_blank">Nubeera</a> 2022</p>
+			</div>
+		</div>
+		<!--**********************************
+            Footer end
+        ***********************************-->
+
+		<!--**********************************
+           Support ticket button start
+        ***********************************-->
+
+		<!--**********************************
+           Support ticket button end
+        ***********************************-->
+
+
+	</div>
+	<!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+	<!--**********************************
+        Scripts
+    ***********************************-->
+	<!-- Required vendors -->
+	<script src="/static/getskills/vendor/global/global.min.js"></script>
+	<script src="/static/getskills/vendor/jquery-nice-select//static/getskills/js/jquery.nice-select.min.js"></script>
+	<script src="/static/getskills/vendor/swiper//static/getskills/js/swiper-bundle.min.js"></script>
+	<script src="/static/getskills/js/dlab.carousel.js"></script>
+	<script src="/static/getskills/js/custom.js"></script>
+	<script src="/static/getskills/js/dlabnav-init.js"></script>
+	<script src="/static/getskills/js/demo.js"></script>
+	<script src="/static/getskills/js/styleSwitcher.js"></script>
+	<script>
+		$(document).ready(function () {
+			$(".pagination-down a").on('click', function () {
+				$(".pagination-down a").removeClass("active");
+				$(this).addClass("active");
+			});
+		});
+
+	</script>
+</body>
+
+<!-- Mirrored from getskills.dexignzone.com/xhtml/courses.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 May 2023 13:27:42 GMT -->
+
+</html>

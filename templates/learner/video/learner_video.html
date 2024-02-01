@@ -1,0 +1,79 @@
+{% extends 'learner/learnerbase.html' %}
+{% block content %}
+{%load static%}
+
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>  
+  <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>  
+  <script src="https://cdn.jsdelivr.net/gh/jeffreydwalter/ColReorderWithResize@9ce30c640e394282c9e0df5787d54e5887bc8ecc/ColReorderWithResize.js"></script>
+  <script src="/static/datatableconfig.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  <style media="screen">
+     canvas {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 800px;
+}
+.form-center {
+  display:flex;
+  justify-content: center;
+}
+    a:link {
+      text-decoration: none;
+    }
+
+    h6 {
+      text-align: center;
+    }
+
+    .row {
+      margin: 100px;
+    }
+    table.dataTable tr.odd { background-color: #E2E4FF; }
+    table.dataTable tr.even { background-color: white; }
+  </style>
+</head>
+<BR><BR>
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h6 class="panel-title">Videos for Subject : {{xyzz}}</h6>
+    </div>
+    <table class="table table-hover" id="dev-table">
+      <thead>
+        <tr>
+          <th>Topic Name</th>
+          <th>Show</th>
+          <th>Material</th>
+          <th>Watched</th>
+        </tr>
+      </thead>
+      {% for t in videos %}
+      <tr>
+        <td> {{t.TopicName}}</td>
+        {% if forloop.counter == 1 or t.TopicCovered == t.d or t.c == 'unlock' %}
+            <td><a class="btn btn-success" href="{% url 'show-video' t.id  %}"><span class="glyphicon glyphicon-circle-arrow-right"></span></a></td>
+        {% else %}
+            <td><a class="btn btn-danger" ><span class="glyphicon glyphicon-circle-arrow-right"></span></a></td>
+        {% endif %}
+        {% if t.cc > 0 %}
+        <td><a class="btn btn-success" href="{% url 'learner-view-material' t.TopicName   %}"><span class="glyphicon glyphicon-circle-arrow-right"></span></a></td>
+        {% else %}
+        <td><a class="btn btn-danger" ><span class="glyphicon glyphicon-circle-arrow-right"></span></a></td>
+        {% endif %}
+        <td> {{t.yn}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+
+<br><br><br><br><br><br>
+{% endblock content %}

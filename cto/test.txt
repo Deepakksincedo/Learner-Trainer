@@ -1,0 +1,172 @@
+@login_required
+def cto_add_playlist_view(request):
+    try:
+        if str(request.session['utype']) == 'cto':
+            form = LXPFORM.PlaylistForm(request.POST or None)
+            context = {
+                'form': form,
+                'page_title': 'Add Playlist'
+            }
+            if request.method == 'POST':
+                if form.is_valid():
+                    name = form.cleaned_data.get('playlist_name')
+                    playlist = LXPModel.Playlist.objects.all().filter(playlist_name__iexact = name)
+                    if playlist:
+                        messages.info(request, 'Playlist Name Already Exist')
+                        return redirect(reverse('cto-add-playlist'))
+                    try:
+                        playlist = LXPModel.Playlist.objects.create(
+                                                    playlist_name = name)
+                        playlist.save()
+                        messages.success(request, "Successfully Updated")
+                        return redirect(reverse('cto-add-playlist'))
+                    except Exception as e:
+                        messages.error(request, "Could Not Add " + str(e))
+                else:
+                    messages.error(request, "Fill Form Properly")
+            return render(request, 'cto/playlist/add_edit_playlist.html', context)
+    except:
+        return render(request,'lxpapp/404page.html')
+
+@login_required
+def cto_update_playlist_view(request, pk):
+    try:
+        if str(request.session['utype']) == 'cto':
+            instance = get_object_or_404(LXPModel.Playlist, id=pk)
+            form = LXPFORM.PlaylistForm(request.POST or None, instance=instance)
+            context = {
+                'form': form,
+                'playlist_id': pk,
+                'page_title': 'Edit Playlist'
+            }
+            if request.method == 'POST':
+                if form.is_valid():
+                    name = form.cleaned_data.get('playlist_name')
+                    playlist = LXPModel.Playlist.objects.all().filter(playlist_name__iexact = name).exclude(id=pk)
+                    if playlist:
+                        messages.info(request, 'Playlist Name Already Exist')
+                        return redirect(reverse('cto-update-playlist', args=[pk]))
+                    try:
+                        playlist = LXPModel.Playlist.objects.get(id=pk)
+                        playlist.playlist_name = name
+                        playlist.save()
+                        messages.success(request, "Successfully Updated")
+                        return redirect(reverse('cto-update-playlist', args=[pk]))
+                    except Exception as e:
+                        messages.error(request, "Could Not Add " + str(e))
+                else:
+                    messages.error(request, "Fill Form Properly")
+            return render(request, 'cto/playlist/add_edit_playlist.html', context)
+    except:
+        return render(request,'lxpapp/404page.html')
+
+
+@login_required
+def cto_view_playlist_view(request):
+    try:
+        if str(request.session['utype']) == 'cto':
+            playlists = LXPModel.Playlist.objects.all()
+            return render(request,'cto/playlist/cto_view_playlist.html',{'playlists':playlists})
+    except:
+        return render(request,'lxpapp/404page.html')
+
+@login_required
+def cto_delete_playlist_view(request,pk):
+    try:
+        if str(request.session['utype']) == 'cto':  
+            playlist=LXPModel.Playlist.objects.get(id=pk)
+            playlist.delete()
+            return HttpResponseRedirect('/cto/playlist/cto-view-playlist')
+        playlists = LXPModel.Playlist.objects.all()
+        return render(request,'cto/playlist/cto_view_playlist.html',{'playlists':playlists})
+    except:
+        return render(request,'lxpapp/404page.html')
+
+@login_required
+def cto_add_video_view(request):
+    try:
+        if str(request.session['utype']) == 'cto':
+            form = LXPFORM.VideoForm(request.POST or None)
+            context = {
+                'form': form,
+                'page_title': 'Add Video'
+            }
+            if request.method == 'POST':
+                if form.is_valid():
+                    name = form.cleaned_data.get('video_name')
+                    playlist = form.cleaned_data.get('playlist').pk
+                    video = LXPModel.Video.objects.all().filter(video_name__iexact = name)
+                    if video:
+                        messages.info(request, 'Video Name Already Exist')
+                        return redirect(reverse('cto-add-video'))
+                    try:
+                        video = LXPModel.Video.objects.create(
+                                                    video_name = name,
+                                                    playlist_id = playlist)
+                        video.save()
+                        messages.success(request, "Successfully Updated")
+                        return redirect(reverse('cto-add-video'))
+                    except Exception as e:
+                        messages.error(request, "Could Not Add " + str(e))
+                else:
+                    messages.error(request, "Fill Form Properly")
+            return render(request, 'cto/video/add_edit_video.html', context)
+    except:
+        return render(request,'lxpapp/404page.html')
+
+@login_required
+def cto_update_video_view(request, pk):
+    try:
+        if str(request.session['utype']) == 'cto':
+            instance = get_object_or_404(LXPModel.Video, id=pk)
+            form = LXPFORM.VideoForm(request.POST or None, instance=instance)
+            context = {
+                'form': form,
+                'video_id': pk,
+                'page_title': 'Edit Video'
+            }
+            if request.method == 'POST':
+                if form.is_valid():
+                    name = form.cleaned_data.get('video_name')
+                    playlist = form.cleaned_data.get('playlist').pk
+                    video = LXPModel.Video.objects.all().filter(video_name__iexact = name).exclude(id=pk)
+                    if video:
+                        messages.info(request, 'Video Name Already Exist')
+                        return redirect(reverse('cto-update-video', args=[pk]))
+                    try:
+                        video = LXPModel.Video.objects.get(id=pk)
+                        video.video_name = name
+                        video.playlist_id = playlist
+                        video.save()
+                        messages.success(request, "Successfully Updated")
+                        videos = LXPModel.Video.objects.all()
+                        return render(request,'cto/video/cto_view_video.html',{'videos':videos})
+                    except Exception as e:
+                        messages.error(request, "Could Not Add " + str(e))
+                else:
+                    messages.error(request, "Fill Form Properly")
+            return render(request, 'cto/video/add_edit_video.html', context)
+    except:
+        return render(request,'lxpapp/404page.html')
+    
+@login_required
+def cto_view_video_view(request):
+    try:
+        if str(request.session['utype']) == 'cto':
+            c_list = LXPModel.Video.objects.all()
+            return render(request,'cto/video/cto_view_video.html',{'videos':c_list})
+    except:
+        return render(request,'lxpapp/404page.html')
+
+@login_required
+def cto_delete_video_view(request,pk):
+    try:
+        if str(request.session['utype']) == 'cto':  
+            video=LXPModel.Video.objects.get(id=pk)
+            video.delete()
+            videos = LXPModel.Video.objects.all()
+            return render(request,'cto/video/cto_view_video.html',{'videos':videos})
+    except:
+        return render(request,'lxpapp/404page.html')
+    return render(request,'lxpapp/404page.html')
+    

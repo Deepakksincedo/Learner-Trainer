@@ -1,0 +1,4 @@
+<option value="">---------</option>
+{% for chapter in chapters %}
+<option value="{{ chapter.pk }}">{{ chapter.chapter_name }}</option>
+{% endfor %}

@@ -1,0 +1,29 @@
+<option value="">---------</option>
+{% for chapter in chapters %}
+<option value="{{ chapter.pk }}">{{ chapter.chapter_name }}</option>
+{% endfor %}
+
+
+<!-- multiselect-dropdown -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+    crossorigin="anonymous"></script>
+<script src="/static/multiselect-dropdown.js"></script>
+</head>
+<div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="../../../../cto/cto-dashboard">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="../../../../cto/cto-view-module">View Module</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Add Module</li>
+        </ol>
+    </nav>
+</div>
+
+<select class="form-control" name="chapter[]" id="field2" multiple multiselect-search="true"
+    multiselect-select-all="true" multiselect-max-items="20" onchange="console.log(this.selectedOptions)">
+
+    {% for chapter in chapters %}
+<option value="{{ chapter.pk }}">{{ chapter.chapter_name }}</option>
+{% endfor %}
+</select>

@@ -1,0 +1,13 @@
+{
+    "web": {
+        "client_id": "709424261438-iq2t80mcempggouuh8t9os1afuhq2h3l.apps.googleusercontent.com",
+        "project_id": "ilms-366123",
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "client_secret": "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",
+        "redirect_uris": [
+            "https://lxp.nubeera.com"
+        ]
+    }
+}

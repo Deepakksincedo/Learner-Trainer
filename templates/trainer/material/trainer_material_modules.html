@@ -1,0 +1,9 @@
+
+<label for="modules">Module Name</label>
+<select class="custom-select mb-4" name="modules" hx-get="{% url 'trainer-view-material-chapters' %}"
+        hx-trigger="change" hx-target="#modules">
+    <option selected>Choose your Module</option>
+    {% for module in modules %}
+        <option value="{{module.pk}}">{{ module.module_name }}</option>
+    {% endfor %}
+</select>

@@ -1,0 +1,33 @@
+{% load static %}
+    <!-- Custom fonts for this template-->
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- Page level plugin CSS-->
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{% static 'css/sb-admin.css' %}" rel="stylesheet">
+{% block content %}
+
+<div>
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="../../../../trainer/trainer-dashboard">Dashboard</a></li>
+			<li class="breadcrumb-item"><a href="../../../../trainer/trainer-add-sessionmaterial">Add Session Material</a></li>
+			<li class="breadcrumb-item"><a href="../../../../trainer/trainer-view-sessionmaterial">View Session Material</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Session Material Preview</li>
+		</ol>
+	</nav>
+</div>
+  {% for t in details %}
+  <div class="panel-heading">
+    <h6 class="panel-title"><b>Play List Name : {{t.playlist}} </b></h6>
+    <h6 class="panel-title"><b>Video Name : {{t.video}} </b></h6>
+    <h6 class="panel-title"><b>Description : {{t.description}} </b></h6>
+  </div>
+    <iframe   width="100%" height="100%" marginheight="0" frameborder="0" scrolling="auto"
+    src='https://nbviewer.org/github{{t.urlvalue|cut:"https://github.com"}}'>
+</iframe>
+
+  {% endfor %}
+{% endblock content %}

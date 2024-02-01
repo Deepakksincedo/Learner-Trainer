@@ -1,0 +1,83 @@
+{% extends 'trainer/trainerbase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<head>
+  <style media="screen">
+    input[type=text], select,input[type=number] ,input[type=password], textarea{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+
+
+  </style>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+a:link {
+  text-decoration: none;
+}
+</style>
+</head>
+<body>
+  <div>
+  <ol class="breadcrumb text-right">
+    <li><a href="../trainer-dashboard">Dashboard</a></li>
+    <li><a href="../trainer-view-k8sterminal">View K8STerminals</a></li>
+    <li class="active">Update K8STerminal</li>
+  </ol>
+</div>
+<br><br>
+<h3 style="text-align:center;">Update K8STerminal</h3>
+<div>
+  <form method="post" autocomplete="off" enctype="multipart/form-data" style="margin-left:200px;margin-right:200px;">
+      {% csrf_token %}
+      <label for="subject_name">Subject Name</label>
+      {% render_field k8sterminalForm.subjectID|attr:'required:true' class="form-control"  %}
+        <br>
+        <label for="chapter_name">Chapter Name</label>
+        {% render_field k8sterminalForm.chapterID|attr:'required:true' class="form-control"  %}
+          <br>
+        <label for="k8sterminal_name">K8STerminal Name</label>
+          {% render_field k8sterminalForm.k8sterminal_name class="form-control" placeholder="K8STerminal Name" value=sub %}
+<br><br>
+    <input type="submit" value="Update">
+  </form>
+</div>
+
+{% if messages %}
+  {% for message in messages %}
+    {{ message }}
+  {% endfor %}
+{% endif %}
+
+<br><br><br><br><br><br><br><br>
+{% endblock content %}
+</body>

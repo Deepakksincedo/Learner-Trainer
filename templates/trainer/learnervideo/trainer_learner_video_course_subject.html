@@ -1,0 +1,141 @@
+{% extends 'trainer/trainerbase.html' %}
+{% block content %}
+{%load static%}
+<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+<div class="main-wrapper">
+  <div>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'trainer-dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'trainer-view-learner-video' %}">Learner List</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Learner Videos List</li>
+      </ol>
+    </nav>
+  </div>
+  <section class="course-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-9">
+          {% for t in subject %}
+          <div class="row">
+            <div class="col-lg-12 col-md-12 d-flex">
+              <div class="course-box course-design list-course d-flex">
+                <div class="product">
+                  <div class="product-img">
+                    <a href="{% url 'learner-video-list' t.id %}">
+                      <img class="img-fluid" alt="" src="{{t.thumbnail_url}}">
+                    </a>
+                  </div>
+                  <div class="product-content">
+                    <div class="head-course-title">
+                      <h3 class="title"><a href="{% url 'trainer-learner-video-list' t.id user_id %}">{{t.name}}</a></h3>
+                    </div>
+                    <div class="course-info border-bottom-0 pb-0 d-flex align-items-center">
+                      <div class="rating-img d-flex align-items-center">
+                        <img src="/static/dreamlms/img/icon/icon-01.svg" alt="">
+                        <p>{{t.Vtotal}}</p>
+                      </div>
+                      <div class="course-view d-flex align-items-center">
+                        <img src="/static/dreamlms/img/icon/icon-02.svg" alt="">
+                        <p>{{t.VWatched}}</p>
+                      </div>
+                      <div class="course-view d-flex align-items-center">
+                        <img src="/static/dreamlms/img/icon/messages.svg" alt="">
+                        <p>{{t.Mtotal}}</p>
+                      </div>
+
+                    </div>
+                    <div class="progress-stip">
+                      <div class="progress-bar bg-success progress-bar-striped " style="width:{{t.per}}%">
+                      </div>
+                  </div>
+                  <div class="student-percent">
+                      <p>{{t.per}}% Completed <a class="btn btn-success btn-xs" href="{% url 'trainer-learner-approveall-video' user_id t.id %}">Approve All</a></p>
+                  </div>
+                  
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<script>
+
+  updateSubTotal()
+    ;
+
+  function updateSubTotal() {
+    var table = document.getElementById("dev-table"),
+      sumVal = 0;
+    sumVal1 = 0;
+    var n = "";
+    for (var i = 1; i < table.rows.length; i++) {
+      n = table.rows[i].cells[0].innerHTML;
+      if (n == 'Totals :') {
+        break;
+      }
+      sumVal = sumVal + parseFloat(table.rows[i].cells[1].innerHTML);
+      sumVal1 = sumVal1 + parseFloat(table.rows[i].cells[2].innerHTML);
+    }
+
+    document.getElementById("val").innerHTML = sumVal;
+    document.getElementById("val1").innerHTML = sumVal1;
+    document.getElementById("val2").innerHTML = ((sumVal1 * 100) / sumVal).toPrecision(2) + "%";
+  }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<div style="text-align: center">
+  <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+</div>
+<script>
+  var xValues = ["Total", "Watch", "To be Watch", ""];
+  var yValues = ["{{tc}}", "{{wc}}", "{{dif}}", ""];
+  var barColors = ["red", "green", "blue", ""];
+
+  new Chart("myChart", {
+    type: "bar",
+    data: {
+      labels: xValues,
+      datasets: [{
+        backgroundColor: barColors,
+        data: yValues
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: "Video Subject List of Course : {{coursename}}"
+      }
+    }
+  });
+</script>
+<script>
+  var xValues = ["Total", "Watch", "To be Watch", ""];
+  var yValues = ["{{tc}}", "{{wc}}", "{{dif}}", 0];
+  var barColors = ["red", "green", "blue", ""];
+
+  new Chart("myChart1", {
+    type: "bar",
+    data: {
+      labels: xValues,
+      datasets: [{
+        backgroundColor: barColors,
+        data: yValues
+      }]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: "Video Subject List of Course : {{coursename}}"
+      }
+    }
+  });
+</script>
+{% endblock content %}

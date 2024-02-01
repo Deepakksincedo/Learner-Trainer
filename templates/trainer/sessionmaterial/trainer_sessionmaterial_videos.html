@@ -1,0 +1,9 @@
+
+<label for="videos">Module Name</label>
+<select class="custom-select mb-4" name="videos"
+        hx-trigger="change" hx-target="#videos">
+    <option selected>Choose your Module</option>
+    {% for video in videos %}
+        <option value="{{video.pk}}">{{ video.name }}</option>
+    {% endfor %}
+</select>

@@ -1,0 +1,47 @@
+
+{% extends 'trainer/trainerbase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+<body>
+  <div>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../../../../trainer/trainer-dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="../../../../trainer/trainer-view-k8sterminal">View K8S Terminal</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Terminal For Learner</li>
+      </ol>
+    </nav>
+  </div>
+
+<h2 style="text-align:center;">Add Terminal For Learner</h2>
+{% if messages %}
+  {% for message in messages %}
+    {{ message }}
+  {% endfor %}
+{% endif %}
+<form method="POST" autocomplete="off" style="margin:100px;margin-top: 0px;">
+  {%csrf_token%}
+  <div class="form-group">
+    <label for="user_name">Learner Name</label><br>
+    <select name="user_name"><br>
+    
+    {% for urs in users %}
+    <option value="{{urs.pk}}">{{ urs.first_name }} {{ urs.last_name }}</option>
+    {% endfor %}
+  </select><br>
+    <label for="password">Password</label><br>
+      <input type="password" id="password" name="password"><br>
+      <label for="confirmpassword">Confirm Password</label><br>
+      <input type="password" id="confirmpassword" name="confirmpassword">
+      <br>  
+      <label for="usagevalue">usagevalue</label>
+    {% render_field k8sterminalForm.usagevalue class="form-control"%}
+  </div>
+  <button type="submit" class="btn btn-primary">ADD</button>
+  
+</form>
+  <br>
+
+<br><br><br>
+{% endblock content %}

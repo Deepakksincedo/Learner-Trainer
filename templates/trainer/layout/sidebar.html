@@ -1,0 +1,126 @@
+
+<div class="col-xl-3 col-lg-4 col-md-12 theiaStickySidebar">
+    <div class="settings-widget dash-profile">
+        <div class="settings-menu p-0">
+            <div class="profile-bg">
+                <img src="/static/dreamlms/img/instructor-profile-bg.jpg" alt="">
+                <div class="profile-img">
+                    <!-- <a href="instructor-profile.html"><img src="{{request.user.profile_pic}}" alt=""></a> -->
+                </div>
+            </div>
+            <div class="profile-group">
+                <div class="profile-name text-center">
+                    <h4><a href="instructor-profile.html">{{request.user.first_name}} {{request.user.last_name}}</a>
+                    </h4>
+                    <h6><a href="instructor-profile.html">({{request.user.username}})</a></h6>
+                    <h6>Trainer</h6>
+                    <!-- <img src="request.user.social_auth.model.pic" alt=""> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="settings-widget account-settings">
+        <div class="settings-menu">
+            <h3>DASHBOARD</h3>
+            <ul>
+                <li class="nav-item active">
+                    <a href="{% url 'trainer-dashboard' %}" class="nav-link">
+                        <i class="feather-home"></i> My Dashboard
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'trainer-view-material' %}" class="nav-link">
+                        <i class="feather-book"></i> Study Material
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'trainer-view-sessionmaterial' %}" class="nav-link">
+                        <i class="feather-book"></i> Session Material
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'trainer-view-k8sterminal' %}" class="nav-link">
+                        <i class="feather-book"></i> Lab (K8S)
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'trainer-pyton-terminal' %}" class="nav-link">
+                        <i class="feather-book"></i> Lab Pyton
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'trainer-linux-terminal' %}" class="nav-link">
+                        <i class="feather-book"></i> Lab linux
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://shell.cloud.google.com/?show=terminal" target="_blank" class="nav-link">
+                        <i class="feather-book"></i> Lab Cloud Shell
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'trainer-view-chapterquestion' %}" class="nav-link">
+                        <i class="feather-star"></i> Chapter Wise MCQ
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'trainer-view-exam' %}" class="nav-link">
+                        <i class="feather-star"></i> Exam
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'trainer-view-mcqquestion-exams' %}" class="nav-link">
+                        <i class="feather-star"></i> MCQ Question
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'trainer-view-shortquestion' %}" class="nav-link">
+                        <i class="feather-star"></i> shortquestion
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'trainer-pending-short-exam-reuslt' %}" class="nav-link">
+                        <i class="feather-star"></i> Pending Exams
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'trainer-view-ytexamquestion' %}" class="nav-link">
+                        <i class="feather-star"></i> Session Video Question
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'trainer-view-learner-video' %}" class="nav-link">
+                        <i class="feather-star"></i> Learner Videos
+                    </a>
+                </li>
+            </ul>
+            <div class="instructor-title">
+                <h3>ACCOUNT SETTINGS</h3>
+            </div>
+            <ul>
+                <li class="nav-item">
+                    <a href="{% url 'logout'%}" class="nav-link">
+                        <i class="feather-power"></i> Sign Out
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    // Get all navigation links
+    const navLinks = document.querySelectorAll('.nav-link');
+  
+    // Add click event listener to each navigation link
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        console.log('Clicked on a link');
+        // Remove "active" class from all navigation links
+        navLinks.forEach(link => {
+          link.parentElement.classList.remove('active');
+        });
+        // Add "active" class to the clicked link
+        link.parentElement.classList.add('active');
+      });
+    });
+  </script>  

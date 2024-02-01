@@ -1,0 +1,16 @@
+{% extends 'trainer/trainerbase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+<div class="container">
+  <h4>Upload a File: </h4>
+  <form action="{% url 'trainer-start-upload-material-folder' %}" onsubmit="return validateForm()" method="POST"
+    enctype="multipart/form-data">
+    <label for="select_folder">Folder Path</label><br>
+    <input type="text" name="select_folder" id="select_folder" value="D:/upload/lxp/study">
+    <button type="submit">Upload</button>
+    <BR>
+    {{filename}}
+  </form>
+</div>
+{% endblock content %}

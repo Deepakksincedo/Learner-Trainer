@@ -1,0 +1,56 @@
+{% extends 'trainer/trainerbase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+
+<body>
+  <div>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../../../../trainer/trainer-dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="../../../../trainer/trainer-view-mcqquestion-exams">View Mcq Questions</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Mcq Question</li>
+      </ol>
+    </nav>
+  </div>
+
+<h2 style="text-align:center;">Add Mcq Question</h2>
+{% if messages %}
+  {% for message in messages %}
+    {{ message }}
+  {% endfor %}
+{% endif %}
+<form method="POST" autocomplete="off" style="margin:100px;margin-top: 0px;">
+    {%csrf_token%}
+    <div class="form-group">
+      <label for="exam_name">Exam Name</label>
+      {% render_field mcqquestionForm.examID class="form-control"%}
+      <br>
+      <label for="question">question</label>
+      {% render_field mcqquestionForm.question class="form-control" placeholder="question" %}
+      <br>
+      <label for="option1">Option 1</label>
+      {% render_field mcqquestionForm.option1 class="form-control"%}
+      <br>
+      <label for="option2">Option 2</label>
+      {% render_field mcqquestionForm.option2 class="form-control"%}
+      <br>
+      <label for="option3">Option 3</label>
+      {% render_field mcqquestionForm.option3 class="form-control"%}
+      <br>
+      <label for="option4">Option 4</label>
+      {% render_field mcqquestionForm.option4 class="form-control"%}
+      <br>
+      <label for="answer">Answer</label>
+      {% render_field mcqquestionForm.answer class="form-control"%}
+      <br>
+      <label for="marks">Marks</label>
+      {% render_field mcqquestionForm.marks class="form-control"%}
+    </div>
+    <button type="submit" class="btn btn-primary">ADD</button>
+    
+  </form>
+  <br>
+
+<br><br><br>
+{% endblock content %}

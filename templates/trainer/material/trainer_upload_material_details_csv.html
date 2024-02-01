@@ -1,0 +1,54 @@
+{% extends 'trainer/trainerbase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+<head>
+  <script>
+    function validateForm() {
+
+      var fileInput =
+        document.getElementById('select_file');
+
+      var filePath = fileInput.value;
+      if (filePath == "") {
+        alert("Please CSV file to upload");
+        return false;
+      }
+      // Allowing file type
+      var allowedExtensions =
+        /(\.csv)$/i;
+
+      if (!allowedExtensions.exec(filePath)) {
+        alert('Invalid file type');
+        fileInput.value = '';
+        return false;
+      }
+      $('#waiting').show();
+    }
+  </script>
+</head>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="../../../../trainer/trainer-dashboard">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="../../../../trainer/trainer-add-material">Add Material</a></li>
+    <li class="breadcrumb-item"><a href="../../../../trainer/trainer-view-material">View Material</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Upload a Material CSV File</li>
+  </ol>
+</nav>
+</div>
+  <div class="container">
+    <h4>Upload a Material CSV File: </h4>
+    <form onsubmit="return validateForm()" method="POST" enctype="multipart/form-data">
+      {%csrf_token%}
+      <label for="material_name">Material Name</label>
+      <input type="file" name="select_file" id="select_file">
+      <br><br>
+      <button type="submit">Upload</button>
+      <BR>
+    </form>
+    <div id="waiting" style="display:none">
+      <img src="/static/image/processing-gif-image-5.gif">
+    </div>
+  </div>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+  {% endblock content %}

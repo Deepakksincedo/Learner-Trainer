@@ -1,0 +1,42 @@
+{% extends 'trainer/trainerbase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+<div>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="../../../../trainer/trainer-dashboard">Dashboard</a></li>
+      <li class="breadcrumb-item"><a href="../../../../trainer/trainer-add-k8sterminal">Add K8STerminal</a></li>
+      <li class="breadcrumb-item active" aria-current="page">View K8STerminal</li>
+    </ol>
+  </nav>
+</div>
+<div class="card-body">
+  <div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Trainer Name</th>
+          <th>Learner Name</th>
+          <th>Password</th>
+          <th>Usage Value</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for t in k8sterminals %}
+        <tr>
+          <td> {{t.trainer.first_name}} {{t.trainer.last_name}}</td>
+          <td> {{t.learner.first_name}} {{t.learner.last_name}}</td>
+          <td> {{t.Password}}</td>
+          <td> {{t.usagevalue}}</td>
+          <td><a class="btn btn-danger btn-xs" href="{% url 'trainer-delete-k8sterminal' t.id  %}"
+              onclick="return confirm('Are you sure?')"><span class="glyphicon glyphicon-trash"></span></a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock content %}
+

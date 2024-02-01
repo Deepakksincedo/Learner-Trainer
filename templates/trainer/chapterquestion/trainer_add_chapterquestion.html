@@ -1,0 +1,99 @@
+{% extends 'trainer/trainerbase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+
+<body>
+  <div>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../../../../trainer/trainer-dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="../../../../trainer/trainer-view-chapterquestion">View Chapter
+            Questions</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Chapter Question</li>
+      </ol>
+    </nav>
+  </div>
+
+  <h2 style="text-align:center;">Add Chapter Question</h2>
+  {% if messages %}
+  {% for message in messages %}
+  {{ message }}
+  {% endfor %}
+  {% endif %}
+  <form method="POST" id="chapterquestionForm" data-modules-url="{% url 'ajax_load_chapters' %}" autocomplete="off">
+    {%csrf_token%}
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6 col-xl-6">
+          <label for="subject_name">Subject Name</label>
+          {% render_field chapterquestionForm.subject class="form-control"%}
+        </div>
+        <div class="col-md-6 col-xl-6">
+          <label for="chapter_name">Chapter Name</label>
+          {% render_field chapterquestionForm.chapter class="form-control"%}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-xl-12">
+          <label for="question">question</label>
+          {% render_field chapterquestionForm.question class="form-control" placeholder="question" %}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-xl-6">
+          <label for="option1">Option 1</label>
+          {% render_field chapterquestionForm.option1 class="form-control"%}
+        </div>
+        <div class="col-md-6 col-xl-6">
+
+          <label for="option2">Option 2</label>
+          {% render_field chapterquestionForm.option2 class="form-control"%}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-xl-6">
+          <label for="option3">Option 3</label>
+          {% render_field chapterquestionForm.option3 class="form-control"%}
+        </div>
+        <div class="col-md-6 col-xl-6">
+          <label for="option3">Option 4</label>
+          {% render_field chapterquestionForm.option4 class="form-control"%}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-xl-6">
+          <label for="answer">Answer</label>
+          {% render_field chapterquestionForm.answer class="form-control"%}
+        </div>
+        <div class="col-md-6 col-xl-6">
+          <label for="marks">Marks</label>
+          {% render_field chapterquestionForm.marks class="form-control"%}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-xl-6">
+        <button type="submit" class="btn btn-primary">ADD</button>
+      </div>
+    </div>
+  </form>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    $("#id_subject").change(function () {
+      var url = $("#chapterquestionForm").attr("data-modules-url");  // get the url of the `load_topics` view
+      var subjectId = $(this).val();  // get the selected subject ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: '{% url 'ajax_load_chapters' %}',                    // set the url of the request (= localhost:8000/hr/ajax/load-topics/)
+        data: {
+          'subject': subjectId       // add the subject id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_topics` view function
+          $("#id_chapter").html(data);  // replace the contents of the topic input with the data that came from the server
+        }
+      });
+
+    });
+  </script>
+  {% endblock content %}

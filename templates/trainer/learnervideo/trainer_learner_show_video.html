@@ -1,0 +1,39 @@
+    {% extends 'trainer/trainerbase.html' %}
+    {% block content %}
+    {%load static%}
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript">
+function autoResize(iframe) {
+$(iframe).height($(iframe).contents().find('html').height());
+}
+    </script>
+    <script type="text/javascript" src="/static/watched.js"></script>
+
+</head>
+</thead>
+<nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'learner-dashboard' %}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'learner-video-course-subject' %}">Session Recorded Videos</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'learner-video-list/{{subject_id}}' %}">Video List</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Playing Video</li>
+      </ol>
+    </nav>
+  </div>
+<h6 class="panel-title">
+    <b>Playing Video of Topic : {{topicname}}</b>
+</h6>
+
+<iframe id="video2"
+    width="75%"
+    height="60%"
+    marginheight="0"
+    frameborder="0"
+    border="0"
+    scrolling="auto"
+    onload="autoResize(this);"
+    src="{{url}}"
+    allowfullscreen
+></iframe>
+
+    {% endblock content %}

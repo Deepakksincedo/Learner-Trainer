@@ -1,0 +1,108 @@
+{% extends 'trainer/trainerbase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+<head>
+	<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<div>
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="../../../../trainer/trainer-dashboard">Dashboard</a></li>
+			<li class="breadcrumb-item"><a href="../../../../trainer/trainer-view-material">View Material</a></li>
+			<li class="breadcrumb-item"><a href="../../../../trainer/trainer-upload-material-details-csv">Upload
+					Material CSV</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Add Material</li>
+		</ol>
+	</nav>
+</div>
+<h2 style="text-align:center;">Add Material</h2>
+<form method="POST" id="materialForm" data-modules-url="{% url 'ajax_load_chapters' %}" autocomplete="off"
+	style="margin:100px;margin-top: 0px;">
+	{%csrf_token%}
+	<div class="form-group">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-xl-6">
+					<label for="subject_name">Subject Name</label>
+					{% render_field materialForm.subject class="form-control"%}
+				</div>
+				<div class="col-md-6 col-xl-6">
+					<label for="chapter_name">Chapter Name</label>
+					{% render_field materialForm.chapter class="form-control"%}
+				</div>
+				<div class="col-md-12 col-xl-12">
+
+					<label for="topic">Topic</label>
+					{% render_field materialForm.topic class="form-control" placeholder="Title" %}
+				</div>
+				<div class="col-md-12 col-xl-12">
+					<label for="mtype">Material Type</label>
+					{% render_field materialForm.mtype class="form-control"%}
+				</div>
+				<div class="col-md-12 col-xl-12">
+					<label for="urlvalue">URL</label>
+					{% render_field materialForm.urlvalue class="form-control" placeholder="Material URL" %}
+				</div>
+				<div class="col-md-12 col-xl-12">
+
+					<label for="description">Description</label>
+					{% render_field materialForm.description class="form-control" placeholder="Description" %}
+				</div>
+				<button class="btn btn-primary form-control" type="submit"
+					onclick="return checkvalid(event);">SUBMIT</button>
+			</div>
+		</div>
+	</div>
+</form>
+<br>
+
+<script>
+	function checkvalid(e) {
+		// try {
+		// 	var inputVal = document.getElementById("urlvalue").value;
+		// 	if (inputVal == '') {
+
+		// 	}
+		// 	else {
+		// 		new URL(inputVal);
+		// 		return true;
+		// 	}
+		// } catch (err) {
+		// 	alert("Invalid URL");
+		// 	e.preventDefault();
+		// 	let theinput = document.querySelector(".word"); //Get the input 
+		// 	theinput.focus(); // focus on input 
+		// 	return false;
+		// }
+		return true;
+
+	}
+
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+	$("#id_subject").change(function () {
+		var url = $("#materialForm").attr("data-modules-url");  // get the url of the `load_topics` view
+		var subjectId = $(this).val();  // get the selected subject ID from the HTML input
+
+		$.ajax({                       // initialize an AJAX request
+			url: '{% url 'ajax_load_chapters' %}',                    // set the url of the request (= localhost:8000/hr/ajax/load-topics/)
+			data: {
+				'subject': subjectId       // add the subject id to the GET parameters
+			},
+			success: function (data) {   // `data` is the return of the `load_topics` view function
+				$("#id_chapter").html(data);  // replace the contents of the topic input with the data that came from the server
+			}
+		});
+
+	});
+
+
+</script>
+{% endblock content %}

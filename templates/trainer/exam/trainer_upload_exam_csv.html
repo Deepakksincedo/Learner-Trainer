@@ -1,0 +1,182 @@
+{% extends 'trainer/trainerbase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+
+<head>
+  <script>
+    function validateForm() {
+      let x = document.forms[0]["exam_name"].value;
+      if (x == "") {
+        alert("Exam Name must be filled out");
+        return false;
+      }
+      x = document.forms[0]["batch"].value;
+      if (x == "") {
+        alert("batch must be selected");
+        return false;
+      }
+      x = document.forms[0]["batch"].value;
+      if (x == "") {
+        alert("Please Select Batch Name");
+        return false;
+      }
+      var fileInput =
+        document.getElementById('select_file');
+
+      var filePath = fileInput.value;
+      if (filePath == "") {
+        alert("Please CSV file to upload");
+        return false;
+      }
+      // Allowing file type
+      var allowedExtensions =
+        /(\.csv)$/i;
+
+      if (!allowedExtensions.exec(filePath)) {
+        alert('Invalid file type');
+        fileInput.value = '';
+        return false;
+      }
+      $('#waiting').show();
+    }
+  </script>
+</head>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="../../../../trainer/trainer-dashboard">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="../../../../trainer/trainer-add-exam">Add Exam</a></li>
+    <li class="breadcrumb-item"><a href="../../../../trainer/trainer-view-exam">View Exam</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Upload Exam CSV File</li>
+  </ol>
+</nav>
+</div>
+
+<body>
+
+  <div class="container">
+    <h4>Upload a Exam CSV File: </h4>
+    <form onsubmit="return validateForm()" method="POST" enctype="multipart/form-data">
+      {%csrf_token%}
+      <label for="exam_name">Exam Name</label>
+      <input type="text" name="exam_name" id="exam_name"><br>
+      <label for="batch">Batch Name</label>
+      <select class="mb-4" name="batch">
+        {% for t in batch %}
+        <option value="{{t.pk}}">{{ t.batch_name }}</option>
+        {% endfor %}
+      </select>
+      <BR>
+      <label for="examtype">Exam Type</label>
+      <select class="mb-4" name="examtype">
+        <option value="0">MCQ</option>
+        <option value="1">Short Answer</option>
+      </select>
+      <BR>
+      <input type="file" name="select_file" id="select_file">
+      <br><br>
+      <button type="submit">Upload</button>
+    </form>
+    <div id="waiting" style="display:none">
+      <img src="/static/image/processing-gif-image-5.gif">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xl-6">
+      Sample for MCQ Exam CSV
+      <table class="table table-hover" id="dev-table">
+        <thead>
+          <tr>
+            <th>Question</th>
+            <th>Option 1</th>
+            <th>Option 2</th>
+            <th>Option 3</th>
+            <th>Option 4</th>
+            <th>right_ans</th>
+            <th>marks</th>
+          </tr>
+        </thead>
+        <tr>
+          <td>Q1</td>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+          <td>4</td>
+          <td>1</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>Q2</td>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+          <td>4</td>
+          <td>1</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>Q3</td>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+          <td>4</td>
+          <td>1</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>Q4</td>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+          <td>4</td>
+          <td>1</td>
+          <td>4</td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-xl-6">
+      Sample for Short Exam CSV
+      <table class="table table-hover" id="dev-table">
+        <thead>
+          <tr>
+            <th>Question</th>
+            <th>marks</th>
+          </tr>
+        </thead>
+        <tr>
+          <td>Q1</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>Q2</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>Q3</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>Q4</td>
+          <td>5</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="container">
+    Use Google sheet to make your question set as per requirementand export it in comma-separated value and use it
+    here.<br>
+    for sample Exam google sheet you can with below link<br>
+    <a href='https://docs.google.com/spreadsheets/d/1vKAqX8cSSnq9tiySMWsgrcBKo-1ZvzjVOq0d1raJjN0/edit?usp=sharing'
+      target="_blank">
+      Download Sample CSV for MCQ Exam
+    </a><br>
+    <a href='https://docs.google.com/spreadsheets/d/1OgIZ8iuy0yevFgKOZBvtRiEktdhhnnPtKJ-iifqJz3Y/edit?usp=sharing'
+      target="_blank">
+      Download Sample CSV for Short Exam
+    </a>
+    <br>
+    <img src="/static/image/export_csv.png">
+  </div>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+  {% endblock content %}

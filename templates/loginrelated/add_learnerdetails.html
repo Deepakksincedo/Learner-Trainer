@@ -1,0 +1,205 @@
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+  <title>Nubeera LXP</title>
+
+  <link rel="shortcut icon" type="image/x-icon" href="/static/dreamlms/img/favicon.svg">
+
+  <link rel="stylesheet" href="/static/dreamlms/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/static/dreamlms/plugins/fontawesome/css/fontawesome.min.css">
+  <link rel="stylesheet" href="/static/dreamlms/plugins/fontawesome/css/all.min.css">
+
+  <link rel="stylesheet" href="/static/dreamlms/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="/static/dreamlms/css/owl.theme.default.min.css">
+
+  <link rel="stylesheet" href="/static/dreamlms/plugins/feather/feather.css">
+
+  <link rel="stylesheet" href="/static/dreamlms/css/style.css">
+</head>
+
+<body>
+  <script type="text/javascript">
+    $().ready(function () {
+      $('#add').click(function () {
+        return !$('#select1 option:selected').remove().appendTo('#select2');
+      });
+  
+      $('#add1').click(function () {
+        return !$('#select3 option:selected').remove().appendTo('#select4');
+      });
+  
+      $('#remove').click(function () {
+        return !$('#select2 option:selected').remove().appendTo('#select1');
+      });
+  
+      $('#remove1').click(function () {
+        return !$('#select4 option:selected').remove().appendTo('#select3');
+      });
+    });
+    function validateForm() {
+      let x = document.forms[0]["user_full_name"].value;
+      if (x == "") {
+        alert("Please Enter Name");
+        return false;
+      }
+      x = document.forms[0]["mobile"].value;
+      y = document.forms[0]["mobile"].value.length;
+      if (x.length != 10) {
+        alert("Please Enter 10 Digit Mobile No");
+        return false;
+      }
+  debugger;
+      x = document.forms[0]["iswhatsapp"].checked;
+      if (x == false) {
+        x = document.forms[0]["whatsappno"].value;
+        if (x.length != 10) {
+          alert("Please Enter 10 Digit WhatsApp No");
+          return false;
+        }
+      }
+      x = document.forms[0]["listbox1"].value;
+      if (x == "") {
+        alert("Known Skills must be Selected");
+        return false;
+      }
+  
+      x = document.forms[0]["listbox1"].value;
+      if (x == "") {
+        alert("Known Skills must be Selected");
+        return false;
+      }
+  
+      x = document.forms[0]["listbox3"].value;
+      if (x == "") {
+        alert("Passionate Skills must be Selected");
+        return false;
+      }
+  
+  
+    }
+  </script>
+  <div class="main-wrapper log-wrap">
+    <div class="row">
+
+      <div class="col-md-6 login-bg">
+        <div class="owl-carousel login-slide owl-theme">
+          <div class="welcome-login">
+            <div class="login-banner">
+              <img src="/static/dreamlms/img/login-img.png" class="img-fluid" alt="Logo">
+            </div>
+            <div class="mentor-course text-center">
+              <h2>Welcome to <br>NubeeraLXP Courses.</h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+            </div>
+          </div>
+          <div class="welcome-login">
+            <div class="login-banner">
+              <img src="/static/dreamlms/img/login-img.png" class="img-fluid" alt="Logo">
+            </div>
+            <div class="mentor-course text-center">
+              <h2>Welcome to <br>NubeeraLXP Courses.</h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+            </div>
+          </div>
+          <div class="welcome-login">
+            <div class="login-banner">
+              <img src="/static/dreamlms/img/login-img.png" class="img-fluid" alt="Logo">
+            </div>
+            <div class="mentor-course text-center">
+              <h2>Welcome to <br>NubeeraLXP Courses.</h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 login-wrap-bg">
+
+        <div class="login-wrapper">
+          <div class="loginbox">
+            <h1>ADD DETAILS</h1>
+            <div class="img-logo">
+              <img src="/static/dreamlms/img/logo.png" class="img-fluid" alt="Logo">
+              <div class="back-home">
+                <a href="../../../../logout">Logout for now</a>
+              </div>
+            </div>
+            <form onsubmit="return validateForm()" method="POST" autocomplete="off"
+              style="margin:100px;margin-top: 0px;">
+              {%csrf_token%}
+              <div class="form-group">
+                <label class="form-control-label">Full Name</label>
+                {% render_field learnerdetailsForm.user_full_name class="form-control" value=username%}
+              </div>
+              <div class="form-group">
+                <label class="form-control-label">Mobile No.</label>
+                {% render_field learnerdetailsForm.mobile class="form-control"%}
+              </div>
+              <div class="form-group">
+                <label class="form-control-label">Is Above No. is WhatsApp No.</label>
+                {% render_field learnerdetailsForm.iswhatsapp %}
+              </div>
+              <div class="form-group">
+                <label class="form-control-label">If no, please provide WhatsApp No.</label>
+                {% render_field learnerdetailsForm.whatsappno class="form-control"%}
+              </div>
+                
+              <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+                crossorigin="anonymous"></script>
+              <script src="/static/multiselect-dropdown.js"></script>
+              <div class="form-row">
+                <div class="col">
+                  <label for="select1">Known Skills(KS)</label><br>
+                  <select class="form-control" name="listbox1" id="select1" multiple multiselect-search="true"
+                    multiselect-select-all="true" multiselect-max-items="20"
+                    onchange="console.log(this.selectedOptions)">
+                    {% for t in kskills %}
+                    <option value="{{ t.id }}">{{t.knownskill_name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col">
+                  <label>Passionate Skills(PS) </label>
+                  <select class="form-control" name="listbox3" id="select3" multiple multiselect-search="true"
+                    multiselect-select-all="true" multiselect-max-items="20"
+                    onchange="console.log(this.selectedOptions)">
+                    {% for t in pskills %}
+                    <option value="{{ t.id }}">{{t.passionateskill_name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+              <div class="d-grid">
+                <button class="btn btn-primary btn-start" type="submit">Save Details</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <script src="/static/dreamlms/js/jquery-3.6.0.min.js"></script>
+
+  <script src="/static/dreamlms/js/bootstrap.bundle.min.js"></script>
+
+  <script src="/static/dreamlms/js/owl.carousel.min.js"></script>
+
+  <script src="/static/dreamlms/js/passwordvalidation.js"></script>
+
+  <script src="/static/dreamlms/js/script.js"></script>

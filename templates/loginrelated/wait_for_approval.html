@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+{% load widget_tweaks %}
+
+
+<body>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" href="/static/dreamlms/img/favicon.svg">
+
+    <link rel="stylesheet" href="/static/dreamlms/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="/static/dreamlms/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/static/dreamlms/plugins/fontawesome/css/all.min.css">
+
+    <link rel="stylesheet" href="/static/dreamlms/css/feather.css">
+
+    <link rel="stylesheet" href="/static/dreamlms/css/style.css">
+  </head>
+
+  <body>
+
+    <div class="main-wrapper">
+      <section class="course-content">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-5 text-center mx-auto">
+              <div class="title-sec">
+                <h2>Hello {{request.user.first_name}} {{request.user.last_name}}</h2>
+                <p class="lead">Your Account is not approved till now <br><br>Our Team is checking your profile <br><br>
+                  Soon Your Account Will Be Approved</p>
+                <hr class="my-4">
+                <p>Check Later</p>
+                <p class="lead">
+                  <a class="btn btn-primary btn-lg" href="/logout" role="button">Logout For Now</a>
+                </p>
+              </div>
+        </div>
+      </section>
+
+
+      <footer class="footer">
+
+        <div class="footer-top">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-4 col-md-6">
+
+                <div class="footer-widget footer-about">
+                  <div class="footer-logo">
+                    <img src="/static/dreamlms/img/logo.png" alt="logo">
+                  </div>
+                  <div class="footer-about-content">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut consequat mauris Lorem ipsum dolor
+                      sit
+                      amet, consectetur adipiscing elit. Ut consequat mauris</p>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-lg-2 col-md-6">
+
+                <div class="footer-widget footer-menu">
+                  <h2 class="footer-title">For Trainer</h2>
+                  <ul>
+                    <li><a href="instructor-profile.html">Profile</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
+                    <li><a href="instructor-list.html">Trainer</a></li>
+                    <li><a href="deposit-instructor-dashboard.html"> Dashboard</a></li>
+                  </ul>
+                </div>
+
+              </div>
+              <div class="col-lg-2 col-md-6">
+
+                <div class="footer-widget footer-menu">
+                  <h2 class="footer-title">For Student</h2>
+                  <ul>
+                    <li><a href="student-profile.html">Profile</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
+                    <li><a href="students-list.html">Student</a></li>
+                    <li><a href="deposit-student-dashboard.html"> Dashboard</a></li>
+                  </ul>
+                </div>
+
+              </div>
+              <div class="col-lg-4 col-md-6">
+
+                <div class="footer-widget footer-contact">
+                  <h2 class="footer-title">News letter</h2>
+                  <div class="news-letter">
+                    <form>
+                      <input type="text" class="form-control" placeholder="Enter your email address" name="email">
+                    </form>
+                  </div>
+                  <div class="footer-contact-info">
+                    <div class="footer-address">
+                      <img src="/static/dreamlms/img/icon/icon-20.svg" alt="" class="img-fluid">
+                      <p> 3556 Beech Street, San Francisco,<br> California, CA 94108 </p>
+                    </div>
+                    <p>
+                      <img src="/static/dreamlms/img/icon/icon-19.svg" alt="" class="img-fluid">
+                      <a href="https://dreamslms.dreamguystech.com/cdn-cgi/l/email-protection" class="__cf_email__"
+                        data-cfemail="4b2f392e2a26382726380b2e332a263b272e65282426">[email&#160;protected]</a>
+                    </p>
+                    <p class="mb-0">
+                      <img src="/static/dreamlms/img/icon/icon-21.svg" alt="" class="img-fluid">
+                      +19 123-456-7890
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="footer-bottom">
+          <div class="container">
+
+            <div class="copyright">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="privacy-policy">
+                    <ul>
+                      <li><a href="term-condition.html">Terms</a></li>
+                      <li><a href="privacy-policy.html">Privacy</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="copyright-text">
+                    <p class="mb-0">&copy; 2022 NubeeraLXP. All rights reserved.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </footer>
+
+    </div>
+
+
+    <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="/static/dreamlms/js/jquery-3.6.0.min.js"></script>
+
+    <script src="/static/dreamlms/js/bootstrap.bundle.min.js"></script>
+
+    <script src="/static/dreamlms/js/script.js"></script>
+  </body>
+
+  </html>

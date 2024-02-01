@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% load widget_tweaks %}
+
+
+  <style media="screen">
+    .jumbotron {
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
+
+    .jumbotron h1 {
+      text-align: center;
+    }
+    .jumbotron h2 {
+      text-align: center;
+    }
+
+    .alert {
+      margin: 0px;
+    }
+  </style>
+  <body>
+    {% include "lxpapp/navbar.html" %}
+
+      <div class="jumbotron" style="margin-top: 0px;
+        margin-bottom: 0px;">
+        <h1 class="display-4"><font style="color: red; font-style: bold ; ">Account On Hold</font></h1>
+        <h2 class="display-4">Hello {{request.user.first_name}} {{request.user.last_name}}</h2>
+        <p class="lead">Your Account is on <font style="color: red; font-style: bold ; "> hold </font>now. <br><br>Please contact to administrator for more details. <br><br> Soon Your Account Will Be Activeated</p>
+        <hr class="my-4">
+        <p>Check Later</p>
+        <p class="lead">
+          <a class="btn btn-primary btn-lg" href="/logout" role="button">Logout For Now</a>
+        </p>
+      </div>
+
+{% include "lxpapp/footer.html" %}
+  </body>
+</html>

@@ -1,0 +1,13 @@
+{
+    "installed": {
+        "client_id": "699466001074-biu4pjifnphoh1raipgi5mm5bf72h1ot.apps.googleusercontent.com",
+        "project_id": "my-project-1563107526531",
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "client_secret": "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",
+        "redirect_uris": [
+            "https://lxp.nubeera.com"
+        ]
+    }
+}

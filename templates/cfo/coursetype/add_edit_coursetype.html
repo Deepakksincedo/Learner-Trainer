@@ -1,0 +1,31 @@
+{% extends 'cfo/cfobase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<div>
+<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../../../../cfo/cfo-dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="../../../../cfo/cfo-view-coursetype">View Course Type</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{page_title}}</li>
+      </ol>
+    </nav>
+  </div>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">{{page_title}}</h3>
+                    </div>
+                    {% include "common/form_editing/form_template.html" with messages=messages  form=form %}
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

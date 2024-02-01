@@ -1,0 +1,39 @@
+{% extends 'cfo/cfobase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<div>
+<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="../../../../cfo/cfo-dashboard">Dashboard</a></li>
+      <li class="breadcrumb-item"><a href="../../../../cfo/cfo-add-coursetype">Add Course Type</a></li>
+      <li class="breadcrumb-item active" aria-current="page">View Course Types</li>
+    </ol>
+  </nav>
+</div>
+<div class="card-body">
+  <div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Course Type Name</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for t in coursetypes %}
+        <tr>
+          <td> {{t.coursetype_name}}</td>
+          <td><a class="btn btn-primary btn-xs" href="{% url 'cfo-update-coursetype' t.id  %}"><span
+                class="	far fa-edit"></span></a></td>
+          <td><a class="btn btn-danger btn-xs" href="{% url 'cfo-delete-coursetype' t.id  %}"
+              onclick="return confirm('Are you sure?')"><span class="far fa-trash-alt"></span></a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,46 @@
+
+{% extends 'cfo/cfobase.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<div>
+<link rel="stylesheet" href="/static/dreamlms/css/style.css">
+
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="../../../../cfo/cfo-dashboard">Dashboard</a></li>
+      <li class="breadcrumb-item"><a href="../../../../cfo/cfo-add-batch">Add Batch</a></li>
+      <li class="breadcrumb-item"><a href="../../../../cfo/cfo-view-batch">View Batch</a></li>
+      <li class="breadcrumb-item active" aria-current="page">View Batch Details ({{batchname}})</li>
+    </ol>
+  </nav>
+</div>
+<div class="card-body">
+  <div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Modules Name</th>
+          <th>Session Videos</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Trainers Name</th>
+          <th>Learners Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for t in batchs %}
+        <tr>
+          <td class="wrap-longtext"> {{t.module_name}}</td>
+          <td class="wrap-longtext"> {{t.video_name}}</td>
+        <td> {{t.stdate|date:"d-m-Y"}}</td>
+        <td> {{t.enddate|date:"d-m-Y"}}</td>
+        <td class="wrap-longtext"> {{t.trainer_name}}</td>
+        <td class="wrap-longtext"> {{t.learner_name}}</td>
+          
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock content %}
